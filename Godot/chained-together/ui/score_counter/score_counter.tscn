@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0y7ip3ttokdi"]
+
+[ext_resource type="Script" path="res://ui/score_counter/score_counter.gd" id="1_r7rgf"]
+[ext_resource type="FontFile" uid="uid://buofo7bbicbf3" path="res://ui/main_menu/title_font.ttf" id="2_8yaby"]
+
+[node name="ScoreCounter" type="CanvasLayer"]
+script = ExtResource("1_r7rgf")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_8yaby")
+theme_override_font_sizes/font_size = 30
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

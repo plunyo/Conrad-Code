@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://tydbu6cmj4ec"]
+
+[ext_resource type="Script" path="res://shared/music_manager/music_manager.gd" id="1_jyvyi"]
+[ext_resource type="AudioStream" uid="uid://dmd0ojtjvgeu2" path="res://assets/music/Eternal Descent.mp3" id="2_vgdvp"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_jyvyi")
+
+[node name="EternalDoom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vgdvp")
+autoplay = true

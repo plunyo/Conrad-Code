@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1lhk50vlfffx"]
+
+[ext_resource type="Texture2D" uid="uid://dtbdxpa1ciaqd" path="res://scenes/levels/the_library/library.jpg" id="1_qjoi2"]
+[ext_resource type="PackedScene" uid="uid://b1vnrbxo6bl4d" path="res://scenes/creep/creep.tscn" id="2_3gfw6"]
+[ext_resource type="PackedScene" uid="uid://cnt7e5adnm5bi" path="res://scenes/blindfold/blindfold_backgroundtscn.tscn" id="3_wfb2t"]
+[ext_resource type="PackedScene" uid="uid://cqh8jm55i8m4p" path="res://scenes/blindfold/blindfold.tscn" id="4_p5n3t"]
+[ext_resource type="PackedScene" uid="uid://c7ly0l0y65lv6" path="res://scenes/menus/pause/pause_menu.tscn" id="5_dxlfk"]
+[ext_resource type="PackedScene" uid="uid://bxsx7n0yk7t1y" path="res://scenes/camera/camera.tscn" id="6_ych0t"]
+
+[node name="TheLibrary" type="Node2D"]
+
+[node name="Library" type="Sprite2D" parent="."]
+position = Vector2(576, 323)
+scale = Vector2(1.8, 1.54762)
+texture = ExtResource("1_qjoi2")
+
+[node name="Creep" parent="." instance=ExtResource("2_3gfw6")]
+position = Vector2(1037, 204)
+rotation = 0.122173
+scale = Vector2(0.2, 0.2)
+skew = -0.20944
+
+[node name="BlindfoldBackground" parent="." instance=ExtResource("3_wfb2t")]
+offset_left = 929.0
+offset_top = 50.0
+offset_right = 963.0
+offset_bottom = 72.0
+scale = Vector2(2, 2)
+
+[node name="Blindfold" parent="." instance=ExtResource("4_p5n3t")]
+position = Vector2(962, 74)
+rotation = 0.122173
+scale = Vector2(0.1, 0.1)
+skew = -0.174533
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_dxlfk")]
+
+[node name="Camera" parent="." instance=ExtResource("6_ych0t")]

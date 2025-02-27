@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnidh0hiuf8vv"]
+
+[ext_resource type="Script" path="res://autoloads/sound_manager/sound_manager.gd" id="1_nu8fg"]
+[ext_resource type="AudioStream" uid="uid://x0dx6i6ppru3" path="res://slime/slime_death.mp3" id="2_mu2ps"]
+[ext_resource type="AudioStream" uid="uid://1vv8vv77w7o3" path="res://slime/slime_hit.mp3" id="3_x5mc5"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_nu8fg")
+
+[node name="SlimeDeath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mu2ps")
+
+[node name="SlimeHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_x5mc5")

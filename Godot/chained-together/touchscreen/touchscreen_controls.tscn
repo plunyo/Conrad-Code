@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://cffbcp3igqrnd"]
+
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_d4ydk"]
+
+[node name="TouchscreenControls" type="CanvasLayer"]
+
+[node name="Player1" parent="." instance=ExtResource("1_d4ydk")]
+modulate = Color(1, 1, 1, 0.627451)
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 316.0
+offset_bottom = 244.0
+scale = Vector2(0.15, 0.15)
+deadzone_size = 1.0
+clampzone_size = 10.0
+visibility_mode = 1
+action_left = "p2_left"
+action_right = "p2_right"
+action_up = "p2_up"
+action_down = "p2_down"
+
+[node name="Player2" parent="." instance=ExtResource("1_d4ydk")]
+modulate = Color(1, 1, 1, 0.627451)
+offset_left = 192.0
+offset_top = -56.0
+offset_right = 492.0
+offset_bottom = 244.0
+scale = Vector2(0.15, 0.15)
+deadzone_size = 1.0
+clampzone_size = 10.0
+visibility_mode = 1
+action_left = "p1_left"
+action_right = "p1_right"
+action_up = "p1_up"
+action_down = "p1_down"

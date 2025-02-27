@@ -1,0 +1,151 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5gwcsbkbu5mj"]
+
+[ext_resource type="Texture2D" uid="uid://b8nkcy7x4vit3" path="res://assets/background_tile.png" id="1_0873c"]
+[ext_resource type="Script" path="res://main_menu/main_menu.gd" id="1_psaxh"]
+[ext_resource type="Texture2D" uid="uid://buetk6lnru3gf" path="res://assets/play_button/play_button_normal.png" id="2_wxak6"]
+[ext_resource type="Texture2D" uid="uid://30b5en0he5gn" path="res://assets/play_button/play_button_pressed.png" id="3_j7af8"]
+[ext_resource type="Texture2D" uid="uid://b3l4toskf6aqt" path="res://assets/mute_button/mute_button_off.png" id="5_ss2g2"]
+[ext_resource type="Texture2D" uid="uid://dwkrhubvcd5ws" path="res://assets/mute_button/mute_button_on.png" id="6_diofm"]
+[ext_resource type="Texture2D" uid="uid://dvmoahg1lr5yh" path="res://assets/spaceship/spaceship.png" id="7_2iu0e"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_psaxh")
+main_scene = "res://main/main.tscn"
+
+[node name="Background" type="Parallax2D" parent="."]
+repeat_size = Vector2(90, 160)
+autoscroll = Vector2(0, -30)
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+offset_right = 90.0
+offset_bottom = 160.0
+texture = ExtResource("1_0873c")
+stretch_mode = 1
+
+[node name="PlayButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(56, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = 1.0
+offset_right = 28.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+shortcut_feedback = false
+shortcut_in_tooltip = false
+texture_normal = ExtResource("2_wxak6")
+texture_pressed = ExtResource("3_j7af8")
+
+[node name="Title" type="Label" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -58.0
+offset_right = 36.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.333333, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 8
+text = "Meteor
+Avoidance"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreditToGameJam" type="Label" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = 36.0
+offset_right = 36.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.333333, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 5
+text = "Made for 
+Mini Jam #175:
+Gravity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MuteMusicLabel" type="Label" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = 75.0
+offset_right = 30.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 4
+text = "Mute     Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MuteButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = 69.0
+offset_right = 8.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+texture_normal = ExtResource("5_ss2g2")
+texture_pressed = ExtResource("6_diofm")
+
+[node name="Spaceship" type="Sprite2D" parent="."]
+position = Vector2(72, 57)
+texture = ExtResource("7_2iu0e")
+
+[node name="Spaceship2" type="Sprite2D" parent="."]
+position = Vector2(16, 58)
+texture = ExtResource("7_2iu0e")
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MuteButton" to="." method="_on_mute_button_pressed"]

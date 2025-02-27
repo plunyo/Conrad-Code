@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://chdij2o2woo5q"]
+
+[ext_resource type="Texture2D" uid="uid://d1dm67nobtaj2" path="res://Assets/Title.png" id="1_5y7b4"]
+[ext_resource type="Script" path="res://Script/main.gd" id="1_c6mys"]
+[ext_resource type="Texture2D" uid="uid://dowi284x58x7c" path="res://Assets/Background.png" id="2_iy0ug"]
+[ext_resource type="AudioStream" uid="uid://b4jq71q8oyliv" path="res://Assets/incorrect.mp3" id="4_ee3vb"]
+[ext_resource type="AudioStream" uid="uid://cr51a6ck1w8p4" path="res://Assets/correct.mp3" id="5_gy3lj"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_c6mys")
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="Background" type="TextureRect" parent="Environment"]
+modulate = Color(0.565643, 0.0015963, 0.751405, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_iy0ug")
+stretch_mode = 1
+
+[node name="Title" type="Sprite2D" parent="Environment"]
+position = Vector2(576, 70)
+texture = ExtResource("1_5y7b4")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = 126.0
+offset_right = 146.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "0
+"
+
+[node name="GraphemeBox" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -132.0
+offset_right = 15.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+
+[node name="WordBox" type="LineEdit" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -25.0
+offset_right = 125.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Type Here..."
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Incorrect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ee3vb")
+
+[node name="Correct" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_gy3lj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 14.0
+offset_top = 22.0
+offset_right = 296.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 50
+text = "Time Left: 5"
+
+[node name="Back2MenuButton" type="Button" parent="."]
+offset_left = 952.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 28
+text = "Back To Menu
+"
+
+[connection signal="text_submitted" from="WordBox" to="." method="_on_word_box_text_submitted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Back2MenuButton" to="." method="_on_back_2_menu_button_pressed"]

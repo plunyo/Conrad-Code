@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hitor\\OneDrive\\Conrad Code\\C#\\PlunyoCL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{37209253-AB22-4967-934F-1F8E6BEAC059}|PlunyoCL\\PlunyoCL.csproj|c:\\users\\hitor\\onedrive\\conrad code\\c#\\plunyocl\\plunyocl\\lexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37209253-AB22-4967-934F-1F8E6BEAC059}|PlunyoCL\\PlunyoCL.csproj|solutionrelative:plunyocl\\lexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37209253-AB22-4967-934F-1F8E6BEAC059}|PlunyoCL\\PlunyoCL.csproj|C:\\Users\\hitor\\OneDrive\\Conrad Code\\C#\\PlunyoCL\\plunyocl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37209253-AB22-4967-934F-1F8E6BEAC059}|PlunyoCL\\PlunyoCL.csproj|solutionrelative:plunyocl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Lexer.cs",
+              "DocumentMoniker": "C:\\Users\\hitor\\OneDrive\\Conrad Code\\C#\\PlunyoCL\\PlunyoCL\\Lexer.cs",
+              "RelativeDocumentMoniker": "PlunyoCL\\Lexer.cs",
+              "ToolTip": "C:\\Users\\hitor\\OneDrive\\Conrad Code\\C#\\PlunyoCL\\PlunyoCL\\Lexer.cs",
+              "RelativeToolTip": "PlunyoCL\\Lexer.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAwCAAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-01T07:26:11.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\hitor\\OneDrive\\Conrad Code\\C#\\PlunyoCL\\PlunyoCL\\Program.cs",
+              "RelativeDocumentMoniker": "PlunyoCL\\Program.cs",
+              "ToolTip": "C:\\Users\\hitor\\OneDrive\\Conrad Code\\C#\\PlunyoCL\\PlunyoCL\\Program.cs",
+              "RelativeToolTip": "PlunyoCL\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-01T07:25:41.781Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

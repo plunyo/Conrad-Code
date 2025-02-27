@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=3 uid="uid://ca1qplxcpapt5"]
+
+[ext_resource type="Texture2D" uid="uid://b8nkcy7x4vit3" path="res://assets/background_tile.png" id="1_k3g7n"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_sjbfk"]
+[ext_resource type="PackedScene" uid="uid://bqyen813uwfov" path="res://player/player.tscn" id="2_e10ml"]
+[ext_resource type="PackedScene" uid="uid://bb0fx44i601e6" path="res://gravity_wall/gravity_wall_cooldown_icon/gravity_wall_cooldown_icon.tscn" id="5_kpejf"]
+[ext_resource type="PackedScene" uid="uid://njee6s4yfkra" path="res://meteor/meteor.tscn" id="5_mmu6l"]
+[ext_resource type="Script" path="res://meteor/meteor_spawner.gd" id="6_k1i12"]
+[ext_resource type="Texture2D" uid="uid://i5abwiyxrkdo" path="res://assets/touchscreen_controls/left.png" id="7_uhs4i"]
+[ext_resource type="Texture2D" uid="uid://dey8xge6h5ff7" path="res://assets/touchscreen_controls/right.png" id="8_wa840"]
+
+[sub_resource type="Gradient" id="Gradient_jajy2"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.333, 0.667)
+colors = PackedColorArray(0.333333, 0, 0, 1, 0.666667, 0, 0, 1, 1, 0, 0, 1)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_sjbfk")
+main_menu_scene = "res://main_menu/main_menu.tscn"
+
+[node name="Background" type="Parallax2D" parent="."]
+repeat_size = Vector2(90, 160)
+autoscroll = Vector2(0, -30)
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+offset_right = 90.0
+offset_bottom = 160.0
+texture = ExtResource("1_k3g7n")
+stretch_mode = 1
+
+[node name="EnvParticles" type="CPUParticles2D" parent="."]
+position = Vector2(45, 160)
+amount = 10
+emission_shape = 3
+emission_rect_extents = Vector2(45, 1)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_max = 2.0
+color_initial_ramp = SubResource("Gradient_jajy2")
+
+[node name="Player" parent="." instance=ExtResource("2_e10ml")]
+position = Vector2(45, 60)
+
+[node name="GravityWallCooldownIcon" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_kpejf")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 67.0
+offset_top = 2.0
+offset_right = 83.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+player = NodePath("../Player")
+
+[node name="MeteorSpawner" type="Node" parent="." node_paths=PackedStringArray("meteor_spawn_timer")]
+script = ExtResource("6_k1i12")
+meteor_scene = ExtResource("5_mmu6l")
+meteor_spawn_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="MeteorSpawner"]
+wait_time = 2.5
+autostart = true
+
+[node name="LevelTimer" type="Timer" parent="."]
+wait_time = 7.5
+autostart = true
+
+[node name="Level" type="Label" parent="."]
+z_index = 2
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 36.0
+offset_bottom = 10.0
+theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.333333, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 5
+text = "Level: 1"
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="."]
+z_index = 2
+offset_left = 4.0
+offset_top = 12.0
+offset_right = 44.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.333333, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 5
+text = "Score: 0"
+vertical_alignment = 1
+
+[node name="Left" type="TouchScreenButton" parent="."]
+z_index = 5
+position = Vector2(4, 120)
+texture_normal = ExtResource("7_uhs4i")
+action = "left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="."]
+z_index = 5
+position = Vector2(54, 120)
+texture_normal = ExtResource("8_wa840")
+action = "right"
+visibility_mode = 1
+
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]

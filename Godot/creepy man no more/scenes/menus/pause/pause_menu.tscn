@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7ly0l0y65lv6"]
+
+[ext_resource type="Script" path="res://scenes/menus/pause/pause_menu.gd" id="1_whhw1"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_whhw1")
+
+[node name="Pause" type="Button" parent="."]
+top_level = true
+custom_minimum_size = Vector2(200, 50)
+offset_left = 18.0
+offset_top = 15.0
+offset_right = 218.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 25
+text = "Pause
+"
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paused" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -252.0
+offset_right = 215.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[wave][tornado]Paused"
+
+[node name="Resume" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -52.0
+offset_right = 128.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Resume
+"
+
+[node name="Restart" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 44.0
+offset_right = 128.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Restart
+"
+
+[node name="Menu" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 140.0
+offset_right = 128.0
+offset_bottom = 218.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Menu
+"
+
+[connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Panel/Menu" to="." method="_on_menu_pressed"]

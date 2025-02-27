@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1lbjxpyx150c"]
+
+[ext_resource type="Script" path="res://player/broken_player.gd" id="1_0k3vh"]
+[ext_resource type="Texture2D" uid="uid://d0r8ghsils61i" path="res://assets/spaceship/spaceship_bl.png" id="1_0nx2u"]
+[ext_resource type="Texture2D" uid="uid://bshk358tro650" path="res://assets/spaceship/spaceship_br.png" id="2_onus0"]
+[ext_resource type="Texture2D" uid="uid://bpr21tdp30cf0" path="res://assets/spaceship/spaceship_br2.png" id="4_ry0o4"]
+
+[node name="BrokenPlayer" type="Node2D"]
+script = ExtResource("1_0k3vh")
+
+[node name="SpaceshipBl" type="Sprite2D" parent="."]
+texture = ExtResource("1_0nx2u")
+
+[node name="SpaceshipBr" type="Sprite2D" parent="."]
+texture = ExtResource("2_onus0")
+
+[node name="SpaceshipBr2" type="Sprite2D" parent="."]
+texture = ExtResource("4_ry0o4")
+
+[node name="RestartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

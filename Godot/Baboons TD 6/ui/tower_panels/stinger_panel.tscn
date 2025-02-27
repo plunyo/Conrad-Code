@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx003sunwyekw"]
+
+[ext_resource type="PackedScene" uid="uid://c4v3icy1dvt1" path="res://ui/tower_panels/shared/base_tower_panel.tscn" id="1_g4xcj"]
+[ext_resource type="PackedScene" uid="uid://mgtngvkxdo6v" path="res://towers/stinger/stinger.tscn" id="2_rxmct"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmgdp"]
+bg_color = Color(0, 0.6, 0.701961, 0.419608)
+corner_radius_top_left = 1000
+corner_radius_top_right = 1000
+corner_radius_bottom_right = 1000
+corner_radius_bottom_left = 1000
+
+[node name="StingerPanel" instance=ExtResource("1_g4xcj")]
+
+[node name="Body" type="ColorRect" parent="Texture" index="0"]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.356863, 0, 0.894118, 1)
+
+[node name="Guns" type="Node2D" parent="Texture" index="1"]
+
+[node name="LGun" type="ColorRect" parent="Texture/Guns" index="0"]
+offset_left = -16.0
+offset_top = -30.0
+offset_right = -6.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[node name="RGun" type="ColorRect" parent="Texture/Guns" index="1"]
+offset_left = 6.0
+offset_top = -30.0
+offset_right = 16.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[node name="CanPlaceIndicator" parent="Texture" index="2"]
+position = Vector2(1.19209e-07, -7.15256e-07)
+
+[node name="RangeIndicator" type="Panel" parent="Texture" index="3"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cmgdp")
+
+[node name="Price" parent="." index="1"]
+offset_left = 9.0
+offset_top = 41.0
+offset_right = 49.0
+offset_bottom = 81.0
+text = "200"
+
+[node name="TowerPanelManager" parent="." index="2" node_paths=PackedStringArray("range_indicator")]
+range_indicator = NodePath("../Texture/RangeIndicator")
+tower_scene = ExtResource("2_rxmct")
+price = 200

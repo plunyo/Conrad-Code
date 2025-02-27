@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr5yia87i11ya"]
+
+[ext_resource type="Texture2D" uid="uid://dkh1xb0snpvmy" path="res://Assets/Player/Characters.svg" id="1_5r6h1"]
+
+[node name="Character Select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Character" type="Sprite2D" parent="."]
+texture = ExtResource("1_5r6h1")
+hframes = 6
+vframes = 10

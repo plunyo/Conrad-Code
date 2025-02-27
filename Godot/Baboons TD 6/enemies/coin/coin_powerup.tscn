@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqrguj5fo6k0u"]
+
+[ext_resource type="Texture2D" uid="uid://66cs5cxuy4tk" path="res://enemies/coin/coin.png" id="1_3dwpb"]
+[ext_resource type="Script" path="res://enemies/enemy_script.gd" id="1_x1aio"]
+[ext_resource type="Texture2D" uid="uid://b0oafp3w02sje" path="res://ui/coin.png" id="2_guixq"]
+[ext_resource type="Texture2D" uid="uid://ojd671jdc58b" path="res://enemies/shared/health_bar/hp_under.png" id="3_pa1yt"]
+[ext_resource type="Texture2D" uid="uid://17a2l7srkue3" path="res://enemies/shared/health_bar/hp_progress.png" id="4_2rjf5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4lcve"]
+radius = 26.0192
+
+[node name="CoinPowerup" type="PathFollow2D"]
+rotates = false
+loop = false
+
+[node name="CoinPowerup" type="CharacterBody2D" parent="." node_paths=PackedStringArray("health_bar", "path_follow") groups=["Shootables"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_x1aio")
+health_bar = NodePath("HealthBar")
+path_follow = NodePath("..")
+kill_reward = 40.0
+
+[node name="Coin" type="Sprite2D" parent="CoinPowerup"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_3dwpb")
+
+[node name="Coin2" type="Sprite2D" parent="CoinPowerup"]
+visible = false
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_guixq")
+
+[node name="Collider" type="CollisionShape2D" parent="CoinPowerup"]
+shape = SubResource("CircleShape2D_4lcve")
+
+[node name="HealthBar" type="TextureProgressBar" parent="CoinPowerup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -136.0
+offset_right = 49.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+value = 100.0
+texture_under = ExtResource("3_pa1yt")
+texture_progress = ExtResource("4_2rjf5")
+texture_progress_offset = Vector2(0, 15)
+metadata/_edit_use_anchors_ = true

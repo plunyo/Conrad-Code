@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb0fx44i601e6"]
+
+[ext_resource type="Texture2D" uid="uid://7ohssg4xge7l" path="res://assets/gravity_wall_icon_under.png" id="1_ijcd6"]
+[ext_resource type="Texture2D" uid="uid://bkvbol1dtxacn" path="res://assets/gravity_wall_icon_progress.png" id="2_ttcah"]
+[ext_resource type="Script" path="res://gravity_wall/gravity_wall_cooldown_icon/gravity_wall_cooldown_icon.gd" id="3_5aduo"]
+
+[node name="GravityWallCooldownIcon`" type="TextureProgressBar"]
+z_index = 4
+offset_right = 16.0
+offset_bottom = 16.0
+value = 100.0
+texture_under = ExtResource("1_ijcd6")
+texture_progress = ExtResource("2_ttcah")
+script = ExtResource("3_5aduo")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true

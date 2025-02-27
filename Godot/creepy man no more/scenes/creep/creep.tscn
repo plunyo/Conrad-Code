@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1vnrbxo6bl4d"]
+
+[ext_resource type="Texture2D" uid="uid://d4dcjtjmtjnbe" path="res://scenes/creep/creep.png" id="1_lec4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6q0ou"]
+size = Vector2(17, 13)
+
+[node name="Creep" type="Node2D"]
+
+[node name="Creep" type="Sprite2D" parent="."]
+texture = ExtResource("1_lec4b")
+
+[node name="LeftEye" type="Area2D" parent="." groups=["LeftEye"]]
+
+[node name="Collider" type="CollisionShape2D" parent="LeftEye"]
+position = Vector2(-48.5, -34.5)
+shape = SubResource("RectangleShape2D_6q0ou")
+
+[node name="RightEye" type="Area2D" parent="." groups=["RightEye"]]
+
+[node name="Collider" type="CollisionShape2D" parent="RightEye"]
+position = Vector2(47, -34)
+shape = SubResource("RectangleShape2D_6q0ou")

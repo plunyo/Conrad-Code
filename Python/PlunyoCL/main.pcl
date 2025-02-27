@@ -1,0 +1,13 @@
+const foo = 45 / 2;
+
+const obj = {
+  skibidi = 100,
+  y = 32,
+  foo = foo,
+  complex = {
+    bar = true,
+  },
+};
+
+set f = object.complex.bar;
+obj.foo() + 5

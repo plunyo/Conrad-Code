@@ -1,0 +1,220 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn8i6wi4h7ymj"]
+
+[ext_resource type="Script" path="res://scenes/menus/main/main_menu.gd" id="1_1c0ak"]
+[ext_resource type="Texture2D" uid="uid://d4dcjtjmtjnbe" path="res://scenes/creep/creep.png" id="2_r8w64"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cr3i"]
+bg_color = Color(0.370364, 0.370365, 0.370364, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1c0ak")
+
+[node name="Creep" type="Sprite2D" parent="."]
+modulate = Color(0.493545, 0.493546, 0.493546, 1)
+position = Vector2(575.75, 331.75)
+scale = Vector2(2.66166, 1.09619)
+texture = ExtResource("2_r8w64")
+
+[node name="MainTitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -228.0
+offset_right = 503.0
+offset_bottom = -91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Creepy Guy No More"
+
+[node name="Levels" type="Button" parent="."]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 47.0
+offset_right = 128.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Levels"
+
+[node name="HowToPlay" type="Button" parent="."]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 164.0
+offset_right = 128.0
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "How To Play"
+
+[node name="LevelMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2cr3i")
+
+[node name="Park" type="Button" parent="LevelMenu"]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -36.0
+offset_right = -184.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Park"
+
+[node name="Classroom" type="Button" parent="LevelMenu"]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -36.0
+offset_right = 128.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Classroom
+"
+
+[node name="Library" type="Button" parent="LevelMenu"]
+custom_minimum_size = Vector2(256, 78)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = -36.0
+offset_right = 456.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Library
+"
+
+[node name="Back" type="Button" parent="LevelMenu"]
+custom_minimum_size = Vector2(128, 39)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 156.0
+offset_right = 64.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Back
+"
+
+[node name="HowToPlayMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2cr3i")
+
+[node name="Back" type="Button" parent="HowToPlayMenu"]
+custom_minimum_size = Vector2(128, 39)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 156.0
+offset_right = 64.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Back
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayMenu"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 232.0
+offset_right = 1024.0
+offset_bottom = 408.0
+theme_override_font_sizes/bold_italics_font_size = 30
+theme_override_font_sizes/italics_font_size = 1
+theme_override_font_sizes/mono_font_size = 1
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[center][b][color=purple][wave][tornado]Welcome to [i]Creepy Guy No More[/i][/tornado][/wave][/color][/b]
+
+The town has been overrun by hidden creeps lurking in plain sight. Your mission is simple but crucial: [b][color=orange][wave]find the creep[/wave][/color][/b] before it’s too late!
+
+The creep hides among the innocent, waiting to strike. Once you've spotted the menace, act quickly! [b][color=red][wave]Drag the blindfold[/wave][/color][/b] onto the creep’s head to neutralize it.
+
+But beware – they won’t make it easy for you. [b][color=blue][wave]They are hidden[/wave][/color][/b], and the creep is watching your every move.
+
+Do you have what it takes to find the creep, or will they stay out of your sight in the end?
+
+[i][color=green]The fate of the neighbourhood rests in your hands.[/color][/i][/center]
+"
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "v1.1"
+
+[connection signal="pressed" from="Levels" to="." method="_on_levels_pressed"]
+[connection signal="pressed" from="HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="LevelMenu/Park" to="." method="_on_park_pressed"]
+[connection signal="pressed" from="LevelMenu/Classroom" to="." method="_on_classroom_pressed"]
+[connection signal="pressed" from="LevelMenu/Library" to="." method="_on_library_pressed"]
+[connection signal="pressed" from="LevelMenu/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="HowToPlayMenu/Back" to="." method="_on_back_pressed"]

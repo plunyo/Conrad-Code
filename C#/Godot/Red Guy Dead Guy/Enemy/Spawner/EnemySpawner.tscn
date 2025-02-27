@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq4mh3su2vwwa"]
+
+[ext_resource type="Script" path="res://Enemy/Spawner/EnemySpawner.cs" id="1_esb8c"]
+[ext_resource type="PackedScene" uid="uid://6qrppd20rv4u" path="res://Enemy/Enemy.tscn" id="2_d1ruk"]
+
+[node name="EnemySpawner" type="VisibleOnScreenNotifier2D" node_paths=PackedStringArray("SpawnTimer")]
+scale = Vector2(0.962588, 1.01072)
+rect = Rect2(-20, -20, 40, 40)
+script = ExtResource("1_esb8c")
+EnemyScene = ExtResource("2_d1ruk")
+SpawnTimer = NodePath("SpawnTimer")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

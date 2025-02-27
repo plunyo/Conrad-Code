@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dawyb8omtlgo3"]
+
+[ext_resource type="Texture2D" uid="uid://6gf35dyuhshm" path="res://assets/weapons/shared/hole/bullet_hole.png" id="1_ygkki"]
+[ext_resource type="Script" path="res://weapons/bullet_hole/bullet_hole.gd" id="2_fqk22"]
+
+[node name="BulletHole" type="Sprite3D"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+texture = ExtResource("1_ygkki")
+script = ExtResource("2_fqk22")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

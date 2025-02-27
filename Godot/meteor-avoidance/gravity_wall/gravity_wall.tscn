@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqnwrhurs2sbn"]
+
+[ext_resource type="Texture2D" uid="uid://brsgrlffj1w5i" path="res://assets/gravity_wall.png" id="1_4sse2"]
+[ext_resource type="Script" path="res://gravity_wall/gravity_wall.gd" id="1_sdgow"]
+
+[node name="GravityWall" type="Node2D"]
+script = ExtResource("1_sdgow")
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-12, -16)
+rect = Rect2(0, 0, 12, 32)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-8, 0)
+texture = ExtResource("1_4sse2")
+
+[node name="PlayerPoint" type="Marker2D" parent="."]
+position = Vector2(-28, 0)
+
+[connection signal="screen_exited" from="OnScreenNotifier" to="." method="_on_on_screen_notifier_screen_exited"]

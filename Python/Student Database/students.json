@@ -1,0 +1,47 @@
+{
+    "THI0003": {
+        "name": "Conrad",
+        "age": "12",
+        "grade": "7"
+    },
+    "KOR0001": {
+        "name": "Yigit",
+        "age": "14",
+        "grade": "8"
+    },
+    "JAI0002": {
+        "name": "Yash",
+        "age": "12",
+        "grade": "7"
+    },
+    "GAL0003": {
+        "name": "Hugo",
+        "age": "12",
+        "grade": "7"
+    },
+    "LAR0006": {
+        "name": "Lorenzo",
+        "age": "12",
+        "grade": "7"
+    },
+    "STR0036": {
+        "name": "Alex",
+        "age": "12",
+        "grade": "7"
+    },
+    "CUM0002": {
+        "name": "Nathan",
+        "age": "12",
+        "grade": "7"
+    },
+    "ZHO0002": {
+        "name": "Phillip",
+        "age": "13",
+        "grade": "8"
+    },
+    "KRSTOIR": {
+        "name": "hr",
+        "age": "thw",
+        "grade": "hh"
+    }
+}

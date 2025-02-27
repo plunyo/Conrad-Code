@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dni24mwwxldbc"]
+
+[ext_resource type="Shader" path="res://Scenes/Map/space_place.gdshader" id="1_6gw7s"]
+[ext_resource type="Texture2D" uid="uid://63v7byfstnd4" path="res://Assets/UI/HealthBar/Healthbar_Dead.png" id="2_3ka3x"]
+[ext_resource type="Texture2D" uid="uid://caanr0ren67g8" path="res://Assets/UI/HealthBar/Healthbar_Full.png" id="3_rs2p5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hreh"]
+shader = ExtResource("1_6gw7s")
+shader_parameter/levels = 3
+shader_parameter/spread = 0.005
+
+[node name="Ui" type="CanvasLayer"]
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+modulate = Color(0.87451, 0.87451, 0.87451, 0.768627)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -324.0
+offset_right = -75.0
+offset_bottom = -292.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+value = 100.0
+texture_under = ExtResource("2_3ka3x")
+texture_progress = ExtResource("3_rs2p5")
+
+[node name="ChromaticAbberation" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6hreh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

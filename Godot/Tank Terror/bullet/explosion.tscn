@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3 uid="uid://bvg41op20swq5"]
+
+[ext_resource type="Texture2D" uid="uid://2c3kwqwh4oql" path="res://assets/explosion/fire/explosion1.png" id="1_25hrx"]
+[ext_resource type="Script" path="res://bullet/explosion.gd" id="1_kjjoa"]
+[ext_resource type="Texture2D" uid="uid://8h2uchqxso72" path="res://assets/explosion/fire/explosion2.png" id="2_a4v64"]
+[ext_resource type="Texture2D" uid="uid://ddtvxr7l3wr5m" path="res://assets/explosion/fire/explosion3.png" id="3_8d7bb"]
+[ext_resource type="Texture2D" uid="uid://dic2xjlyr56mw" path="res://assets/explosion/fire/explosion4.png" id="4_yxtl7"]
+[ext_resource type="Texture2D" uid="uid://c8lujoxt8gne0" path="res://assets/explosion/fire/explosion5.png" id="5_psmhb"]
+[ext_resource type="Texture2D" uid="uid://ckycyl4v8d6j6" path="res://assets/explosion/smoke/explosionSmoke1.png" id="6_3poh2"]
+[ext_resource type="Texture2D" uid="uid://baudhugfxseam" path="res://assets/explosion/smoke/explosionSmoke2.png" id="7_hj6j5"]
+[ext_resource type="Texture2D" uid="uid://dfj1821h8ksew" path="res://assets/explosion/smoke/explosionSmoke3.png" id="8_580lk"]
+[ext_resource type="Texture2D" uid="uid://dfyfim3dt5w7w" path="res://assets/explosion/smoke/explosionSmoke4.png" id="9_mrkp5"]
+[ext_resource type="Texture2D" uid="uid://ci36uivk3bk2i" path="res://assets/explosion/smoke/explosionSmoke5.png" id="10_w2iey"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jcbqd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_25hrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a4v64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8d7bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yxtl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_psmhb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ucysb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3poh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hj6j5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_580lk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mrkp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_w2iey")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Explosion" type="Node2D"]
+z_index = 2
+script = ExtResource("1_kjjoa")
+
+[node name="Main" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jcbqd")
+autoplay = "default"
+
+[node name="Smoke" type="AnimatedSprite2D" parent="."]
+rotation = 0.523599
+sprite_frames = SubResource("SpriteFrames_ucysb")
+autoplay = "default"
+
+[connection signal="animation_finished" from="Main" to="." method="_on_animation_finished"]
+[connection signal="animation_finished" from="Smoke" to="." method="_on_animation_finished"]

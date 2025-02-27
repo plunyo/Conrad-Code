@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://csxrn46lid2jd"]
+
+[ext_resource type="Texture2D" uid="uid://lcx2cp2wtxnp" path="res://player/UI/assets/up.png" id="2_0yfk4"]
+[ext_resource type="Texture2D" uid="uid://ugdbo811e67" path="res://player/UI/assets/down.png" id="3_twwi0"]
+[ext_resource type="Texture2D" uid="uid://b7vn0jmyvkw2t" path="res://player/UI/assets/left.png" id="4_esptg"]
+[ext_resource type="Texture2D" uid="uid://c312eo1jet1lh" path="res://player/UI/assets/right.png" id="5_eu180"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="VerticalControls" type="Node2D" parent="."]
+position = Vector2(1072, 488)
+
+[node name="Up" type="TouchScreenButton" parent="VerticalControls"]
+modulate = Color(1, 1, 1, 0.666667)
+position = Vector2(-64, -136)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("2_0yfk4")
+action = "up"
+visibility_mode = 1
+
+[node name="Down" type="TouchScreenButton" parent="VerticalControls"]
+modulate = Color(1, 1, 1, 0.666667)
+position = Vector2(-64, 8)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("3_twwi0")
+action = "down"
+visibility_mode = 1
+
+[node name="HorizontalControls" type="Node2D" parent="."]
+position = Vector2(168, 552)
+
+[node name="Left" type="TouchScreenButton" parent="HorizontalControls"]
+modulate = Color(1, 1, 1, 0.666667)
+position = Vector2(-152, -48)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("4_esptg")
+action = "left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="HorizontalControls"]
+modulate = Color(1, 1, 1, 0.666667)
+position = Vector2(24, -48)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("5_eu180")
+action = "right"
+visibility_mode = 1

@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs5i8wio0ougi"]
+
+[ext_resource type="Texture2D" uid="uid://cvem70jocmymn" path="res://scenes/levels/the_park/park.jpg" id="1_seec1"]
+[ext_resource type="PackedScene" uid="uid://b1vnrbxo6bl4d" path="res://scenes/creep/creep.tscn" id="3_qvngo"]
+[ext_resource type="PackedScene" uid="uid://cnt7e5adnm5bi" path="res://scenes/blindfold/blindfold_backgroundtscn.tscn" id="3_x7e5u"]
+[ext_resource type="PackedScene" uid="uid://cqh8jm55i8m4p" path="res://scenes/blindfold/blindfold.tscn" id="4_wms2j"]
+[ext_resource type="PackedScene" uid="uid://c7ly0l0y65lv6" path="res://scenes/menus/pause/pause_menu.tscn" id="5_ij2t7"]
+[ext_resource type="PackedScene" uid="uid://bxsx7n0yk7t1y" path="res://scenes/camera/camera.tscn" id="6_awl6w"]
+
+[node name="ThePark" type="Node2D"]
+
+[node name="Park" type="Sprite2D" parent="."]
+modulate = Color(0.741385, 0.741385, 0.741385, 1)
+position = Vector2(576, 324)
+scale = Vector2(0.768, 0.648)
+texture = ExtResource("1_seec1")
+
+[node name="Creep" parent="." instance=ExtResource("3_qvngo")]
+position = Vector2(839, 305)
+scale = Vector2(0.05, 0.05)
+skew = 0.174533
+
+[node name="BlindfoldBackground" parent="." instance=ExtResource("3_x7e5u")]
+offset_left = 947.0
+offset_top = 58.0
+offset_right = 981.0
+offset_bottom = 80.0
+
+[node name="Blindfold" parent="." instance=ExtResource("4_wms2j")]
+position = Vector2(963, 69)
+scale = Vector2(0.03, 0.03)
+skew = 0.174533
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_ij2t7")]
+
+[node name="Camera" parent="." instance=ExtResource("6_awl6w")]

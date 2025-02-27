@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch58xamdstcxy"]
+
+[ext_resource type="PackedScene" uid="uid://bwoy7buaqwi5h" path="res://player/player.tscn" id="1_blc4k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4aflp"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dypf7"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q5kly"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8kdx8"]
+normal = Vector2(0, 1)
+
+[node name="Main" type="Node2D"]
+
+[node name="Borders" type="StaticBody2D" parent="."]
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(576, 648)
+shape = SubResource("WorldBoundaryShape2D_4aflp")
+
+[node name="Left" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, 324)
+shape = SubResource("WorldBoundaryShape2D_dypf7")
+
+[node name="Right" type="CollisionShape2D" parent="Borders"]
+position = Vector2(1152, 324)
+shape = SubResource("WorldBoundaryShape2D_q5kly")
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(576, 0)
+shape = SubResource("WorldBoundaryShape2D_8kdx8")
+
+[node name="Player" parent="." instance=ExtResource("1_blc4k")]
+position = Vector2(288, 324)
+
+[node name="Player2" parent="." instance=ExtResource("1_blc4k")]
+position = Vector2(864, 324)
+tank_colour = "blue"
+action_key = "up"
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(576, 324)

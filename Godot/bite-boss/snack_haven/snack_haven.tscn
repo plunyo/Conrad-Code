@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwafw5a6bhcyb"]
+
+[ext_resource type="Texture2D" uid="uid://c6hb6fa4vmmbx" path="res://assets/eat_button/eat_button_normal.png" id="1_aywrs"]
+[ext_resource type="Texture2D" uid="uid://dqoimmxvxt2wr" path="res://assets/eat_button/eat_button_pressed.png" id="2_g1q23"]
+[ext_resource type="PackedScene" uid="uid://yaskqtkjfj3i" path="res://snack/snack.tscn" id="3_baow0"]
+[ext_resource type="Texture2D" uid="uid://ntf8tsljgvcy" path="res://assets/snack_button/snack_button_normal.png" id="4_7jwdy"]
+[ext_resource type="PackedScene" uid="uid://drk858gcs7b51" path="res://coin_counter/coin_counter.tscn" id="4_61k4c"]
+[ext_resource type="Texture2D" uid="uid://b8ygm7d21fawm" path="res://assets/snack_button/snack_button_pressed.png" id="5_evel1"]
+
+[node name="SnackHaven" type="Control"]
+custom_minimum_size = Vector2(180, 320)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 320.0
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(180, 320)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.658824, 0.831373, 0.552941, 1)
+
+[node name="Snack" parent="." node_paths=PackedStringArray("eat_button", "snack_button", "coin_counter") instance=ExtResource("3_baow0")]
+offset_left = 90.0
+offset_top = 110.0
+offset_right = 90.0
+offset_bottom = 110.0
+eat_button = NodePath("../EatButton")
+snack_button = NodePath("../StartButton")
+coin_counter = NodePath("../CoinCounter")
+current_snack = 0
+
+[node name="EatButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(64, 38)
+layout_mode = 0
+offset_left = 55.0
+offset_top = 190.0
+offset_right = 119.0
+offset_bottom = 228.0
+texture_normal = ExtResource("1_aywrs")
+texture_pressed = ExtResource("2_g1q23")
+stretch_mode = 0
+
+[node name="StartButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(64, 38)
+layout_mode = 0
+offset_left = 55.0
+offset_top = 236.0
+offset_right = 119.0
+offset_bottom = 274.0
+texture_normal = ExtResource("4_7jwdy")
+texture_pressed = ExtResource("5_evel1")
+stretch_mode = 0
+
+[node name="CoinCounter" parent="." instance=ExtResource("4_61k4c")]
+layout_mode = 1
+coins = 0

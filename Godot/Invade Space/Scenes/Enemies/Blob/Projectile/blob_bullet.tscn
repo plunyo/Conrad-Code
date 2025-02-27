@@ -1,0 +1,88 @@
+[gd_scene load_steps=11 format=3 uid="uid://c4b3mfvpwquxi"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/Blob/Projectile/blob_bullet.gd" id="1_hfqms"]
+[ext_resource type="Texture2D" uid="uid://bc1551vdvevu4" path="res://Assets/Enemies/Blob/Attack_Projectile.png" id="2_xsj0p"]
+
+[sub_resource type="Gradient" id="Gradient_k01ck"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or6a0"]
+atlas = ExtResource("2_xsj0p")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3imr"]
+atlas = ExtResource("2_xsj0p")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4aj33"]
+atlas = ExtResource("2_xsj0p")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2svu5"]
+atlas = ExtResource("2_xsj0p")
+region = Rect2(224, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1ym1"]
+atlas = ExtResource("2_xsj0p")
+region = Rect2(256, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qooxk"]
+atlas = ExtResource("2_xsj0p")
+region = Rect2(288, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2itd3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or6a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3imr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4aj33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2svu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1ym1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qooxk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="BlobBullet" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_hfqms")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2(19.5, -1.5)
+amount = 100
+emission_shape = 2
+emission_sphere_radius = 60.0
+gravity = Vector2(980, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 4.0
+scale_amount_max = 10.0
+color = Color(0.774734, 0.000462633, 0.774729, 1)
+color_ramp = SubResource("Gradient_k01ck")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_2itd3")
+frame_progress = 0.372795
+
+[node name="HitRange" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitRange"]
+polygon = PackedVector2Array(32, -79, -3, -79, -32, -30, -32, 22, 12, 69, 32, 67, 13, 18, 16, -55)
+
+[connection signal="body_entered" from="HitRange" to="." method="_on_hit_range_body_entered"]

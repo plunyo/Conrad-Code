@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctj0sje2p43ms"]
+
+[ext_resource type="Script" path="res://maps/map_module/map_module.gd" id="1_0cb8f"]
+
+[node name="MapModule" type="Node"]
+script = ExtResource("1_0cb8f")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="advance_wave"]

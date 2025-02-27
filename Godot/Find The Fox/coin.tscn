@@ -1,0 +1,129 @@
+[gd_scene load_steps=7 format=3 uid="uid://kf3fa5037c38"]
+
+[ext_resource type="Script" path="res://coin.gd" id="1_fl5s5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kg454"]
+radius = 45.0
+height = 90.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_6n3pl"]
+radius = 50.0
+height = 100.0
+
+[sub_resource type="Animation" id="Animation_g4jh0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Coin:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coin:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1l1j6"]
+resource_name = "flip"
+length = 2.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Coin:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coin:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.5001, 1, 1.5, 1.5001, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.56905, -1.56905, 0.0, 1.56905, -1.56905, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ctge4"]
+_data = {
+"RESET": SubResource("Animation_g4jh0"),
+"flip": SubResource("Animation_1l1j6")
+}
+
+[node name="Coin" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1052.0
+offset_bottom = -548.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fl5s5")
+
+[node name="Coin" type="MeshInstance2D" parent="."]
+modulate = Color(0.831373, 0.686275, 0.215686, 1)
+position = Vector2(50, 50)
+mesh = SubResource("SphereMesh_kg454")
+
+[node name="Outline" type="MeshInstance2D" parent="Coin"]
+modulate = Color(0.545098, 0.270588, 0.0745098, 1)
+show_behind_parent = true
+mesh = SubResource("SphereMesh_6n3pl")
+
+[node name="DollaSign" type="Label" parent="Coin"]
+modulate = Color(0.545098, 0.270588, 0.0745098, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = -58.0
+offset_right = 23.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "$"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ctge4")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="HintPrompt" type="Label" parent="."]
+layout_mode = 0
+offset_top = 102.0
+offset_right = 103.0
+offset_bottom = 125.0
+text = "Click For Hint"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

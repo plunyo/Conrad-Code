@@ -1,0 +1,1 @@
+love.window.setMode(0, 0, {fullscreen = true})

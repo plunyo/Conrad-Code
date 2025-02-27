@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://njee6s4yfkra"]
+
+[ext_resource type="Texture2D" uid="uid://57thhdjddo0s" path="res://assets/meteors/meteor1.png" id="1_ia1c2"]
+[ext_resource type="Script" path="res://meteor/meteor.gd" id="1_stvlb"]
+[ext_resource type="Texture2D" uid="uid://c1yodtimxu2ej" path="res://assets/meteors/meteor2.png" id="2_y8txk"]
+[ext_resource type="Texture2D" uid="uid://dkian22ag38it" path="res://assets/meteors/meteor3.png" id="3_yf30c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_01igs"]
+radius = 8.0
+height = 25.0
+
+[sub_resource type="Curve" id="Curve_qwbx7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.516483), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_p6t6w"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_0ln6x"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.333333, 0, 0, 1, 0.666667, 0, 0, 1, 1, 0, 0, 1)
+
+[node name="Meteor" type="Area2D"]
+z_index = 1
+script = ExtResource("1_stvlb")
+meteor_variations = Array[Texture2D]([ExtResource("1_ia1c2"), ExtResource("2_y8txk"), ExtResource("3_yf30c")])
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4, -3)
+rect = Rect2(-10, -10, 25, 25)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+rotation = 2.32024
+shape = SubResource("CapsuleShape2D_01igs")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -1)
+amount = 20
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(1, 16)
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_qwbx7")
+color_ramp = SubResource("Gradient_p6t6w")
+color_initial_ramp = SubResource("Gradient_0ln6x")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ia1c2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="OnScreenNotifier" to="." method="_on_on_screen_notifier_screen_exited"]

@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://dhnel3wsu4rdl"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_owx7u"]
+[ext_resource type="PackedScene" uid="uid://dawyb8omtlgo3" path="res://weapons/bullet_hole/bullet_hole.tscn" id="2_85bj2"]
+[ext_resource type="PackedScene" uid="uid://dmmhvu2kw1dqq" path="res://weapons/weapon_layer.tscn" id="2_u7hao"]
+[ext_resource type="Script" path="res://weapons/fsm/weapon_fsm.gd" id="4_h3qqp"]
+[ext_resource type="Script" path="res://weapons/fsm/states/pistol_state.gd" id="5_3o0mt"]
+[ext_resource type="Script" path="res://weapons/fsm/states/shotgun_state.gd" id="6_qotgk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ny3aq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cdr5j"]
+size = Vector3(0.5, 2, 1)
+
+[sub_resource type="Animation" id="Animation_0rcxc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+
+[sub_resource type="Animation" id="Animation_nsctt"]
+resource_name = "Zoom"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 60.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bpe68"]
+_data = {
+"RESET": SubResource("Animation_0rcxc"),
+"ads": SubResource("Animation_nsctt")
+}
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_owx7u")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ny3aq")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+fov = 100.0
+
+[node name="EnemyShapeCast" type="ShapeCast3D" parent="Camera"]
+shape = SubResource("BoxShape3D_cdr5j")
+target_position = Vector3(0, 0, -20)
+collision_mask = 5
+
+[node name="MapRayCast" type="RayCast3D" parent="Camera"]
+target_position = Vector3(0, 0, -20)
+
+[node name="ShotgunRaycast" type="RayCast3D" parent="Camera"]
+target_position = Vector3(0, 0, -15)
+collision_mask = 5
+
+[node name="WeaponLayer" parent="." instance=ExtResource("2_u7hao")]
+follow_viewport_enabled = true
+
+[node name="WeaponStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_h3qqp")
+initial_state = NodePath("PistolState")
+
+[node name="PistolState" type="Node" parent="WeaponStateMachine" node_paths=PackedStringArray("player", "weapon_layer", "enemy_shape_cast", "map_ray_cast")]
+script = ExtResource("5_3o0mt")
+player = NodePath("../..")
+weapon_layer = NodePath("../../WeaponLayer")
+enemy_shape_cast = NodePath("../../Camera/EnemyShapeCast")
+map_ray_cast = NodePath("../../Camera/MapRayCast")
+bullet_hole = ExtResource("2_85bj2")
+
+[node name="ShotgunState" type="Node" parent="WeaponStateMachine" node_paths=PackedStringArray("player", "weapon_layer", "shotgun_raycast")]
+script = ExtResource("6_qotgk")
+player = NodePath("../..")
+weapon_layer = NodePath("../../WeaponLayer")
+shotgun_raycast = NodePath("../../Camera/ShotgunRaycast")
+bullet_hole = ExtResource("2_85bj2")
+spread = 2.0
+pellets = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bpe68")
+}

@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3 uid="uid://yaskqtkjfj3i"]
+
+[ext_resource type="Script" path="res://snack/snack.gd" id="1_cucs2"]
+[ext_resource type="Texture2D" uid="uid://d1plh0dokg1tk" path="res://assets/foods/apple/apple1.png" id="2_3tdgw"]
+[ext_resource type="Texture2D" uid="uid://bfb0jakdrhmum" path="res://assets/foods/apple/apple2.png" id="2_ypegp"]
+[ext_resource type="Texture2D" uid="uid://dujt0gxxgb6q5" path="res://assets/foods/apple/apple3.png" id="4_386d4"]
+[ext_resource type="Texture2D" uid="uid://bcfe7jpbv483k" path="res://assets/foods/apple/apple4.png" id="5_bboi5"]
+[ext_resource type="Texture2D" uid="uid://sc30o3a6rrnj" path="res://assets/foods/banana/banana1.png" id="6_foe6u"]
+[ext_resource type="Texture2D" uid="uid://caxf5a3w4q0a4" path="res://assets/foods/banana/banana2.png" id="7_wx1cw"]
+[ext_resource type="Texture2D" uid="uid://br8p2ppnt6u0e" path="res://assets/foods/banana/banana3.png" id="8_fl5ua"]
+[ext_resource type="Texture2D" uid="uid://dc5etcgrp4v3m" path="res://assets/foods/banana/banana4.png" id="9_tukoo"]
+
+[node name="Snack" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cucs2")
+current_snack = 1
+apple_textures = Array[Texture2D]([ExtResource("2_3tdgw"), ExtResource("2_ypegp"), ExtResource("4_386d4"), ExtResource("5_bboi5")])
+banana_textures = Array[Texture2D]([ExtResource("6_foe6u"), ExtResource("7_wx1cw"), ExtResource("8_fl5ua"), ExtResource("9_tukoo")])
+
+[node name="Texture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EatCooldown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

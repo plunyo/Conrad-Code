@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://1j7ck6inwtes"]
+
+[ext_resource type="Texture2D" uid="uid://dxm6qe13r8wn7" path="res://assets/map/floor/clean_rect_tile.png" id="1_gwpj2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_857tp"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5l2ed"]
+albedo_texture = ExtResource("1_gwpj2")
+uv1_triplanar = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_n7uwd"]
+data = PackedVector3Array(-0.5, 0.05, 0.5, 0.5, 0.05, 0.5, -0.5, -0.05, 0.5, 0.5, 0.05, 0.5, 0.5, -0.05, 0.5, -0.5, -0.05, 0.5, 0.5, 0.05, -0.5, -0.5, 0.05, -0.5, 0.5, -0.05, -0.5, -0.5, 0.05, -0.5, -0.5, -0.05, -0.5, 0.5, -0.05, -0.5, 0.5, 0.05, 0.5, 0.5, 0.05, -0.5, 0.5, -0.05, 0.5, 0.5, 0.05, -0.5, 0.5, -0.05, -0.5, 0.5, -0.05, 0.5, -0.5, 0.05, -0.5, -0.5, 0.05, 0.5, -0.5, -0.05, -0.5, -0.5, 0.05, 0.5, -0.5, -0.05, 0.5, -0.5, -0.05, -0.5, 0.5, 0.05, 0.5, -0.5, 0.05, 0.5, 0.5, 0.05, -0.5, -0.5, 0.05, 0.5, -0.5, 0.05, -0.5, 0.5, 0.05, -0.5, -0.5, -0.05, 0.5, 0.5, -0.05, 0.5, -0.5, -0.05, -0.5, 0.5, -0.05, 0.5, 0.5, -0.05, -0.5, -0.5, -0.05, -0.5)
+
+[node name="TileLibrary" type="Node3D"]
+
+[node name="CleanTile" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = SubResource("BoxMesh_857tp")
+surface_material_override/0 = SubResource("StandardMaterial3D_5l2ed")
+
+[node name="Collision" type="StaticBody3D" parent="CleanTile"]
+
+[node name="Collider" type="CollisionShape3D" parent="CleanTile/Collision"]
+shape = SubResource("ConcavePolygonShape3D_n7uwd")

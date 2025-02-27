@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://oov4w8cfb23g"]
+
+[ext_resource type="FontFile" uid="uid://bnkix37cmhj5m" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_pf2ve"]
+[ext_resource type="Script" path="res://player/UI/coin_counter/coin_counter.gd" id="2_hvsgs"]
+
+[node name="CoinCounter" type="CanvasLayer"]
+
+[node name="CoinCounter" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(256, 56)
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 272.0
+offset_bottom = 72.0
+theme_override_fonts/normal_font = ExtResource("1_pf2ve")
+theme_override_font_sizes/normal_font_size = 50
+text = "0 / 0"
+script = ExtResource("2_hvsgs")

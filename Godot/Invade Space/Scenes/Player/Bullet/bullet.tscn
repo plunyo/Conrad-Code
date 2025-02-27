@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq78n28ypjv3n"]
+
+[ext_resource type="Script" path="res://Scenes/Player/Bullet/bullet.gd" id="1_6fogc"]
+[ext_resource type="Texture2D" uid="uid://bftnk2p2t63pg" path="res://Assets/Player/Bullet.png" id="2_76ryd"]
+
+[sub_resource type="Gradient" id="Gradient_6o00r"]
+offsets = PackedFloat32Array(0.506667, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frilx"]
+size = Vector2(70, 12)
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_6fogc")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+amount = 25
+lifetime = 0.5
+direction = Vector2(-1, 0)
+spread = 20.0
+gravity = Vector2(-980, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color = Color(1, 0.174173, 0.127215, 1)
+color_ramp = SubResource("Gradient_6o00r")
+
+[node name="OSNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-181, 0)
+rect = Rect2(-10, -10, 5, 20)
+
+[node name="Bullet" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_76ryd")
+
+[node name="HitRange" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+
+[node name="Collider" type="CollisionShape2D" parent="HitRange"]
+shape = SubResource("RectangleShape2D_frilx")
+
+[connection signal="screen_exited" from="OSNotifier" to="." method="_on_os_notifier_screen_exited"]
+[connection signal="area_entered" from="HitRange" to="." method="_on_hit_range_area_entered"]
+[connection signal="body_entered" from="HitRange" to="." method="_on_hit_range_body_entered"]

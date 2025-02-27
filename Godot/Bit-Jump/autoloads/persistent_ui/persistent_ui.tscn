@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhy22dwjccgyg"]
+
+[ext_resource type="PackedScene" uid="uid://oov4w8cfb23g" path="res://player/UI/coin_counter/coin_counter.tscn" id="1_d4sgv"]
+
+[node name="PersistentUi" type="Node"]
+
+[node name="CoinCounter" parent="." instance=ExtResource("1_d4sgv")]

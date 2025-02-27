@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://m0jxbitilhcf"]
+
+[ext_resource type="AudioStream" uid="uid://dye0rijqxun25" path="res://assets/sfx/bg_music.mp3" id="1_ek2u0"]
+[ext_resource type="Script" path="res://sound_mgr/sound_mgr.gd" id="1_hxf55"]
+[ext_resource type="AudioStream" uid="uid://dnp8yau5tsrj7" path="res://assets/sfx/crash.wav" id="2_lssvm"]
+[ext_resource type="AudioStream" uid="uid://dmsh3csjv5deh" path="res://assets/sfx/rocket.mp3" id="4_ovjox"]
+[ext_resource type="AudioStream" uid="uid://b7xdwlk1wcstp" path="res://assets/sfx/button_press.mp3" id="5_jj7r7"]
+
+[node name="SoundMgr" type="Node"]
+script = ExtResource("1_hxf55")
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_ek2u0")
+volume_db = -20.0
+autoplay = true
+
+[node name="Crash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lssvm")
+volume_db = -20.0
+
+[node name="Rocket" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ovjox")
+volume_db = -20.0
+parameters/looping = true
+
+[node name="ButtonPress" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jj7r7")
+volume_db = -20.0

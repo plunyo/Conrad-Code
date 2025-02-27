@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn38tewawguuw"]
+
+[ext_resource type="Script" path="res://autoloads/scene_transition/scene_transition.gd" id="1_1nkjq"]
+
+[sub_resource type="Animation" id="Animation_ew5nu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dissolve_rect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eioos"]
+resource_name = "dissolve"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dissolve_rect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6rs13"]
+_data = {
+"RESET": SubResource("Animation_ew5nu"),
+"dissolve": SubResource("Animation_eioos")
+}
+
+[node name="SceneTransition" type="CanvasLayer"]
+script = ExtResource("1_1nkjq")
+
+[node name="dissolve_rect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -112.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(6, 6)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6rs13")
+}

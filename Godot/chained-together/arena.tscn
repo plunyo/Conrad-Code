@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://ci77njxm852qu"]
+
+[ext_resource type="PackedScene" uid="uid://gsddt2fk77gh" path="res://player/player.tscn" id="1_j5aks"]
+[ext_resource type="PackedScene" uid="uid://b4fstxmrgn6qj" path="res://line/line.tscn" id="1_w6kka"]
+[ext_resource type="PackedScene" uid="uid://d0y7ip3ttokdi" path="res://ui/score_counter/score_counter.tscn" id="1_wt7oo"]
+[ext_resource type="PackedScene" uid="uid://dnjh5cp5pty80" path="res://slime/slime.tscn" id="3_jiuvk"]
+[ext_resource type="PackedScene" uid="uid://beepimfx4vhcv" path="res://enemy_spawner/enemy_spawner.tscn" id="3_jqjua"]
+[ext_resource type="PackedScene" uid="uid://cffbcp3igqrnd" path="res://touchscreen/touchscreen_controls.tscn" id="6_5meyw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b6d28"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hiidb"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pbbn3"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vpyia"]
+
+[node name="Arena" type="Node2D"]
+
+[node name="ScoreCounter" parent="." instance=ExtResource("1_wt7oo")]
+
+[node name="Line" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("1_w6kka")]
+player1 = NodePath("../Player")
+player2 = NodePath("../Player2")
+
+[node name="Player" parent="." instance=ExtResource("1_j5aks")]
+position = Vector2(64, 64)
+color = Color(1, 0, 0, 1)
+up_input = &"p1_up"
+down_input = &"p1_down"
+left_input = &"p1_left"
+right_input = &"p1_right"
+
+[node name="Player2" parent="." instance=ExtResource("1_j5aks")]
+position = Vector2(192, 64)
+color = Color(0, 0, 1, 1)
+up_input = &"p2_up"
+down_input = &"p2_down"
+left_input = &"p2_left"
+right_input = &"p2_right"
+
+[node name="Slime" parent="." instance=ExtResource("3_jiuvk")]
+position = Vector2(128, 64)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_jqjua")]
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(0, 72)
+shape = SubResource("WorldBoundaryShape2D_b6d28")
+
+[node name="Right" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(256, 72)
+shape = SubResource("WorldBoundaryShape2D_hiidb")
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(128, 0)
+shape = SubResource("WorldBoundaryShape2D_pbbn3")
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(128, 144)
+shape = SubResource("WorldBoundaryShape2D_vpyia")
+
+[node name="TouchscreenControls" parent="." instance=ExtResource("6_5meyw")]
