@@ -11,9 +11,14 @@ local COLORS = {
     BACKGROUND = { 0.1, 0.1, 0.1, 1 },
     GRID = { 0.8, 0.8, 0.8, 0.8 },
     FOOD = { 1, 0, 0, 1 },
+
     SNAKE = {
         BODY = { 0, 0.8, 0, 1 },
         HEAD = { 0, 1, 0, 1 },
+    },
+
+    GAME_OVER = {
+        BACKGROUND = { 0.2, 0.2, 0.2, 0.8 },
     },
 }
 
@@ -22,6 +27,7 @@ local CONTROLS = {
         QUIT = "q",
         RESTART = "r",
     },
+
     SNAKE = {
         UP = "up",
         DOWN = "down",
@@ -40,7 +46,7 @@ local snake = {
             math.ceil(SETTINGS.GRID_SIZE / 2),
         },
     },
-    direction = { x = 1, y = 0 }, -- Start moving to the right
+    direction = { x = 0, y = 0 },
 }
 
 local food = { x = 0, y = 0 }
@@ -57,8 +63,7 @@ local function restartGame()
             math.ceil(SETTINGS.GRID_SIZE / 2),
         },
     }
-
-    snake.direction = { x = 1, y = 0 }
+    snake.direction = { x = 0, y = 0 }
 
     food.x, food.y =
         math.random(1, SETTINGS.GRID_SIZE), math.random(1, SETTINGS.GRID_SIZE) -- Generate new food
@@ -68,7 +73,7 @@ end
 
 -- update functions
 local function checkSelfCollision(head)
-    for i = 2, #snake.segments do
+    for i = 3, #snake.segments do -- skip da head
         if
             head[1] == snake.segments[i][1]
             and head[2] == snake.segments[i][2]
@@ -155,7 +160,19 @@ local function drawFood()
     love.graphics.setColor({ 1, 1, 1, 1 })
 end
 
-local function drawGameOver() end
+local function drawGameOver()
+    love.graphics.setColor(COLORS.GAME_OVER.BACKGROUND)
+
+    love.graphics.rectangle(
+        "fill",
+        0,
+        0,
+        SETTINGS.SCREEN_SIZE,
+        SETTINGS.SCREEN_SIZE
+    )
+
+    love.graphics.setColor({ 1, 1, 1, 1 })
+end
 
 -- input functions
 local function handleDirectionInputs(key)
