@@ -21,13 +21,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.658824, 0.831373, 0.552941, 1)
 
-[node name="Snack" parent="." node_paths=PackedStringArray("eat_button", "snack_button", "coin_counter") instance=ExtResource("3_baow0")]
+[node name="Snack" parent="." node_paths=PackedStringArray("eat_button", "snack_button", "food_button", "coin_counter") instance=ExtResource("3_baow0")]
 offset_left = 90.0
 offset_top = 110.0
 offset_right = 90.0
 offset_bottom = 110.0
 eat_button = NodePath("../EatButton")
 snack_button = NodePath("../StartButton")
+food_button = NodePath("../FoodButton")
 coin_counter = NodePath("../CoinCounter")
 current_snack = 0
 
@@ -53,6 +54,22 @@ texture_normal = ExtResource("4_7jwdy")
 texture_pressed = ExtResource("5_evel1")
 stretch_mode = 0
 
+[node name="FoodButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 282.0
+offset_right = 151.0
+offset_bottom = 306.0
+theme_override_font_sizes/font_size = 10
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Apple"
+popup/item_1/text = "Banana"
+popup/item_1/id = 1
+
 [node name="CoinCounter" parent="." instance=ExtResource("4_61k4c")]
 layout_mode = 1
 coins = 0
+
+[connection signal="item_selected" from="FoodButton" to="Snack" method="_on_food_button_item_selected"]

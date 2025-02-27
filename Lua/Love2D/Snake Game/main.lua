@@ -11,10 +11,9 @@ local COLORS = {
     BACKGROUND = { 0.1, 0.1, 0.1, 1 },
     GRID = { 0.8, 0.8, 0.8, 0.8 },
     FOOD = { 1, 0, 0, 1 },
-
     SNAKE = {
-        BODY = { 0.8, 0.8, 0.8, 1 },
-        HEAD = { 1, 1, 1, 1 },
+        BODY = { 0, 0.8, 0, 1 },
+        HEAD = { 0, 1, 0, 1 },
     },
 }
 
@@ -23,7 +22,6 @@ local CONTROLS = {
         QUIT = "q",
         RESTART = "r",
     },
-
     SNAKE = {
         UP = "up",
         DOWN = "down",
@@ -42,13 +40,10 @@ local snake = {
             math.ceil(SETTINGS.GRID_SIZE / 2),
         },
     },
-    direction = { x = 0, y = 0 },
+    direction = { x = 1, y = 0 }, -- Start moving to the right
 }
 
-local food = {
-    x = 0,
-    y = 0,
-}
+local food = { x = 0, y = 0 }
 
 local tickRate = SETTINGS.TICK_RATE
 local isGameOver = false
@@ -64,40 +59,46 @@ local function restartGame()
     }
 
     snake.direction = { x = 1, y = 0 }
+
+    food.x, food.y =
+        math.random(1, SETTINGS.GRID_SIZE), math.random(1, SETTINGS.GRID_SIZE) -- Generate new food
+
+    isGameOver = false -- Reset game over state
 end
 
 -- update functions
 local function checkSelfCollision(head)
     for i = 2, #snake.segments do
-        if head == snake.segments[i] then
+        if
+            head[1] == snake.segments[i][1]
+            and head[2] == snake.segments[i][2]
+        then
             return true
         end
     end
-
     return false
 end
 
 local function updateGame()
-    -- move snake
     local head = snake.segments[1]
 
+    -- Update new head position
     local newHead = {
-        (head[1] + snake.direction.x) % SETTINGS.GRID_SIZE,
-        (head[2] + snake.direction.y) % SETTINGS.GRID_SIZE,
+        (head[1] + snake.direction.x - 1) % SETTINGS.GRID_SIZE + 1, -- Wrap around logic
+        (head[2] + snake.direction.y - 1) % SETTINGS.GRID_SIZE + 1,
     }
 
     table.insert(snake.segments, 1, newHead)
 
-    -- collisions
+    -- Check collisions
     if checkSelfCollision(newHead) then
-        restartGame()
-    elseif not (newHead[1] == food.x and newHead[2] == food.y) then
-        table.remove(snake.segments, #snake.segments)
+        isGameOver = true -- Set game over state
+    elseif newHead[1] == food.x and newHead[2] == food.y then
+        food.x, food.y =
+            math.random(1, SETTINGS.GRID_SIZE),
+            math.random(1, SETTINGS.GRID_SIZE)
     else
-        food = {
-            x = math.random(SETTINGS.GRID_SIZE),
-            y = math.random(SETTINGS.GRID_SIZE),
-        }
+        table.remove(snake.segments)
     end
 end
 
@@ -145,8 +146,8 @@ local function drawFood()
 
     love.graphics.rectangle(
         "fill",
-        food.x * BLOCK_SIZE,
-        food.y * BLOCK_SIZE,
+        (food.x - 1) * BLOCK_SIZE,
+        (food.y - 1) * BLOCK_SIZE,
         BLOCK_SIZE,
         BLOCK_SIZE
     )
@@ -164,7 +165,13 @@ local function handleDirectionInputs(key)
     }
 
     if inputMap[key] then
-        snake.direction = inputMap[key]
+        -- Prevent the snake from reversing
+        if
+            (snake.direction.x ~= -inputMap[key].x)
+            or (snake.direction.y ~= -inputMap[key].y)
+        then
+            snake.direction = inputMap[key]
+        end
     end
 end
 
@@ -172,6 +179,7 @@ end
 function love.load()
     love.window.setMode(SETTINGS.SCREEN_SIZE, SETTINGS.SCREEN_SIZE)
     love.graphics.setBackgroundColor(COLORS.BACKGROUND)
+    restartGame() -- Initialize the game state
 end
 
 function love.update(dt)

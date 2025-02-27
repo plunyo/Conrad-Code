@@ -1,6 +1,6 @@
 extends Control
 
-enum SnackTypes {
+enum SnackType {
 	APPLE,
 	BANANA
 }
@@ -10,23 +10,28 @@ enum SnackTypes {
 
 @export var eat_button: BaseButton
 @export var snack_button: BaseButton
+@export var food_button: OptionButton
 
 @export var coin_counter: Control
 
 @export_group("Snack")
-@export var current_snack: SnackTypes
+@export var current_snack: SnackType
 
-@export_subgroup("Snack Textures")
+@export_subgroup("Textures")
 @export var apple_textures: Array[Texture2D]
 @export var banana_textures: Array[Texture2D]
 
 var snack_textures: Dictionary = {}
+var snack_int_map: Dictionary = {
+	0: SnackType.APPLE,
+	1: SnackType.BANANA
+}
 var bites_taken: int = 0
 var is_snack_available: bool = false
 
 func _ready() -> void:
-	snack_textures[SnackTypes.APPLE] = apple_textures
-	snack_textures[SnackTypes.BANANA] = banana_textures
+	snack_textures[SnackType.APPLE] = apple_textures
+	snack_textures[SnackType.BANANA] = banana_textures
 
 	eat_button.disabled = true
 	eat_button.pressed.connect(_on_eat_button)
@@ -56,3 +61,6 @@ func create_snack():
 	snack_texture.texture = snack_textures[current_snack][bites_taken]
 	is_snack_available = true
 	eat_button.disabled = false
+
+func _on_food_button_item_selected(index: int) -> void:
+	current_snack = snack_int_map[index]
