@@ -155,6 +155,8 @@ local function drawFood()
     love.graphics.setColor({ 1, 1, 1, 1 })
 end
 
+local function drawGameOver() end
+
 -- input functions
 local function handleDirectionInputs(key)
     local inputMap = {
@@ -178,7 +180,9 @@ end
 -- love functions
 function love.load()
     love.window.setMode(SETTINGS.SCREEN_SIZE, SETTINGS.SCREEN_SIZE)
+    love.graphics.setFont(love.graphics.getFont(), 40)
     love.graphics.setBackgroundColor(COLORS.BACKGROUND)
+
     restartGame() -- Initialize the game state
 end
 
@@ -197,6 +201,10 @@ function love.draw()
     drawGrid()
     drawFood()
     drawSnake()
+
+    if isGameOver then
+        drawGameOver()
+    end
 end
 
 function love.keypressed(key)
