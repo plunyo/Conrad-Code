@@ -18,18 +18,19 @@ typedef struct {
 } TokenizerInfo;
 
 void print_token(Token *token) {
-    printf("{ Value: %f | Type: %d }", token->value, token->type);
+    printf("{ Value: %f | Type: %d }\n", token->value, token->type);
 }
 
 TokenizerInfo tokenize(char *source_code) {
-    int token_count = strlen(source_code); // every char is a token
-    Token *tokens = malloc(
-        token_count * sizeof(Token)); // malloc to token_count * sizeof(Token)
+    int token_count = 0;
+    Token *tokens =
+        malloc(strlen(source_code) *
+               sizeof(Token)); // malloc to token_count * sizeof(Token)
 
     if (tokens == NULL)
         printf("token array malloc failed ;(");
 
-    for (int i = 0; i < token_count; i++) {
+    for (int i = 0; i < strlen(source_code); i++) {
         if (isdigit(source_code[i])) {    // build number tokens
             char num_str[MAX_NUM_LENGTH]; // 64 buffer
             int num_index = i;
@@ -40,7 +41,9 @@ TokenizerInfo tokenize(char *source_code) {
                 num_index++;
             }
 
+            printf("%s", num_str);
             tokens[num_index] = (Token){NUMBER, atof(num_str)};
+            token_count++;
             i += num_index;
         }
     }
@@ -67,6 +70,7 @@ int main(int argc, char *argv[]) {
         }
 
         for (int i = 0; i < tokenizer_info.token_count; i++) {
+            print_token(&tokenizer_info.tokens[i]);
         }
     }
 
