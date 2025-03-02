@@ -23,28 +23,28 @@ void print_token(Token *token) {
 
 TokenizerInfo tokenize(char *source_code) {
     int token_count = 0;
-    Token *tokens =
-        malloc(strlen(source_code) *
-               sizeof(Token)); // malloc to token_count * sizeof(Token)
+    Token *tokens = malloc(strlen(source_code) * sizeof(Token));
 
-    if (tokens == NULL)
-        printf("token array malloc failed ;(");
+    if (tokens == NULL) {
+        printf("token array malloc failed ;(\n");
+        return (TokenizerInfo){0, NULL}; // Return empty info
+    }
 
-    for (int i = 0; i < strlen(source_code); i++) {
-        if (isdigit(source_code[i])) {    // build number tokens
-            char num_str[MAX_NUM_LENGTH]; // 64 buffer
-            int num_index = i;
+    for (int i = 0; i < strlen(source_code);) {
+        if (isdigit(source_code[i])) { // Build number tokens
+            char num_str[MAX_NUM_LENGTH];
+            int num_index = 0;
 
-            while (isdigit(source_code[num_index]) &&
-                   num_index > MAX_NUM_LENGTH) { // while its still a number
-                num_str[num_index] = source_code[num_index];
-                num_index++;
+            // Copy digits into num_str
+            while (isdigit(source_code[i]) && num_index < MAX_NUM_LENGTH - 1) {
+                num_str[num_index++] = source_code[i++];
             }
+            num_str[num_index] = '\0'; // Null-terminate the string
 
-            printf("%s", num_str);
-            tokens[num_index] = (Token){NUMBER, atof(num_str)};
-            token_count++;
-            i += num_index;
+            tokens[token_count++] = (Token){NUMBER, atof(num_str)};
+        } else {
+            // Handle other token types if needed (e.g., operators)
+            i++; // Move to the next character
         }
     }
 
@@ -52,26 +52,29 @@ TokenizerInfo tokenize(char *source_code) {
 }
 
 int main(int argc, char *argv[]) {
-    // basic repl
+    // Basic REPL
     while (1) {
         char input[128];
 
         printf("> ");
         fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = '\0';
+        input[strcspn(input, "\n")] = '\0'; // Strip newline
+
         if (strcmp("exit", input) == 0)
             break;
 
         TokenizerInfo tokenizer_info = tokenize(input);
 
         if (tokenizer_info.tokens == NULL) {
-            printf("token malloc failed ;(");
+            printf("token malloc failed ;(\n");
             continue;
         }
 
         for (int i = 0; i < tokenizer_info.token_count; i++) {
             print_token(&tokenizer_info.tokens[i]);
         }
+
+        free(tokenizer_info.tokens); // Free allocated memory
     }
 
     return EXIT_SUCCESS;

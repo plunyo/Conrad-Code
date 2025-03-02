@@ -5,6 +5,7 @@ local SETTINGS = {
     TICK_RATE = 5,
     SCREEN_SIZE = 700,
     GRID_SIZE = 15,
+    TICK_RATE_INCREASE = 0.5,
 }
 
 local COLORS = {
@@ -102,6 +103,8 @@ local function updateGame()
         food.x, food.y =
             math.random(1, SETTINGS.GRID_SIZE),
             math.random(1, SETTINGS.GRID_SIZE)
+
+        tickRate = tickRate + SETTINGS.TICK_RATE_INCREASE
     else
         table.remove(snake.segments)
     end
@@ -169,6 +172,33 @@ local function drawGameOver()
         0,
         SETTINGS.SCREEN_SIZE,
         SETTINGS.SCREEN_SIZE
+    )
+
+    love.graphics.setColor({ 1, 1, 1, 1 })
+
+    -- game text
+    local gameoverText = "Game Over! ;("
+    local restartText = "Press 'R' to restart!"
+
+    -- positioning variables
+    local centerX = love.graphics.getWidth() / 2
+    local centerY = love.graphics.getHeight() / 2
+
+    love.graphics.setFont(love.graphics.getFont(), 40)
+
+    love.graphics.print(
+        gameoverText,
+        centerX - love.graphics.getFont():getWidth(gameoverText) / 2,
+        centerY - love.graphics.getFont():getHeight() / 2
+    )
+
+    love.graphics.setFont(love.graphics.getFont(), 40)
+
+    love.graphics.print(
+        restartText,
+        centerX - love.graphics.getFont():getWidth(restartText) / 2,
+        love.graphics.getHeight() * 0.6
+            - love.graphics.getFont():getHeight() / 2
     )
 
     love.graphics.setColor({ 1, 1, 1, 1 })
