@@ -5,7 +5,7 @@ local SETTINGS = {
     TICK_RATE = 5,
     SCREEN_SIZE = 700,
     GRID_SIZE = 15,
-    TICK_RATE_INCREASE = 0.5,
+    TICK_RATE_INCREASE = 0.1,
 }
 
 local COLORS = {
@@ -69,6 +69,7 @@ local function restartGame()
     food.x, food.y =
         math.random(1, SETTINGS.GRID_SIZE), math.random(1, SETTINGS.GRID_SIZE) -- Generate new food
 
+    tickRate = SETTINGS.TICK_RATE
     isGameOver = false -- Reset game over state
 end
 
