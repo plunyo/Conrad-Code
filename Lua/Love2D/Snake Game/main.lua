@@ -1,6 +1,6 @@
--- snake game --
+-- Snake Game --
 
--- game constants
+-- Game Constants
 local SETTINGS = {
     TICK_RATE = 5,
     SCREEN_SIZE = 700,
@@ -12,34 +12,23 @@ local COLORS = {
     BACKGROUND = { 0.1, 0.1, 0.1, 1 },
     GRID = { 0.8, 0.8, 0.8, 0.8 },
     FOOD = { 1, 0, 0, 1 },
-
     SNAKE = {
         BODY = { 0, 0.8, 0, 1 },
         HEAD = { 0, 1, 0, 1 },
     },
-
     GAME_OVER = {
         BACKGROUND = { 0.2, 0.2, 0.2, 0.8 },
     },
 }
 
 local CONTROLS = {
-    GAME = {
-        QUIT = "q",
-        RESTART = "r",
-    },
-
-    SNAKE = {
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right",
-    },
+    GAME = { QUIT = "q", RESTART = "r" },
+    SNAKE = { UP = "up", DOWN = "down", LEFT = "left", RIGHT = "right" },
 }
 
 local BLOCK_SIZE = SETTINGS.SCREEN_SIZE / SETTINGS.GRID_SIZE
 
--- game variables
+-- Game State Variables
 local snake = {
     segments = {
         {
@@ -47,16 +36,15 @@ local snake = {
             math.ceil(SETTINGS.GRID_SIZE / 2),
         },
     },
-    direction = { x = 0, y = 0 },
+    direction = { x = 0, y = 0, canChange = true },
 }
 
 local food = { x = 0, y = 0 }
-
 local tickRate = SETTINGS.TICK_RATE
 local isGameOver = false
 local elapsedTime = 0
 
--- game functions
+-- Game Functions
 local function restartGame()
     snake.segments = {
         {
@@ -64,18 +52,15 @@ local function restartGame()
             math.ceil(SETTINGS.GRID_SIZE / 2),
         },
     }
-    snake.direction = { x = 0, y = 0 }
-
+    snake.direction = { x = 0, y = 0, canChange = true }
     food.x, food.y =
-        math.random(1, SETTINGS.GRID_SIZE), math.random(1, SETTINGS.GRID_SIZE) -- Generate new food
-
+        math.random(1, SETTINGS.GRID_SIZE), math.random(1, SETTINGS.GRID_SIZE)
     tickRate = SETTINGS.TICK_RATE
-    isGameOver = false -- Reset game over state
+    isGameOver = false
 end
 
--- update functions
 local function checkSelfCollision(head)
-    for i = 3, #snake.segments do -- skip da head
+    for i = 3, #snake.segments do
         if
             head[1] == snake.segments[i][1]
             and head[2] == snake.segments[i][2]
@@ -88,33 +73,28 @@ end
 
 local function updateGame()
     local head = snake.segments[1]
-
-    -- Update new head position
     local newHead = {
-        (head[1] + snake.direction.x - 1) % SETTINGS.GRID_SIZE + 1, -- Wrap around logic
+        (head[1] + snake.direction.x - 1) % SETTINGS.GRID_SIZE + 1,
         (head[2] + snake.direction.y - 1) % SETTINGS.GRID_SIZE + 1,
     }
-
     table.insert(snake.segments, 1, newHead)
+    snake.direction.canChange = true
 
-    -- Check collisions
     if checkSelfCollision(newHead) then
-        isGameOver = true -- Set game over state
+        isGameOver = true
     elseif newHead[1] == food.x and newHead[2] == food.y then
         food.x, food.y =
             math.random(1, SETTINGS.GRID_SIZE),
             math.random(1, SETTINGS.GRID_SIZE)
-
         tickRate = tickRate + SETTINGS.TICK_RATE_INCREASE
     else
         table.remove(snake.segments)
     end
 end
 
--- draw functions
+-- Drawing Functions
 local function drawGrid()
     love.graphics.setColor(COLORS.GRID)
-
     for x = 0, SETTINGS.GRID_SIZE do
         for y = 0, SETTINGS.GRID_SIZE do
             love.graphics.rectangle(
@@ -126,33 +106,27 @@ local function drawGrid()
             )
         end
     end
-
-    love.graphics.setColor({ 1, 1, 1, 1 })
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 local function drawSnake()
     for index, segment in ipairs(snake.segments) do
-        local x, y = segment[1] - 1, segment[2] - 1
-
         love.graphics.setColor(
             index == 1 and COLORS.SNAKE.HEAD or COLORS.SNAKE.BODY
         )
-
         love.graphics.rectangle(
             "fill",
-            x * BLOCK_SIZE,
-            y * BLOCK_SIZE,
+            (segment[1] - 1) * BLOCK_SIZE,
+            (segment[2] - 1) * BLOCK_SIZE,
             BLOCK_SIZE,
             BLOCK_SIZE
         )
     end
-
-    love.graphics.setColor({ 1, 1, 1, 1 })
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 local function drawFood()
     love.graphics.setColor(COLORS.FOOD)
-
     love.graphics.rectangle(
         "fill",
         (food.x - 1) * BLOCK_SIZE,
@@ -160,13 +134,11 @@ local function drawFood()
         BLOCK_SIZE,
         BLOCK_SIZE
     )
-
-    love.graphics.setColor({ 1, 1, 1, 1 })
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 local function drawGameOver()
     love.graphics.setColor(COLORS.GAME_OVER.BACKGROUND)
-
     love.graphics.rectangle(
         "fill",
         0,
@@ -174,38 +146,27 @@ local function drawGameOver()
         SETTINGS.SCREEN_SIZE,
         SETTINGS.SCREEN_SIZE
     )
+    love.graphics.setColor(1, 1, 1, 1)
 
-    love.graphics.setColor({ 1, 1, 1, 1 })
-
-    -- game text
-    local gameoverText = "Game Over! ;("
-    local restartText = "Press 'R' to restart!"
-
-    -- positioning variables
-    local centerX = love.graphics.getWidth() / 2
-    local centerY = love.graphics.getHeight() / 2
-
-    love.graphics.setFont(love.graphics.getFont(), 40)
-
-    love.graphics.print(
-        gameoverText,
-        centerX - love.graphics.getFont():getWidth(gameoverText) / 2,
-        centerY - love.graphics.getFont():getHeight() / 2
+    local centerX, centerY =
+        love.graphics.getWidth() / 2, love.graphics.getHeight() / 2
+    love.graphics.printf(
+        "Game Over!",
+        centerX - 100,
+        centerY - 20,
+        200,
+        "center"
     )
-
-    love.graphics.setFont(love.graphics.getFont(), 40)
-
-    love.graphics.print(
-        restartText,
-        centerX - love.graphics.getFont():getWidth(restartText) / 2,
-        love.graphics.getHeight() * 0.6
-            - love.graphics.getFont():getHeight() / 2
+    love.graphics.printf(
+        "Press 'R' to restart!",
+        centerX - 100,
+        centerY + 20,
+        200,
+        "center"
     )
-
-    love.graphics.setColor({ 1, 1, 1, 1 })
 end
 
--- input functions
+-- Input Handling
 local function handleDirectionInputs(key)
     local inputMap = {
         [CONTROLS.SNAKE.UP] = { x = 0, y = -1 },
@@ -214,29 +175,26 @@ local function handleDirectionInputs(key)
         [CONTROLS.SNAKE.RIGHT] = { x = 1, y = 0 },
     }
 
-    if inputMap[key] then
-        -- Prevent the snake from reversing
+    if inputMap[key] and snake.direction.canChange then
         if
-            (snake.direction.x ~= -inputMap[key].x)
-            or (snake.direction.y ~= -inputMap[key].y)
+            snake.direction.x ~= -inputMap[key].x
+            or snake.direction.y ~= -inputMap[key].y
         then
             snake.direction = inputMap[key]
+            snake.direction.canChange = false
         end
     end
 end
 
--- love functions
+-- LOVE2D Functions
 function love.load()
     love.window.setMode(SETTINGS.SCREEN_SIZE, SETTINGS.SCREEN_SIZE)
-    love.graphics.setFont(love.graphics.getFont(), 40)
     love.graphics.setBackgroundColor(COLORS.BACKGROUND)
-
-    restartGame() -- Initialize the game state
+    restartGame()
 end
 
 function love.update(dt)
     elapsedTime = elapsedTime + dt
-
     while elapsedTime >= 1 / tickRate do
         if not isGameOver then
             updateGame()
@@ -249,7 +207,6 @@ function love.draw()
     drawGrid()
     drawFood()
     drawSnake()
-
     if isGameOver then
         drawGameOver()
     end
