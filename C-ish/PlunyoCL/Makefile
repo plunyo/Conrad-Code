@@ -17,3 +17,7 @@ clean:
 	-rm -f *.out
 	-rm -f *.o 
 	-rm -f src/*.o
+
+winclean:
+	del /f *.out
+	del /f src\*.o

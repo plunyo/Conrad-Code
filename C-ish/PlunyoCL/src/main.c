@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     AST *root = parser_parse(parser);
 
     printf("%d\n", root->type);
-    printf("%d\n", root->compound_size);
+    printf("%d\n", (int)root->compound_size);
 
     return EXIT_SUCCESS;
 }

@@ -64,6 +64,10 @@ Token *lexer_get_next_token(Lexer *lexer) {
             return lexer_advance_with_token(
                 lexer,
                 init_token(TOKEN_RPAREN, lexer_current_char_string(lexer)));
+        case ',':
+            return lexer_advance_with_token(
+                lexer,
+                init_token(TOKEN_COMMA, lexer_current_char_string(lexer)));
         default:
             return NULL;
         }
