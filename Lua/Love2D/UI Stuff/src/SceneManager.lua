@@ -1,9 +1,9 @@
 local SceneManager = {
-    currentScene = require("scenes.mainMenu")
+    currentScene = require("scenes.mainMenu"),
 }
 
 function SceneManager.changeSceneTo(newScene)
-    if SceneManager.currentScene then
+    if SceneManager.currentScene and SceneManager.currentScene.exit then
         SceneManager.currentScene.exit()
     end
 
