@@ -1,1 +1,3 @@
-oskda
+Things to code:
+    * minesweeper
+    * tetris
