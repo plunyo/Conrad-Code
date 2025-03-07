@@ -69,11 +69,11 @@ AST *parser_parse_function_call(Parser *parser) {
         parser_eat(parser, TOKEN_COMMA);
 
         AST *ast_statement = parser_parse_statement(parser);
-        compound->compound_size++;
-        compound->compound_value =
-            realloc(compound->compound_value,
-                    compound->compound_size * sizeof(struct AST_STRUCT*));
-        compound->compound_value[compound->compound_size - 1] = ast_statement;
+        function_call->function_call_arguments_size++;
+        function_call->function_call_arguments =
+            realloc(function_call->function_call_arguments_size,
+                    function_call->function_call_arguments * sizeof(struct AST_STRUCT*));
+        function_call->function_call_arguments[function_call->function_call_arguments_size - 1] = ast_statement;
     }
 }
 
