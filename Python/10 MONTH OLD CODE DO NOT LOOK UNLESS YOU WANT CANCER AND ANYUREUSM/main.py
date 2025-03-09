@@ -1,4 +1,4 @@
-# OLD BAD BAD COODE DO NOT LOOK UNLESS U WANT ANYURESM CANCER AND MORE
+# THIS IS MY BEST WORK YET!
 
 bag = ["Hammer", "Chips", "Flashlight"]
 hp = 100
