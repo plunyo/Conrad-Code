@@ -66,49 +66,47 @@ local function isPathClear(self, x, y)
     return true
 end
 
-local movePatterns = {
-    r = function(self, x, y)
-        return (self.x == x or self.y == y) and isPathClear(self, x, y)
-    end,
+local movePatterns = {}
 
-    b = function(self, x, y)
-        return math.abs(self.x - x) == math.abs(self.y - y)
-            and isPathClear(self, x, y)
-    end,
+function movePatterns:r(x, y)
+    return (self.x == x or self.y == y) and isPathClear(self, x, y)
+end
 
-    k = function(self, x, y)
-        return math.abs(self.x - x) <= 1 and math.abs(self.y - y) <= 1
-    end,
-
-    n = function(self, x, y)
-        return (math.abs(self.x - x) == 2 and math.abs(self.y - y) == 1)
-            or (math.abs(self.x - x) == 1 and math.abs(self.y - y) == 2)
-    end,
-
-    p = function(self, x, y, capture)
-        local dir = self.color == "white" and -1 or 1
-
-        return (capture and math.abs(self.x - x) == 1 and self.y + dir == y)
-            or (
-                not capture
-                and self.x == x
-                and (
-                    self.y + dir == y
-                    or (
-                        self.y == (self.color == "white" and 7 or 2)
-                        and self.y + 2 * dir == y
-                        and isPathClear(self, x, y)
-                    )
-                )
-            )
-    end,
-}
-
-movePatterns.q = function(self, x, y)
-    return (movePatterns.r(self, x, y) or movePatterns.b(self, x, y))
+function movePatterns:b(x, y)
+    return math.abs(self.x - x) == math.abs(self.y - y)
         and isPathClear(self, x, y)
 end
 
+function movePatterns:k(x, y)
+    return math.abs(self.x - x) <= 1 and math.abs(self.y - y) <= 1
+end
+
+function movePatterns:n(x, y)
+    return (math.abs(self.x - x) == 2 and math.abs(self.y - y) == 1)
+        or (math.abs(self.x - x) == 1 and math.abs(self.y - y) == 2)
+end
+
+function movePatterns:p(x, y, capture)
+    local dir = self.color == "white" and -1 or 1
+
+    return (capture and math.abs(self.x - x) == 1 and self.y + dir == y)
+        or (
+            not capture
+            and self.x == x
+            and (
+                self.y + dir == y
+                or (
+                    self.y == (self.color == "white" and 7 or 2)
+                    and self.y + 2 * dir == y
+                    and isPathClear(self, x, y)
+                )
+            )
+        )
+end
+
+function movePatterns:q(x, y)
+    return (self:r(x, y) or self:b(x, y)) and isPathClear(self, x, y)
+end
 function Piece:canMoveTo(x, y, isCapture)
     return movePatterns[self.type]
             and movePatterns[self.type](self, x, y, isCapture)
@@ -120,43 +118,47 @@ function Piece:moveTo(x, y)
 end
 
 function Piece:draw()
-    if self.highlighted then
-        love.graphics.setColor(Colors.HIGHLIGHT)
+    if not self.highlighted then
+        goto notHighlighted
+    end
 
-        love.graphics.rectangle(
-            "fill",
-            (self.x - 1) * Settings.SQUARE_SIZE,
-            (self.y - 1) * Settings.SQUARE_SIZE,
-            Settings.SQUARE_SIZE,
-            Settings.SQUARE_SIZE
-        )
+    love.graphics.setColor(Colors.HIGHLIGHT)
 
-        love.graphics.setColor(1, 1, 1, 0.4)
+    love.graphics.rectangle(
+        "fill",
+        (self.x - 1) * Settings.SQUARE_SIZE,
+        (self.y - 1) * Settings.SQUARE_SIZE,
+        Settings.SQUARE_SIZE,
+        Settings.SQUARE_SIZE
+    )
 
-        for x = 1, 8 do
-            for y = 1, 8 do
-                if self:canMoveTo(x, y) then
-                    local targetPiece = _G.Board[x] and _G.Board[x][y]
+    love.graphics.setColor(1, 1, 1, 0.4)
 
-                    if not targetPiece then
-                        love.graphics.draw(
-                            moveIndicatorSprite,
-                            (x - 1) * Settings.SQUARE_SIZE,
-                            (y - 1) * Settings.SQUARE_SIZE
-                        )
-                    elseif targetPiece.color ~= self.color then
-                        love.graphics.draw(
-                            captureIndicatorSprite,
-                            (x - 1) * Settings.SQUARE_SIZE,
-                            (y - 1) * Settings.SQUARE_SIZE
-                        )
-                    end
+    for x = 1, 8 do
+        for y = 1, 8 do
+            if self:canMoveTo(x, y) then
+                local targetPiece = _G.Board[x] and _G.Board[x][y]
+
+                if not targetPiece then
+                    love.graphics.draw(
+                        moveIndicatorSprite,
+                        (x - 1) * Settings.SQUARE_SIZE,
+                        (y - 1) * Settings.SQUARE_SIZE
+                    )
+                elseif targetPiece.color ~= self.color then
+                    love.graphics.draw(
+                        captureIndicatorSprite,
+                        (x - 1) * Settings.SQUARE_SIZE,
+                        (y - 1) * Settings.SQUARE_SIZE
+                    )
                 end
             end
         end
-
-        love.graphics.setColor(1, 1, 1, 1)
     end
+
+    love.graphics.setColor(1, 1, 1, 1)
+
+    ::notHighlighted::
 
     love.graphics.draw(
         pieceSpriteSheet,

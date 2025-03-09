@@ -1,6 +1,5 @@
 local Settings = require("src.settings")
 local Colors = require("src.colors")
-local Piece = require("src.piece")
 
 local Board = {}
 

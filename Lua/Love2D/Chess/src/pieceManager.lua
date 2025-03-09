@@ -4,12 +4,12 @@ local Piece = require("src.piece")
 local PieceManager = { selectedPiece = nil }
 _G.Board = {}
 
+local backRank = { "r", "n", "b", "q", "k", "b", "n", "r" }
+
 function PieceManager.setupPieces()
     for x = 1, 8 do
         _G.Board[x] = {}
     end
-
-    local backRank = { "r", "n", "b", "q", "k", "b", "n", "r" }
 
     for x = 1, 8 do
         _G.Board[x][1], _G.Board[x][2] =
@@ -33,7 +33,7 @@ end
 local function boardToString()
     local res = { "  a b c d e f g h", "  ----------------" }
 
-    for y = 8, 1, -1 do
+    for y = 1, 8 do
         local row = { tostring(y) .. "|" }
 
         for x = 1, 8 do
@@ -70,9 +70,7 @@ function love.mousepressed(x, y, button)
             PieceManager.selectedPiece = clickedPiece
 
             clickedPiece.highlighted = true
-        elseif
-            selectedPiece:canMoveTo(boardX, boardY, (clickedPiece ~= nil))
-        then
+        elseif selectedPiece:canMoveTo(boardX, boardY, clickedPiece) then
             _G.Board[selectedPiece.x][selectedPiece.y] = nil
 
             selectedPiece:moveTo(boardX, boardY)
