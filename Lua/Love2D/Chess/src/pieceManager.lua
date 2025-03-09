@@ -1,82 +1,92 @@
 local Settings = require("src.settings")
 local Piece = require("src.piece")
 
-local PieceManager = {
-    board = {},
-    selectedPiece = nil,
-}
+local PieceManager = { selectedPiece = nil }
+_G.Board = {}
 
 function PieceManager.setupPieces()
-    for x = 1, 8 do -- populate board
-        PieceManager.board[x] = {}
-        for y = 1, 8 do
-            PieceManager.board[x][y] = nil
-        end
+    for x = 1, 8 do
+        _G.Board[x] = {}
     end
 
     local backRank = { "r", "n", "b", "q", "k", "b", "n", "r" }
-    for x = 1, 8 do
-        -- placing black pieces
-        PieceManager.board[x][1] = Piece.new("black", backRank[x], x, 1)
-        PieceManager.board[x][2] = Piece.new("black", "p", x, 2)
 
-        -- placing white pieces
-        PieceManager.board[x][7] = Piece.new("white", "p", x, 7)
-        PieceManager.board[x][8] = Piece.new("white", backRank[x], x, 8)
+    for x = 1, 8 do
+        _G.Board[x][1], _G.Board[x][2] =
+            Piece.new("black", backRank[x], x, 1), Piece.new("black", "p", x, 2)
+
+        _G.Board[x][7], _G.Board[x][8] =
+            Piece.new("white", "p", x, 7), Piece.new("white", backRank[x], x, 8)
     end
 end
 
 function PieceManager.drawPieces()
     for x = 1, 8 do
         for y = 1, 8 do
-            local piece = PieceManager.board[x][y]
-            if piece then
-                -- drawing each piece
-                piece:draw(
-                    (x - 1) * Settings.SQUARE_SIZE,
-                    (y - 1) * Settings.SQUARE_SIZE
-                )
+            if _G.Board[x][y] then
+                _G.Board[x][y]:draw()
             end
         end
     end
 end
 
-function love.mousepressed(x, y, button)
-    local boardX = math.floor(x / Settings.SQUARE_SIZE) + 1
-    local boardY = math.floor(y / Settings.SQUARE_SIZE) + 1
+local function boardToString()
+    local res = { "  a b c d e f g h", "  ----------------" }
 
-    if boardX < 1 or boardX > 8 or boardY < 1 or boardY > 8 or button ~= 1 then
+    for y = 8, 1, -1 do
+        local row = { tostring(y) .. "|" }
+
+        for x = 1, 8 do
+            table.insert(row, _G.Board[x][y] and _G.Board[x][y].type or ".")
+        end
+
+        table.insert(res, table.concat(row, " ") .. " |" .. y)
+    end
+
+    table.insert(res, "  ----------------\n  a b c d e f g h")
+    return table.concat(res, "\n")
+end
+
+function love.mousepressed(x, y, button)
+    if button ~= 1 then
         return
     end
 
-    local clickedPiece = PieceManager.board[boardX][boardY]
+    local boardX, boardY =
+        math.floor(x / Settings.SQUARE_SIZE) + 1,
+        math.floor(y / Settings.SQUARE_SIZE) + 1
 
-    if PieceManager.selectedPiece then
-        -- if a piece is already selected
-        if
-            clickedPiece
-            and clickedPiece.color == PieceManager.selectedPiece.color
+    if boardX < 1 or boardX > 8 or boardY < 1 or boardY > 8 then
+        return
+    end
+
+    local clickedPiece = _G.Board[boardX][boardY]
+    local selectedPiece = PieceManager.selectedPiece
+
+    if selectedPiece then
+        if clickedPiece and clickedPiece.color == selectedPiece.color then
+            selectedPiece.highlighted = false
+
+            PieceManager.selectedPiece = clickedPiece
+
+            clickedPiece.highlighted = true
+        elseif
+            selectedPiece:canMoveTo(boardX, boardY, (clickedPiece ~= nil))
         then
-            -- selecting another piece of the same color
-            PieceManager.selectedPiece = clickedPiece
-        else
-            -- moving the selected piece
-            local movingPiece = PieceManager.selectedPiece
-            PieceManager.board[movingPiece.x][movingPiece.y] = nil -- remove from old spot
-            movingPiece.x, movingPiece.y = boardX, boardY
+            _G.Board[selectedPiece.x][selectedPiece.y] = nil
 
-            -- if there's an enemy piece, capture it
-            PieceManager.board[boardX][boardY] = movingPiece
-            PieceManager.selectedPiece.highlighted = false
+            selectedPiece:moveTo(boardX, boardY)
+
+            _G.Board[boardX][boardY] = selectedPiece
+
+            selectedPiece.highlighted = false
             PieceManager.selectedPiece = nil
+
+            print(boardToString())
         end
-    else
-        -- no piece selected yet
-        if clickedPiece then
-            -- selecting a piece
-            PieceManager.selectedPiece = clickedPiece
-            PieceManager.selectedPiece.highlighted = true
-        end
+    elseif clickedPiece then
+        PieceManager.selectedPiece = clickedPiece
+        clickedPiece.highlighted = true
     end
 end
 

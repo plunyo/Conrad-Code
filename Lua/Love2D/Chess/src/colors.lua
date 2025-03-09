@@ -1,6 +1,6 @@
 local Colors = {
-    LIGHT_TILE = { 0.96, 0.86, 0.70 },
-    DARK_TILE = { 0.54, 0.27, 0.07 },
+    LIGHT_TILE = { 0.929, 0.839, 0.690 },
+    DARK_TILE = { 0.721, 0.529, 0.384 },
 
     HIGHLIGHT = { 1, 1, 0, 0.3 },
 }
