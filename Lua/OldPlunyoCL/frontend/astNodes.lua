@@ -78,3 +78,4 @@ function BlankLiteral:new(value)
     instance.value = value
     return instance
 end
+

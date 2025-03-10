@@ -68,25 +68,25 @@ end
 
 local movePatterns = {}
 
-function movePatterns:r(x, y)
+function movePatterns.r(self, x, y)
     return (self.x == x or self.y == y) and isPathClear(self, x, y)
 end
 
-function movePatterns:b(x, y)
+function movePatterns.b(self, x, y)
     return math.abs(self.x - x) == math.abs(self.y - y)
         and isPathClear(self, x, y)
 end
 
-function movePatterns:k(x, y)
+function movePatterns.k(self, x, y)
     return math.abs(self.x - x) <= 1 and math.abs(self.y - y) <= 1
 end
 
-function movePatterns:n(x, y)
+function movePatterns.n(self, x, y)
     return (math.abs(self.x - x) == 2 and math.abs(self.y - y) == 1)
         or (math.abs(self.x - x) == 1 and math.abs(self.y - y) == 2)
 end
 
-function movePatterns:p(x, y, capture)
+function movePatterns.p(self, x, y, capture)
     local dir = self.color == "white" and -1 or 1
 
     return (capture and math.abs(self.x - x) == 1 and self.y + dir == y)
@@ -104,9 +104,11 @@ function movePatterns:p(x, y, capture)
         )
 end
 
-function movePatterns:q(x, y)
-    return (self:r(x, y) or self:b(x, y)) and isPathClear(self, x, y)
+function movePatterns.q(self, x, y)
+    return (movePatterns.r(self, x, y) or movePatterns.b(self, x, y))
+        and isPathClear(self, x, y)
 end
+
 function Piece:canMoveTo(x, y, isCapture)
     return movePatterns[self.type]
             and movePatterns[self.type](self, x, y, isCapture)

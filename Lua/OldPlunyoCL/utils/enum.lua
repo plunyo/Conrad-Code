@@ -41,9 +41,11 @@ end
 
 function Enum:__tostring()
     local elements = {}
+
     for name, value in pairs(self.values) do
         table.insert(elements, string.format("%s = %s", name, tostring(value)))
     end
+
     return "Enum {" .. table.concat(elements, ", ") .. "}"
 end
 
