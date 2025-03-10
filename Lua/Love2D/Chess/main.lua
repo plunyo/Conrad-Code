@@ -1,5 +1,4 @@
 local BoardManager = require("src.boardManager")
-local PieceManager = require("src.pieceManager")
 local InputManager = require("src.inputManager")
 local Settings = require("src.settings")
 
