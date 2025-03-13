@@ -1,0 +1,12 @@
+res://player/player.tscn
+res://player/player.gd
+res://main.tscn
+res://bullet/bullet.tscn
+res://new_script.gd
+res://bullet/node_2d.tscn
+res://bullet/bullet.gd
+res://bullet/explosion.tscn
+res://bullet/explosion.gd
+res://player/hit_flash.gdshader
+res://texture_progress_bar.tscn
+res://Energy Bar.tscn

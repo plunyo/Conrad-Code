@@ -1,0 +1,5 @@
+res://Scenes/Maps/arena.tscn
+res://Scripts/Shaders/enemy.gdshader
+res://Scenes/Player/player.tscn
+res://Scenes/Enemy/enemy.tscn
+res://Scenes/Maps/spawner.tscn

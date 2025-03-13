@@ -1,0 +1,9 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1733727415
+icon.svg::CompressedTexture2D::2547122234546819529::1733721191::1733721199::1::::<><>::
+::res://Assets/::1733725091
+::res://Assets/Player/::1733725116
+Characters.svg::CompressedTexture2D::7877220938789070924::1733722710::1733722852::1::::<><>::
+::res://Menus/::1733725091
+::res://Menus/Character Select/::1733725108
+CharacterSelect.tscn::PackedScene::8415875272169504040::1733724326::0::1::::<><>::uid://dkh1xb0snpvmy::::res://Assets/Player/Characters.svg

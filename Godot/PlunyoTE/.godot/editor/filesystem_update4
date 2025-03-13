@@ -1,0 +1,4 @@
+res://Scenes/Main.tscn
+res://Scripts/ProjectTree.cs
+res://Scripts/ToolBar.cs
+res://Scripts/TextBox.cs

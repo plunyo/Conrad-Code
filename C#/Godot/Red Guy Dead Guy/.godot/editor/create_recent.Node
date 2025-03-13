@@ -1,0 +1,15 @@
+Camera2D
+ColorRect
+Marker2D
+Node2D
+Timer
+VisibleOnScreenNotifier2D
+VisibleOnScreenEnabler2D
+CPUParticles2D
+AnimationPlayer
+CollisionShape2D
+Area2D
+NavigationAgent2D
+LightOccluder2D
+CharacterBody2D
+RayCast2D

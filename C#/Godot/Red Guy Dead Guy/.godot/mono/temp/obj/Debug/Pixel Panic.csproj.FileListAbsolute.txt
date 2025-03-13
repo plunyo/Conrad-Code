@@ -1,0 +1,51 @@
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.deps.json
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.runtimeconfig.json
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.pdb
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.csproj.AssemblyReference.cache
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.AssemblyInfoInputs.cache
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.AssemblyInfo.cs
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.csproj.CoreCompileInputs.cache
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Pa.1C95F8DB.Up2Date
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\refint\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.pdb
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.genruntimeconfig.cache
+C:\Users\hitor\OneDrive\Conrad Code\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\ref\Pixel Panic.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.AssemblyInfoInputs.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.AssemblyInfo.cs
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.csproj.CoreCompileInputs.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\refint\Pixel Panic.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.pdb
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.deps.json
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.runtimeconfig.json
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.pdb
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Pa.1C95F8DB.Up2Date
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.genruntimeconfig.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\ref\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.deps.json
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.runtimeconfig.json
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\Pixel Panic.pdb
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.csproj.AssemblyReference.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.AssemblyInfoInputs.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.AssemblyInfo.cs
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.csproj.CoreCompileInputs.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Pa.1C95F8DB.Up2Date
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\refint\Pixel Panic.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.pdb
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\Pixel Panic.genruntimeconfig.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Red Guy Dead Guy\.godot\mono\temp\obj\Debug\ref\Pixel Panic.dll
