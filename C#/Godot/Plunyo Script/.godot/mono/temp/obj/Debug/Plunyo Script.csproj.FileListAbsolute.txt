@@ -1,0 +1,34 @@
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.deps.json
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.runtimeconfig.json
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.pdb
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.csproj.AssemblyReference.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.AssemblyInfoInputs.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.AssemblyInfo.cs
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.csproj.CoreCompileInputs.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo S.55751D27.Up2Date
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\refint\Plunyo Script.dll
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.pdb
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.genruntimeconfig.cache
+C:\Users\hitor\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\ref\Plunyo Script.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.deps.json
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.runtimeconfig.json
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\Plunyo Script.pdb
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.AssemblyInfoInputs.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.AssemblyInfo.cs
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.csproj.CoreCompileInputs.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo S.55751D27.Up2Date
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\refint\Plunyo Script.dll
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.pdb
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\Plunyo Script.genruntimeconfig.cache
+C:\Users\Admin\OneDrive\Conrad Code\CS Stuff\Godot\Plunyo Script\.godot\mono\temp\obj\Debug\ref\Plunyo Script.dll

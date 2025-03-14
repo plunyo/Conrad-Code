@@ -1,0 +1,11 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1731653270
+Console.cs::CSharpScript::-1::1731585127::0::1::::<>RichTextLabel<>::
+Environment.tscn::PackedScene::5653473440114057411::1731653224::0::1::::<><>::res://PlunyoScript.cs<>res://Console.cs<>res://FileHandler.cs<>res://ErrorBox.cs
+ErrorBox.cs::CSharpScript::-1::1731653022::0::1::::<>RichTextLabel<>::
+FileHandler.cs::CSharpScript::-1::1731588434::0::1::::<>Control<>::
+icon.svg::CompressedTexture2D::5613043081192397038::1731568760::1731568777::1::::<><>::
+Interpreter.cs::CSharpScript::-1::1731653019::0::1::::<><>::
+Parser.cs::CSharpScript::-1::1731653251::0::1::::<><>::
+PlunyoScript.cs::CSharpScript::-1::1731652843::0::1::::<>Control<>::
+skibidi.ps::TextFile::-1::1731653224::0::1::::<><>::

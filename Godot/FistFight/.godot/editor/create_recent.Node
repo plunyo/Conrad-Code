@@ -1,0 +1,14 @@
+CollisionShape2D
+StaticBody2D
+AnimatedSprite2D
+Area2D
+Node2D
+CPUParticles2D
+ColorRect
+AnimationPlayer
+TextureRect
+Timer
+CharacterBody2D
+CollisionPolygon2D
+MeshInstance2D
+TileMap
