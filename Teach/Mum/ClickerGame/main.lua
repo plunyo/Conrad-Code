@@ -1,42 +1,35 @@
-local button = {
-    width = 200,
-    height = 200,
-}
+local positionX = 200
+local positionY = 200
 
-button.posX = love.graphics.getWidth() / 2 - button.width / 2
-button.posY = love.graphics.getHeight() / 2 - button.height / 2
+local width = 200
+local height = 200
 
-local score = 0
+local counter = 000
 
-local function isMouseInButton()
-    local mouseX, mouseY = love.mouse.getPosition()
+function hexToRgb(hex)
+    hex = hex:gsub("#", "") -- remove the '#' if it's there
 
-    if
-        mouseX >= button.posX
-        and mouseX <= button.posX + button.width
-        and mouseY >= button.posY
-        and mouseY <= button.posY + button.height
-    then
-        return true
-    else
-        return false
-    end
+    return {
+        tonumber("0x" .. hex:sub(1, 2)) / 255,
+        tonumber("0x" .. hex:sub(3, 4)) / 255,
+        tonumber("0x" .. hex:sub(5, 6)) / 255,
+    }
 end
 
+-- draw function
 function love.draw()
-    love.graphics.rectangle(
-        "fill",
-        button.posX,
-        button.posY,
-        button.width,
-        button.height
-    )
+    love.graphics.setColor(hexToRgb("#FFD1DC")) -- pink
+    love.graphics.rectangle("fill", positionX, positionY, width, height)
 
-    love.graphics.print("Score: " .. score)
+    love.graphics.print(
+        string.format("BEST COUNTER: %.10d", counter),
+        positionY
+    )
 end
 
 function love.mousepressed()
-    if isMouseInButton() then
-        score = score + 1
+    if then
+        
+    counter = counter + 1
     end
 end

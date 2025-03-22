@@ -123,6 +123,7 @@ function Lexer.Tokenize(sourceCode)
         ::continue::
     end
 
+    table.insert(tokens, #tokens + 1, Token:new(TokenType.EOF, "EOF"))
     return tokens
 end
 

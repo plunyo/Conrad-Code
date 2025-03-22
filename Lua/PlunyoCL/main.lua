@@ -1,24 +1,34 @@
+local Parser = require("frontend.parser")
 local Lexer = require("frontend.lexer")
 
 local sourceCode = ""
 
+-- read file
 if arg[1] then
     local file = io.open(arg[1], "r")
     if file then
         sourceCode = file:read("*all")
-
         file:close()
     else
         error("Could not open file: " .. arg[1])
     end
 else
-    sourceCode = io.read()
-end
+    -- repl
+    print("PlunyoCL (STDIN)")
 
-io.stderr()
+    while true do
+        io.write("> ") -- use io.write to avoid extra \n
+        local input = io.read()
 
-local tokens = Lexer.Tokenize(sourceCode)
+        if not input then
+            print("\n[ EOF detected, exiting... ]")
+            break
+        end
 
-for _, token in ipairs(tokens) do
-    print(token)
+        if input == "exit" then
+            break
+        end
+
+        print(Parser:generateAST(input), "\n")
+    end
 end
