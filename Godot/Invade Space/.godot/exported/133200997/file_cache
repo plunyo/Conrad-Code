@@ -1,0 +1,11 @@
+res://Scenes/Autoloads/scene_transition.tscn::9e844ad312a3dc0ecaa777734e4ef419::1723216300::res://.godot/exported/133200997/export-8950ef8df7b41cd589e9d210e9abaaa9-scene_transition.scn
+res://Scenes/Enemies/Blob/Projectile/blob_bullet.tscn::09157436e51305066d6a9a24f697e307::1730786715::res://.godot/exported/133200997/export-e78fd7b313c9fcb48412a93c374ee053-blob_bullet.scn
+res://Scenes/Enemies/Blob/blob.tscn::d0ae9fd0654ffaba9b6745771e981295::1730786833::res://.godot/exported/133200997/export-8a5ac7c3de35a8706ec82c4472d042e8-blob.scn
+res://Scenes/Map/space_place.tscn::8a81b37ae8bad44bbef5fb291708306e::1730786716::res://.godot/exported/133200997/export-d116e115f8dd0c095a98aa2a19ae3ab2-space_place.scn
+res://Scenes/Particles/ParticleQueue/particle_queue.tscn::71f8e6e1d3a53a49b783a06e7278174d::1730786716::res://.godot/exported/133200997/export-468e5e5a579447bc953fd51d7744ce38-particle_queue.scn
+res://Scenes/Particles/hit_particles.tscn::6f6f89911137c8eabd983c3e3755d0ff::1730786715::res://.godot/exported/133200997/export-61eec48d5a98583ecd92f247f3a35732-hit_particles.scn
+res://Scenes/Player/Bullet/bullet.tscn::23f261cef9ca5c7aeb5992077d46d5c9::1730786715::res://.godot/exported/133200997/export-a3be40519ae9746d42caa28cb9043875-bullet.scn
+res://Scenes/Player/player.tscn::859a30b98bf67b0159b372f7937012a2::1730786715::res://.godot/exported/133200997/export-8e63b53a88b650cb9792f8d8b6d332bc-player.scn
+res://Scenes/TitleScreen/title_screen.tscn::178d6a43eefc6996d0e8214bf79c2c6b::1730786715::res://.godot/exported/133200997/export-fc890f8610e602d64b2031dfc909cd33-title_screen.scn
+res://Scenes/Ui/UI.tscn::692f30ee71a93b22c0ea9b26659c22d2::1730786716::res://.godot/exported/133200997/export-641ab816ce4003b9068a732ebe90b628-UI.scn
+res://testing.tres::d38c0e04a3a7359682fe8822906e1a32::1725424800::res://.godot/exported/133200997/export-779bcb10f72890012ae0baafebbd850f-testing.res

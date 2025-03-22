@@ -1,0 +1,4 @@
+res://snack_haven/snack_haven.tscn
+res://snack/snack.tscn
+res://coin_counter/coin_counter.tscn
+res://snack/snack.gd

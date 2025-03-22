@@ -1,0 +1,16 @@
+res://Scenes/Player/player.tscn
+res://Scenes/Enemies/Blob/blob.gdshader
+res://Scenes/Player/player.gdshader
+res://Scenes/Map/space_place.gdshader
+res://Scenes/Player/player.gd
+res://Scenes/Player/Bullet/bullet.tscn
+res://Scenes/Enemies/Blob/blob.tscn
+res://Scenes/TitleScreen/title_screen.tscn
+res://Scenes/Particles/hit_particles.tscn
+res://Scenes/Enemies/Blob/Projectile/blob_bullet.tscn
+res://Scenes/Map/space_place.tscn
+res://Scenes/Particles/ParticleQueue/particle_queue.tscn
+res://Scenes/Ui/UI.tscn
+res://Scenes/Enemies/EnemyManager.gd
+res://Scenes/Map/space_place.gd
+res://Scenes/Enemies/Blob/blob.gd
