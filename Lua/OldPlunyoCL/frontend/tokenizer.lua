@@ -9,15 +9,21 @@ local keywords = {
 
 local Tokenizer = {}
 
-local function isAlpha(src)
-    return src:match("^[A-z]+$") ~= nil
+local function isAlpha(str)
+    return str:match("^[A-Za-z]+$") ~= nil
 end
 
-local function isInt(str)
+local function isDigit(str)
     return str:match("^[0-9]+$") ~= nil
 end
 
 function Tokenizer.Tokenize(sourceCode)
+    print("sourceCode type:", type(sourceCode))
+    if type(sourceCode) == "table" then
+        for k, v in pairs(sourceCode) do
+            print("key:", k, "value:", v, "value type:", type(v))
+        end
+    end
     local tokens = {}
     local src = {}
 
@@ -30,44 +36,32 @@ function Tokenizer.Tokenize(sourceCode)
         local currentChar = table.remove(src, 1)
 
         if currentChar:match("%s") then
-            -- GOTO DOESN'T WORK AND CONTINUE DOESN'T EXIST, I'M BOUTA CRASH OUT
-        else
-            if TokenType.Lookup[currentChar] then
-                table.insert(
-                    tokens,
-                    Token:new(currentChar, TokenType.Lookup[currentChar])
-                )
-            elseif isInt(currentChar) then
-                local num = currentChar
-
-                -- keep tokenizing until we hit a not number char
-                while #src > 0 and isInt(src[1]) do
-                    num = num .. table.remove(src, 1)
-                end
-
-                table.insert(tokens, Token:new(num, TokenType.NUMBER))
-            elseif isAlpha(currentChar) then
-                local identifier = currentChar
-
-                -- keep tokenizing until we hit a not alphabet char
-                while #src > 0 and isAlpha(src[1]) do
-                    identifier = identifier .. table.remove(src, 1)
-                end
-
-                local reserved = keywords[identifier]
-                table.insert(
-                    tokens,
-                    Token:new(
-                        identifier,
-                        (not type(reserved) == "number")
-                                and TokenType.IDENTIFIER
-                            or reserved
-                    )
-                )
-            else
-                -- Handle unrecognized token
-                error(errorMessages.UNRECOGNIZED_TOKEN:format(currentChar))
+            -- ignore whitespace
+        elseif TokenType.Lookup[currentChar] then
+            table.insert(
+                tokens,
+                Token:new(currentChar, TokenType.Lookup[currentChar])
+            )
+        elseif isDigit(currentChar) then
+            local num = currentChar
+            while #src > 0 and isDigit(src[1]) do
+                num = num .. table.remove(src, 1)
             end
+            table.insert(tokens, Token:new(num, TokenType.NUMBER))
+        elseif isAlpha(currentChar) then
+            local identifier = currentChar
+            while #src > 0 and isAlpha(src[1]) do
+                identifier = identifier .. table.remove(src, 1)
+            end
+            table.insert(
+                tokens,
+                Token:new(
+                    identifier,
+                    keywords[identifier] or TokenType.IDENTIFIER
+                )
+            )
+        else
+            error(errorMessages.UNRECOGNIZED_TOKEN:format(currentChar))
         end
     end
 

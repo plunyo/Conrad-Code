@@ -1,6 +1,5 @@
 local tokenizer = require("frontend.tokenizer")
 local TokenType = require("frontend.tokenType")
-local Token = require("frontend.token")
 
 require("frontend.astNodes")
 
@@ -8,7 +7,7 @@ local Parser = {}
 Parser.__index = Parser
 
 function Parser:new()
-    local instance = setmetatable({}, Parser)
+    local instance = setmetatable({}, self)
 
     instance.tokens = {}
 
@@ -49,15 +48,17 @@ end
 
 function Parser:generateAST(sourceCode)
     self.tokens = tokenizer.Tokenize(sourceCode)
+
     local program = Program:new()
 
     -- Parse till end
     while self:notEOF() do
         local statement = self:parseStatement()
-        table.insert{program.body, statement}
+        table.insert({ program.body, statement })
     end
 
     return program
 end
 
 return Parser
+
