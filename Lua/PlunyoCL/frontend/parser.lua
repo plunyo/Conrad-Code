@@ -77,33 +77,18 @@ end
 function Parser:parsePrimaryExpr()
     local tokenType = self:at().type
 
-    local handler = ({
-        [Lexer.TokenType.NUMBER] = function()
-            return AST.NumericLiteral:new(tonumber(self:eat().value))
-        end,
-
-        [Lexer.TokenType.IDENTIFIER] = function()
-            return AST.Identifier:new(self:eat().value)
-        end,
-
-        [Lexer.TokenType.NIL] = function()
-            self:eat() -- consume 'nil'
-            return AST.NilLiteral:new()
-        end,
-
-        [Lexer.TokenType.L_PAREN] = function()
-            self:eat() -- consume '('
-            local value = self:parseExpr()
-            self:expect(
-                Lexer.TokenType.R_PAREN,
-                "expected closing parenthesis."
-            )
-            return value
-        end,
-    })[tokenType]
-
-    if handler then
-        return handler()
+    if tokenType == Lexer.TokenType.NUMBER then
+        return AST.NumericLiteral:new(tonumber(self:eat().value))
+    elseif tokenType == Lexer.TokenType.IDENTIFIER then
+        return AST.Identifier:new(self:eat().value)
+    elseif tokenType == Lexer.TokenType.NIL then
+        self:eat() -- consume 'nil'
+        return AST.NilLiteral:new()
+    elseif tokenType == Lexer.TokenType.L_PAREN then
+        self:eat() -- consume '('
+        local value = self:parseExpr()
+        self:expect(Lexer.TokenType.R_PAREN, "Expected closing parenthesis.")
+        return value
     else
         error(string.format('unexpected token: "%s"', tostring(self:at())))
     end

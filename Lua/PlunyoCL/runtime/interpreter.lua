@@ -13,31 +13,53 @@ function Interpreter:evalProgram(program)
     return lastEvaluated
 end
 
+function Interpreter:evalNumericBinaryExpr(lhs, rhs, operator)
+    local result = 0
+    if operator == "+" then
+        result = lhs.value + rhs.value
+    elseif operator == "-" then
+        result = lhs.value - rhs.value
+    elseif operator == "*" then
+        result = lhs.value * rhs.value
+    elseif operator == "/" then
+        if rhs.value == 0 then
+            error("Division by 0.")
+        end
+
+        result = lhs.value / rhs.value
+    elseif operator == "%" then
+        result = lhs.value % rhs.value
+    end
+
+    return Value.NumberVal:new(result)
+end
+
 function Interpreter:evalBinaryExpr(binOp)
-    -- THIS IS WHERE YOU ARE UP TO CONRAD DONT FORGET YOU STUPID P.O.S, EP: WALKING THE AST (TIMESTAMP: 17:09)
+    local leftSide = self:evaluate(binOp.left)
+    local rightSide = self:evaluate(binOp.right)
+
+    if
+        lhs.type == Value.ValueType.NUMBER
+        and rhs.type == Value.ValueType.NUMBER
+    then
+        return self:evalNumericBinaryExpr(lhs, rhs, binOp.operator)
+    end
+
+    -- 1 or both r nil
+    return Value.NilVal:new()
 end
 
 function Interpreter:evaluate(astNode)
-    local handler = ({
-        [AST.Type.NUMERIC_LITERAL] = function()
-            return Value.NumberVal:new(astNode.value)
-        end,
+    local astNodeKind = astNode.kind
 
-        [AST.Type.NIL_LITERAL] = function()
-            return Value.NilVal:new()
-        end,
-
-        [AST.Type.BINARY_EXPR] = function ()
-            return self:evalBinaryExpr(astNode)
-        end
-
-        [AST.Type.BINARY_EXPR] = function ()
-            return self:evalProgram(astNode)
-        end
-    })[astNode.kind]
-
-    if handler then
-        return handler()
+    if astNodeKind == AST.Type.NUMERIC_LITERAL then
+        return Value.NumberVal:new(astNode.value)
+    elseif astNodeKind == AST.Type.NIL_LITERAL then
+        return Value.NilVal:new()
+    elseif astNodeKind == AST.Type.BINARY_EXPR then
+        return self:evalBinaryExpr(astNode)
+    elseif astNodeKind == AST.Type.BINARY_EXPR then
+        return self:evalProgram(astNode)
     else
         error("This AST Node has not yet been setup for interpretation.")
     end

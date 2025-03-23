@@ -62,7 +62,7 @@ local function isDigit(str)
     return str:match("^[0-9]+$") ~= nil
 end
 
-function Lexer.Tokenize(sourceCode)
+function tokenize(sourceCode)
     local tokens, src, index = {}, {}, 1
 
     local function at()
@@ -127,8 +127,9 @@ function Lexer.Tokenize(sourceCode)
     return tokens
 end
 
--- return the module so other files can require it
+-- linkning
 Lexer.TokenType = TokenType
+Lexer.tokenize = tokenize
 Lexer.Token = Token
 
 return Lexer
