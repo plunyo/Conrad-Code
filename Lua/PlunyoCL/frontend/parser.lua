@@ -16,6 +16,23 @@ function Parser:eat()
     return current
 end
 
+function Parser:expect(type, errorMessage)
+    local prev = self:eat()
+
+    if not prev or prev.type ~= type then
+        error(
+            string.format(
+                "Parser Error:\n%s | %s | Expecting: %s",
+                errorMessage,
+                tostring(prev),
+                type
+            )
+        )
+    end
+
+    return prev
+end
+
 -- [[ PARSER FUNCTIONS ]] --
 
 function Parser:parseStatement()
@@ -24,23 +41,71 @@ function Parser:parseStatement()
 end
 
 function Parser:parseExpr()
-    return self:parsePrimaryExpr()
+    return self:parseAdditiveExpr()
+end
+
+function Parser:parseAdditiveExpr()
+    local left = self:parseMultiplicativeExpr()
+
+    while self:at().value == "+" or self:at().value == "-" do
+        local operator = self:eat().value
+        local right = self:parseMultiplicativeExpr()
+
+        left = AST.BinaryExpr:new(left, right, operator)
+    end
+
+    return left
+end
+
+function Parser:parseMultiplicativeExpr()
+    local left = self:parsePrimaryExpr()
+
+    while
+        self:at().value == "*"
+        or self:at().value == "/"
+        or self:at().value == "%"
+    do
+        local operator = self:eat().value
+        local right = self:parsePrimaryExpr()
+
+        left = AST.BinaryExpr:new(left, right, operator)
+    end
+
+    return left
 end
 
 function Parser:parsePrimaryExpr()
     local tokenType = self:at().type
 
-    if tokenType == Lexer.TokenType.NUMBER then
-        return AST.NumericLiteral:new(tonumber(self:eat().value))
-    elseif tokenType == Lexer.TokenType.IDENTIFIER then
-        return AST.Identifier:new(self:eat().value)
-    else
-        error(
-            string.format(
-                'Unexpected token found during parsing "%s"',
-                tostring(self:at())
+    local handler = ({
+        [Lexer.TokenType.NUMBER] = function()
+            return AST.NumericLiteral:new(tonumber(self:eat().value))
+        end,
+
+        [Lexer.TokenType.IDENTIFIER] = function()
+            return AST.Identifier:new(self:eat().value)
+        end,
+
+        [Lexer.TokenType.NIL] = function()
+            self:eat() -- consume 'nil'
+            return AST.NilLiteral:new()
+        end,
+
+        [Lexer.TokenType.L_PAREN] = function()
+            self:eat() -- consume '('
+            local value = self:parseExpr()
+            self:expect(
+                Lexer.TokenType.R_PAREN,
+                "expected closing parenthesis."
             )
-        )
+            return value
+        end,
+    })[tokenType]
+
+    if handler then
+        return handler()
+    else
+        error(string.format('unexpected token: "%s"', tostring(self:at())))
     end
 end
 

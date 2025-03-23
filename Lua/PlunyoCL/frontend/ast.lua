@@ -1,40 +1,30 @@
 local AST = {}
 
 AST.Type = {
-    -- top-level program node
     PROGRAM = "Program",
-
-    -- literals (basic values)
-    NUMERIC_LITERAL = "NumericLiteral", -- numbers like 42, 3.14
-    BLANK_LITERAL = "BlankLiteral", -- for "null", "nil", or similar
-    IDENTIFIER = "Identifier", -- variable or function names
-
-    -- expressions
-    BINARY_EXPR = "BinaryExpression", -- math/logic like x + y, a && b
-    UNARY_EXPR = "UnaryExpression", -- single-operand like -x, !x
-    CALL_EXPR = "CallExpression", -- function calls like foo(1, 2, 3)
-    ASSIGNMENT_EXPR = "AssignmentExpression", -- assigning values, e.g., x = 10
-
-    -- statements
-    BLOCK_STATEMENT = "BlockStatement", -- code blocks: { ... }
-    IF_STATEMENT = "IfStatement", -- if (condition) { ... }
-    WHILE_STATEMENT = "WhileStatement", -- while loops
-    RETURN_STATEMENT = "ReturnStatement", -- return x;
+    NUMERIC_LITERAL = "NumericLiteral",
+    NIL_LITERAL = "NilLiteral",
+    IDENTIFIER = "Identifier",
+    BINARY_EXPR = "BinaryExpression",
+    UNARY_EXPR = "UnaryExpression",
+    CALL_EXPR = "CallExpression",
+    ASSIGNMENT_EXPR = "AssignmentExpression",
+    BLOCK_STATEMENT = "BlockStatement",
+    IF_STATEMENT = "IfStatement",
+    WHILE_STATEMENT = "WhileStatement",
+    RETURN_STATEMENT = "ReturnStatement",
 }
 
--- helper function for indentation
 local function indent(str, spaces)
     local padding = string.rep(" ", spaces or 2)
     return padding .. string.gsub(str, "\n", "\n" .. padding)
 end
 
--- helper function to convert table of items to string with indentation
 local function tableToString(tbl, level)
     level = level or 0
     local lines = {}
     for _, v in ipairs(tbl) do
-        local str = tostring(v)
-        table.insert(lines, indent(str, (level + 1) * 2))
+        table.insert(lines, indent(tostring(v), (level + 1) * 2))
     end
     return table.concat(lines, ",\n")
 end
@@ -44,9 +34,7 @@ local Statement = {}
 Statement.__index = Statement
 
 function Statement:new(kind)
-    local instance = setmetatable({}, self)
-    instance.kind = kind
-    return instance
+    return setmetatable({ kind = kind }, self)
 end
 
 function Statement:__tostring()
@@ -59,9 +47,7 @@ Program.__index = Program
 setmetatable(Program, { __index = Statement })
 
 function Program:new(body)
-    local instance = setmetatable(Statement:new(AST.Type.PROGRAM), self)
-    instance.body = body or {}
-    return instance
+    return setmetatable({ kind = AST.Type.PROGRAM, body = body or {} }, self)
 end
 
 function Program:__tostring()
@@ -74,9 +60,7 @@ local Expr = {}
 Expr.__index = Expr
 
 function Expr:new(kind)
-    local instance = setmetatable({}, self)
-    instance.kind = kind
-    return instance
+    return setmetatable({ kind = kind }, self)
 end
 
 function Expr:__tostring()
@@ -89,11 +73,12 @@ BinaryExpr.__index = BinaryExpr
 setmetatable(BinaryExpr, { __index = Expr })
 
 function BinaryExpr:new(left, right, operator)
-    local instance = setmetatable(Expr:new(AST.Type.BINARY_EXPR), self)
-    instance.left = left
-    instance.right = right
-    instance.operator = operator
-    return instance
+    return setmetatable({
+        kind = AST.Type.BINARY_EXPR,
+        left = left,
+        right = right,
+        operator = operator,
+    }, self)
 end
 
 function BinaryExpr:__tostring()
@@ -111,9 +96,7 @@ Identifier.__index = Identifier
 setmetatable(Identifier, { __index = Expr })
 
 function Identifier:new(symbol)
-    local instance = setmetatable(Expr:new(AST.Type.IDENTIFIER), self)
-    instance.symbol = symbol
-    return instance
+    return setmetatable({ kind = AST.Type.IDENTIFIER, symbol = symbol }, self)
 end
 
 function Identifier:__tostring()
@@ -126,35 +109,35 @@ NumericLiteral.__index = NumericLiteral
 setmetatable(NumericLiteral, { __index = Expr })
 
 function NumericLiteral:new(value)
-    local instance = setmetatable(Expr:new(AST.Type.NUMERIC_LITERAL), self)
-    instance.value = value
-    return instance
+    return setmetatable(
+        { kind = AST.Type.NUMERIC_LITERAL, value = value },
+        self
+    )
 end
 
 function NumericLiteral:__tostring()
     return string.format("NumericLiteral { Value: %s }", tostring(self.value))
 end
 
--- blank literal (inherits from Expr)
-local BlankLiteral = {}
-BlankLiteral.__index = BlankLiteral
-setmetatable(BlankLiteral, { __index = Expr })
+-- nil literal (inherits from Expr)
+local NilLiteral = {}
+NilLiteral.__index = NilLiteral
+setmetatable(NilLiteral, { __index = Expr })
 
-function BlankLiteral:new()
-    return setmetatable(Expr:new(AST.Type.BLANK_LITERAL), self)
+function NilLiteral:new()
+    return setmetatable({ kind = AST.Type.NIL_LITERAL }, self)
 end
 
-function BlankLiteral:__tostring()
-    return "BlankLiteral {}"
+function NilLiteral:__tostring()
+    return "NilLiteral {}"
 end
 
--- register classes in AST (if needed)
 AST.Statement = Statement
 AST.Program = Program
 AST.Expr = Expr
 AST.BinaryExpr = BinaryExpr
 AST.Identifier = Identifier
 AST.NumericLiteral = NumericLiteral
-AST.BlankLiteral = BlankLiteral
+AST.NilLiteral = NilLiteral
 
 return AST

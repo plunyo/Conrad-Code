@@ -1,3 +1,4 @@
+local Interpreter = require("runtime.interpreter")
 local Parser = require("frontend.parser")
 local Lexer = require("frontend.lexer")
 
@@ -29,6 +30,6 @@ else
             break
         end
 
-        print(Parser:generateAST(input), "\n")
+        print(Interpreter.evaluate(Parser:generateAST(input)), "\n")
     end
 end
