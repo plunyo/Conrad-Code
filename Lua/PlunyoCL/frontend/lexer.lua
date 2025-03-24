@@ -2,16 +2,17 @@ local Lexer = {}
 
 -- token types
 local TokenType = {
-    NIL = "Nil", -- Literal types
     NUMBER = "Number",
     IDENTIFIER = "Identifier",
 
     VAR = "Var", -- Keywords
+    CONST = "Const",
 
     BIN_OPERATOR = "Binary Operator", -- Grouping & Operators
     EQUALS = "Equals",
     L_PAREN = "Left Parenthesis",
     R_PAREN = "Right Parenthesis",
+    SEMICOLON = "Semicolon",
 
     QUOTE = "Quote",
 
@@ -33,7 +34,7 @@ TokenType.Lookup = {
     ["'"] = TokenType.QUOTE,
     ['"'] = TokenType.QUOTE,
 
-    ["var"] = TokenType.VAR,
+    [";"] = TokenType.SEMICOLON,
 }
 
 -- token "class"
@@ -50,8 +51,8 @@ end
 
 -- actual tokenizing
 local keywords = {
-    ["nil"] = TokenType.NIL,
     ["var"] = TokenType.VAR,
+    ["const"] = TokenType.CONST,
 }
 
 local function isAlpha(str)
@@ -62,7 +63,7 @@ local function isDigit(str)
     return str:match("^[0-9]+$") ~= nil
 end
 
-function tokenize(sourceCode)
+function Lexer.Tokenize(sourceCode)
     local tokens, src, index = {}, {}, 1
 
     local function at()
@@ -129,7 +130,6 @@ end
 
 -- linkning
 Lexer.TokenType = TokenType
-Lexer.tokenize = tokenize
 Lexer.Token = Token
 
 return Lexer

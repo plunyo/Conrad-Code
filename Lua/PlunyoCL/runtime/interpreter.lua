@@ -1,20 +1,21 @@
-local Value = require("runtime.value")
+local Values = require("runtime.values")
 local AST = require("frontend.ast")
 
 local Interpreter = {}
 
-function Interpreter:evalProgram(program)
-    local lastEvaluated = Value.NilVal:new()
+function Interpreter:evalProgram(program, env)
+    local lastEvaluated = Values.NilVal:new()
 
-    for _, statement in ipairs(program) do
-        lastEvaluated = evaluate(statement)
+    for _, statement in ipairs(program.body) do
+        lastEvaluated = self:evaluate(statement, env)
     end
 
     return lastEvaluated
 end
 
-function Interpreter:evalNumericBinaryExpr(lhs, rhs, operator)
+function Interpreter.evalNumericBinaryExpr(lhs, rhs, operator)
     local result = 0
+
     if operator == "+" then
         result = lhs.value + rhs.value
     elseif operator == "-" then
@@ -25,43 +26,52 @@ function Interpreter:evalNumericBinaryExpr(lhs, rhs, operator)
         if rhs.value == 0 then
             error("Division by 0.")
         end
-
         result = lhs.value / rhs.value
     elseif operator == "%" then
         result = lhs.value % rhs.value
     end
 
-    return Value.NumberVal:new(result)
+    return Values.NumberVal:new(result)
 end
 
-function Interpreter:evalBinaryExpr(binOp)
-    local leftSide = self:evaluate(binOp.left)
-    local rightSide = self:evaluate(binOp.right)
+function Interpreter:evalBinaryExpr(binOp, env)
+    local lhs = self:evaluate(binOp.left, env)
+    local rhs = self:evaluate(binOp.right, env)
 
     if
-        lhs.type == Value.ValueType.NUMBER
-        and rhs.type == Value.ValueType.NUMBER
+        lhs.type == Values.ValueType.NUMBER
+        and rhs.type == Values.ValueType.NUMBER
     then
-        return self:evalNumericBinaryExpr(lhs, rhs, binOp.operator)
+        return self.evalNumericBinaryExpr(lhs, rhs, binOp.operator)
     end
 
-    -- 1 or both r nil
-    return Value.NilVal:new()
+    -- one or both are nil or unsupported types
+    return Values.NilVal:new()
 end
 
-function Interpreter:evaluate(astNode)
+function Interpreter:evalIdentifier(identifier, env)
+    local value = env:lookupVar(identifier.symbol)
+    return value
+end
+
+function Interpreter:evaluate(astNode, env)
     local astNodeKind = astNode.kind
 
     if astNodeKind == AST.Type.NUMERIC_LITERAL then
-        return Value.NumberVal:new(astNode.value)
-    elseif astNodeKind == AST.Type.NIL_LITERAL then
-        return Value.NilVal:new()
+        return Values.NumberVal:new(astNode.value)
+    elseif astNodeKind == AST.Type.IDENTIFIER then
+        return self:evalIdentifier(astNode, env)
     elseif astNodeKind == AST.Type.BINARY_EXPR then
-        return self:evalBinaryExpr(astNode)
-    elseif astNodeKind == AST.Type.BINARY_EXPR then
-        return self:evalProgram(astNode)
+        return self:evalBinaryExpr(astNode, env)
+    elseif astNodeKind == AST.Type.PROGRAM then
+        return self:evalProgram(astNode, env)
     else
-        error("This AST Node has not yet been setup for interpretation.")
+        error(
+            string.format(
+                "This AST node hasn't been set up for interpretation.\n%s",
+                astNode
+            )
+        )
     end
 end
 

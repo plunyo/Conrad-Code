@@ -35,9 +35,53 @@ end
 
 -- [[ PARSER FUNCTIONS ]] --
 
+function Parser:parseVarDeclaration()
+    local keywordToken = self:eat()
+
+    if
+        keywordToken.type ~= Lexer.TokenType.VAR
+        and keywordToken.type ~= Lexer.TokenType.CONST
+    then
+        error("Expected 'var' or 'const' keyword.")
+    end
+
+    local isConstant = keywordToken.type == Lexer.TokenType.CONST
+
+    local identifier = self:expect(
+        Lexer.TokenType.IDENTIFIER,
+        "Expected identifier name after 'var' or 'const'."
+    ).value
+
+    if self:at().type == Lexer.TokenType.SEMICOLON then
+        self:eat() -- eat semicolon
+
+        if isConstant then
+            error("Constants must have an assigned value. None provided.")
+        end
+
+        return AST.VarDeclaration:new(isConstant, identifier)
+    end
+
+    self:expect(Lexer.TokenType.EQUALS, "Expected '=' after identifier.")
+
+    local value = self:parseExpr()
+
+    self:expect(
+        Lexer.TokenType.SEMICOLON,
+        "Expected ';' at the end of the declaration."
+    )
+
+    return AST.VarDeclaration:new(isConstant, identifier, value)
+end
+
 function Parser:parseStatement()
-    -- skip to parseExpr for now
-    return self:parseExpr()
+    local tkType = self:at().type
+
+    if tkType == Lexer.TokenType.VAR or tkType == Lexer.TokenType.CONST then
+        return self:parseVarDeclaration()
+    else
+        return self:parseExpr()
+    end
 end
 
 function Parser:parseExpr()
@@ -81,16 +125,13 @@ function Parser:parsePrimaryExpr()
         return AST.NumericLiteral:new(tonumber(self:eat().value))
     elseif tokenType == Lexer.TokenType.IDENTIFIER then
         return AST.Identifier:new(self:eat().value)
-    elseif tokenType == Lexer.TokenType.NIL then
-        self:eat() -- consume 'nil'
-        return AST.NilLiteral:new()
     elseif tokenType == Lexer.TokenType.L_PAREN then
         self:eat() -- consume '('
         local value = self:parseExpr()
         self:expect(Lexer.TokenType.R_PAREN, "Expected closing parenthesis.")
         return value
     else
-        error(string.format('unexpected token: "%s"', tostring(self:at())))
+        error(string.format('Unexpected token: "%s"', tostring(self:at())))
     end
 end
 

@@ -2,17 +2,12 @@ local AST = {}
 
 AST.Type = {
     PROGRAM = "Program",
+
     NUMERIC_LITERAL = "NumericLiteral",
-    NIL_LITERAL = "NilLiteral",
     IDENTIFIER = "Identifier",
+
     BINARY_EXPR = "BinaryExpression",
-    UNARY_EXPR = "UnaryExpression",
-    CALL_EXPR = "CallExpression",
-    ASSIGNMENT_EXPR = "AssignmentExpression",
-    BLOCK_STATEMENT = "BlockStatement",
-    IF_STATEMENT = "IfStatement",
-    WHILE_STATEMENT = "WhileStatement",
-    RETURN_STATEMENT = "ReturnStatement",
+    VAR_DECLARATION = "VarDeclaration",
 }
 
 local function indent(str, spaces)
@@ -53,6 +48,20 @@ end
 function Program:__tostring()
     local bodyStr = tableToString(self.body, 1)
     return string.format("Program {\n%s\n}", bodyStr)
+end
+
+-- VarDeclaration class
+local VarDeclaration = {}
+VarDeclaration.__index = VarDeclaration
+setmetatable(VarDeclaration, { __index = Statement })
+
+function VarDeclaration:new(constant, identifier, value)
+    return setmetatable({
+        kind = AST.Type.VAR_DECLARATION,
+        constant = constant,
+        identifier = identifier,
+        value = value,
+    }, self)
 end
 
 -- base class for expressions
@@ -119,25 +128,12 @@ function NumericLiteral:__tostring()
     return string.format("NumericLiteral { Value: %s }", tostring(self.value))
 end
 
--- nil literal (inherits from Expr)
-local NilLiteral = {}
-NilLiteral.__index = NilLiteral
-setmetatable(NilLiteral, { __index = Expr })
-
-function NilLiteral:new()
-    return setmetatable({ kind = AST.Type.NIL_LITERAL }, self)
-end
-
-function NilLiteral:__tostring()
-    return "NilLiteral {}"
-end
-
 AST.Statement = Statement
 AST.Program = Program
 AST.Expr = Expr
 AST.BinaryExpr = BinaryExpr
 AST.Identifier = Identifier
 AST.NumericLiteral = NumericLiteral
-AST.NilLiteral = NilLiteral
+AST.VarDeclaration = VarDeclaration
 
 return AST
