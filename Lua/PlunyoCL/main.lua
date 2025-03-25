@@ -10,7 +10,7 @@ globalEnv:declareVar("false", Values.BoolVal:new(false))
 
 globalEnv:declareVar("nil", Values.NilVal:new())
 
--- read file function
+-- read file functions
 local function readFile(filename)
     local file = io.open(filename, "r")
 

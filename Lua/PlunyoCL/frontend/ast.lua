@@ -64,6 +64,19 @@ function VarDeclaration:new(constant, identifier, value)
     }, self)
 end
 
+function VarDeclaration:__tostring()
+    local parts = {
+        indent("Constant: " .. tostring(self.constant), 4),
+        indent("Identifier: " .. self.identifier, 4),
+    }
+
+    if self.value then
+        table.insert(parts, indent("Value: " .. tostring(self.value), 4))
+    end
+
+    return string.format("VarDeclaration {\n%s\n}", table.concat(parts, ",\n"))
+end
+
 -- base class for expressions
 local Expr = {}
 Expr.__index = Expr
