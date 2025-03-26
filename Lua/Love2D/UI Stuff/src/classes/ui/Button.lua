@@ -8,14 +8,15 @@ local Button = {
     onClicked = Signal:new(),
 
     text = "",
-    textColor = {0, 0, 0, 1},
+    textColor = { 0, 0, 0, 1 },
 
-    isClicked = false
+    isClicked = false,
 }
 Button.__index = Button
 
 function Button:new(size, position, text, color, outline)
-    local instance = setmetatable(Control.new(self, size, position, outline), Button)
+    local instance =
+        setmetatable(Control.new(self, size, position, outline), Button)
 
     instance.onClicked = Signal:new()
 
@@ -24,8 +25,14 @@ function Button:new(size, position, text, color, outline)
 
     instance.color = color
 
-    instance.background = ColorRect:new(instance.size, instance.position, color, outline)
-    instance.label = Label:new(instance.position, instance.text, instance.textColor, instance.font)
+    instance.background =
+        ColorRect:new(instance.size, instance.position, color, outline)
+    instance.label = Label:new(
+        instance.position,
+        instance.text,
+        instance.textColor,
+        instance.font
+    )
 
     return instance
 end
@@ -42,7 +49,7 @@ end
 
 function Button:update()
     local mouseX, mouseY = love.mouse.getPosition()
-    
+
     if self:isMouseHovering(mouseX, mouseY) then
         if love.mouse.isDown(1) and not self.isClicked then
             self.isClicked = true
@@ -57,7 +64,12 @@ function Button:update()
 end
 
 function Button:draw()
-    local colorFactor = self.isClicked and 0.6 or (self:isMouseHovering(love.mouse.getX(), love.mouse.getY()) and 0.8 or 1)
+    local colorFactor = self.isClicked and 0.6
+        or (
+            self:isMouseHovering(love.mouse.getX(), love.mouse.getY())
+                and 0.8
+            or 1
+        )
     local adjustedColor = utils.adjustBrightness(self.color, colorFactor)
 
     self.background.color = adjustedColor
