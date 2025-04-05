@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://rtgk30bwmfln"]
+
+[ext_resource type="PackedScene" uid="uid://00kntv5ir7w6" path="res://player/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cniem451gm5bj" path="res://platform/platform.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://6gh6ya0uwwvd" path="res://coin/coin.tscn" id="3_h2yge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0k"]
+size = Vector2(1000, 60)
+
+[node name="Main" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_7dm0k")
+
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+custom_minimum_size = Vector2(500, 20)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -30.0
+offset_right = 500.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.513233, 0.513233, 0.513233, 1)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, -250)
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(0, -100)
+
+[node name="PlatformContainer" type="Node2D" parent="."]
+
+[node name="Platform" parent="PlatformContainer" instance=ExtResource("2_0xm2m")]
+position = Vector2(-373, -103)
+
+[node name="Platform2" parent="PlatformContainer" instance=ExtResource("2_0xm2m")]
+position = Vector2(-185, -226)
+
+[node name="Platform3" parent="PlatformContainer" instance=ExtResource("2_0xm2m")]
+position = Vector2(1, -336)
+
+[node name="Platform4" parent="PlatformContainer" instance=ExtResource("2_0xm2m")]
+position = Vector2(171, -229)
+
+[node name="Platform5" parent="PlatformContainer" instance=ExtResource("2_0xm2m")]
+position = Vector2(354, -94)
+
+[node name="CoinContainer" type="Node2D" parent="."]
+
+[node name="Coin" parent="CoinContainer" instance=ExtResource("3_h2yge")]
+position = Vector2(-374, -140)
+
+[node name="Coin2" parent="CoinContainer" instance=ExtResource("3_h2yge")]
+position = Vector2(-190, -263)
+
+[node name="Coin3" parent="CoinContainer" instance=ExtResource("3_h2yge")]
+position = Vector2(1, -373)
+
+[node name="Coin4" parent="CoinContainer" instance=ExtResource("3_h2yge")]
+position = Vector2(169, -267)
+
+[node name="Coin5" parent="CoinContainer" instance=ExtResource("3_h2yge")]
+position = Vector2(353, -130)
+
+[node name="CoinCounter" type="Label" parent="."]
+offset_left = -547.0
+offset_top = -551.0
+offset_right = -507.0
+offset_bottom = -528.0
+theme_override_font_sizes/font_size = 50
+text = "0"
