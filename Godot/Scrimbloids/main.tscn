@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cx8rv7oju7872"]
-
-[ext_resource type="Script" uid="uid://bcdvbsahdmvnj" path="res://dunGEN.gd" id="1_ig7tw"]
-
-[node name="DunGEN" type="TileMapLayer"]
-script = ExtResource("1_ig7tw")
