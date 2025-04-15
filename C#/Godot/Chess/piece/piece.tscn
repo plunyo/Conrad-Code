@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://615b23x8q5td"]
 
-[ext_resource type="Script" uid="uid://cvbcgi6qo4cn5" path="res://piece/piece.gd" id="1_3makh"]
+[ext_resource type="Script" uid="uid://c8dfoa0jj3sse" path="res://piece/Piece.cs" id="1_6byuq"]
 [ext_resource type="Texture2D" uid="uid://dmtwsdb752bgp" path="res://assets/piece_spritesheet.png" id="2_hisf2"]
 
 [node name="Piece" type="Node2D"]
-script = ExtResource("1_3makh")
+script = ExtResource("1_6byuq")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_hisf2")

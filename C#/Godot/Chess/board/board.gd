@@ -10,8 +10,6 @@ const SQUARE_COUNT: int = 64
 @export var squares: Array[Piece] = []
 
 @onready var piece_container: Node2D = $PieceContainer
-@onready var board_size: Vector2 = Vector2(8, 8)
-
 var white_to_move: bool = true
 
 func _ready() -> void:

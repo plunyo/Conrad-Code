@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://yjwpnuwl1msf"]
+
+[ext_resource type="Script" uid="uid://c7owpaw8wrhrc" path="res://board/Board.cs" id="1_k4dee"]
+[ext_resource type="Texture2D" uid="uid://m55d0c3sbcyo" path="res://assets/board.png" id="2_8l818"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_k4dee")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(360, 360)
+texture = ExtResource("2_8l818")
+
+[node name="PieceContainer" type="Node2D" parent="."]
