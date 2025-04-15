@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcqamyp7jbg80"]
+
+[ext_resource type="Script" uid="uid://cxv5ypjrkp18e" path="res://autoloads/sound_mgr/sound_mgr.gd" id="1_fyb8u"]
+[ext_resource type="AudioStream" uid="uid://blqga0qrttn4i" path="res://player/assets/sounds/jump.wav" id="1_t1hfy"]
+[ext_resource type="AudioStream" uid="uid://y44uwnb4qu4m" path="res://player/assets/sounds/die.wav" id="2_ccnx0"]
+[ext_resource type="AudioStream" uid="uid://drsuke5tyixi7" path="res://levels/assets/time_for_adventure.mp3" id="3_j1ipg"]
+[ext_resource type="AudioStream" uid="uid://c3jj3567m6cx0" path="res://menu/tap.wav" id="5_gbrtt"]
+
+[node name="SoundMgr" type="Node"]
+script = ExtResource("1_fyb8u")
+
+[node name="PlayerSounds" type="Node" parent="."]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="PlayerSounds"]
+stream = ExtResource("1_t1hfy")
+
+[node name="DieSound" type="AudioStreamPlayer" parent="PlayerSounds"]
+stream = ExtResource("2_ccnx0")
+
+[node name="GameSounds" type="Node" parent="."]
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="GameSounds"]
+stream = ExtResource("3_j1ipg")
+autoplay = true
+
+[node name="UiSounds" type="Node" parent="."]
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="UiSounds"]
+stream = ExtResource("5_gbrtt")

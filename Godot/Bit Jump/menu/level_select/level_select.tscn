@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://b84661wwyf3mn"]
+
+[ext_resource type="FontFile" uid="uid://dvaqis38r3jy8" path="res://assets/fonts/MainMenu.tres" id="1_ls22l"]
+[ext_resource type="Script" uid="uid://41nh523bv4gm" path="res://menu/level_select/level_select.gd" id="1_yx4hh"]
+[ext_resource type="PackedScene" uid="uid://bna44plvbkks8" path="res://menu/menu_touchscreen.tscn" id="3_qwl10"]
+
+[node name="LevelSelect" type="MarginContainer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_yx4hh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Selector" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 90)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 60
+text = ">"
+
+[node name="Level1" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(395, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 40
+text = "Level 1"
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2/VBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="Selector" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(45, 90)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 60
+
+[node name="Level2" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(395, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 40
+text = "Level 2"
+
+[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2/VBoxContainer/CenterContainer3"]
+layout_mode = 2
+
+[node name="Selector" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(45, 90)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 60
+
+[node name="Level3" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(395, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 40
+text = "Level 3"
+
+[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2/VBoxContainer/CenterContainer4"]
+layout_mode = 2
+
+[node name="Selector" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(45, 90)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 60
+
+[node name="Back" type="Label" parent="CenterContainer2/VBoxContainer/CenterContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(395, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ls22l")
+theme_override_font_sizes/font_size = 40
+text = "Back"
+
+[node name="MenuTouchscreen" parent="." instance=ExtResource("3_qwl10")]
+position = Vector2(160, 320)
