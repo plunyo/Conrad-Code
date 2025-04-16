@@ -1,0 +1,5 @@
+res://board/board.gd
+res://board/Board.cs
+res://piece/Piece.cs
+res://board/board.tscn
+res://piece/piece.tscn

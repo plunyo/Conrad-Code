@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "QtEA2L3c85I=",
+  "success": true,
+  "projectFilePath": "/home/plunyo/Conrad Code/C#/Godot/Chess/Chess.csproj",
+  "expectedPackageFiles": [
+    "/home/plunyo/.nuget/packages/godot.sourcegenerators/4.4.1/godot.sourcegenerators.4.4.1.nupkg.sha512",
+    "/home/plunyo/.nuget/packages/godotsharp/4.4.1/godotsharp.4.4.1.nupkg.sha512",
+    "/home/plunyo/.nuget/packages/godotsharpeditor/4.4.1/godotsharpeditor.4.4.1.nupkg.sha512",
+    "/home/plunyo/.nuget/packages/microsoft.netcore.app.ref/8.0.13/microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
+    "/home/plunyo/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.13/microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
