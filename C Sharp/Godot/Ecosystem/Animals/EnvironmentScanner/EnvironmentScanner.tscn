@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdarwijd3t71u"]
+
+[ext_resource type="Script" uid="uid://vpsoatr2tu3f" path="res://Animals/EnvironmentScanner/EnvironmentScanner.cs" id="1_47o2h"]
+
+[node name="EnvironmentScanner" type="Area2D"]
+collision_layer = 0
+collision_mask = 15
+script = ExtResource("1_47o2h")
