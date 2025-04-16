@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpk8hsw4hlggd"]
+
+[ext_resource type="Script" uid="uid://d2k58uem6u2h1" path="res://menu/how_to_play/how_to_play.gd" id="1_1c3yt"]
+[ext_resource type="FontFile" uid="uid://clcr2q3mtxlna" path="res://assets/fonts/PixelOperator8.ttf" id="1_svni2"]
+[ext_resource type="FontFile" uid="uid://bnkix37cmhj5m" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_gidbv"]
+[ext_resource type="FontFile" uid="uid://dvaqis38r3jy8" path="res://assets/fonts/MainMenu.tres" id="4_aw22y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j8doj"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[node name="HowToPlay" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1c3yt")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="Info" type="RichTextLabel" parent="CenterContainer"]
+custom_minimum_size = Vector2(1000, 300)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_svni2")
+theme_override_fonts/bold_font = ExtResource("2_gidbv")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_j8doj")
+bbcode_enabled = true
+text = "[center][b]How to Play[/b][/center]
+
+
+[b]Objective:[/b]
+
+
+Navigate through each level by overcoming obstacles, obtaining coins, and reaching the finish point. 
+
+
+[b]Controls:[/b]
+
+
+[b]Jump:[/b] Press the [b]Space[/b] bar to jump. Hold for a higher jump!
+
+
+[b]Climb:[/b] Use the [b]W[/b] or [b]Up[/b] key near ladders to climb up or [b]S[/b] or [b]Down[/b] to climb down.
+
+
+[b]Left:[/b] Use the [b]A[/b] or [b]Left[/b] key to move the character left
+
+
+[b]Right:[/b] Use the [b]D[/b] or [b]Right[/b] key to move the character right
+
+
+[b]Interact:[/b] Use [b]S[/b] or [b]Down[/b] to enter the door
+
+
+[center][b]Good luck, and have fun![/b][/center]"
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+
+[node name="Selector" type="Label" parent="CenterContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(45, 90)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_aw22y")
+theme_override_font_sizes/font_size = 60
+text = ">"
+
+[node name="Back" type="Label" parent="CenterContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(395, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_aw22y")
+theme_override_font_sizes/font_size = 40
+text = "Back"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
