@@ -1,0 +1,5 @@
+res://board/board.tscn
+res://board/board.gd
+res://piece/piece.tscn
+res://piece/piece.gd
+res://board/fen_parser.gd

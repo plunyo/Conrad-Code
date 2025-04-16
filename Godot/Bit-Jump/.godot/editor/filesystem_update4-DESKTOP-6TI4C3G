@@ -1,0 +1,10 @@
+res://levels/level_1.tscn
+res://assets/fonts/MainMenu.tres
+res://levels/objects/coin/coin.tscn
+res://levels/objects/moving_platform/moving_platform.tscn
+res://player/player.tscn
+res://levels/level_2.tscn
+res://menu/level_select/level_select.tscn
+res://levels/template_level.tscn
+res://menu/how_to_play/how_to_play.tscn
+res://levels/level_3.tscn
