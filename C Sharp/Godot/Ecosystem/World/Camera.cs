@@ -28,6 +28,9 @@ public partial class Camera : Camera2D
         // Handle panning
         float zoomFactor = 1.0f / Zoom.X;
         Vector2 panDirection = Input.GetVector("PanLeft", "PanRight", "PanUp", "PanDown").Normalized();
-        GlobalPosition += panDirection * zoomFactor * panSpeed * (float)delta;
+        GlobalPosition = GlobalPosition.Lerp(
+            GlobalPosition + panDirection * zoomFactor * panSpeed * (float)delta,
+            0.1f
+        );
     }
 }

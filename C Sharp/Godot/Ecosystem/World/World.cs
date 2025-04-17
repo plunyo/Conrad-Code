@@ -5,14 +5,15 @@ using System.Collections.Generic;
 public partial class World : TileMapLayer
 {
     private const int SourceID = 1;
+    private const float SceneryFrequency = 0.1f;
 
     [Export] private Vector2I worldSize;
-    [Export] private NoiseTexture2D noiseHeightTexture;
+    [Export] private NoiseTexture2D noiseTexture;
 
     // Tile Coords
-    static public Vector2I GrassCoords = new Vector2I(6, 1);
-    static public Vector2I WaterCoords = new Vector2I(15, 11);
-    static public Vector2I SandCoords = new Vector2I(1, 1);
+    static public Vector2I GrassTile = new Vector2I(6, 1);
+    static public Vector2I WaterTile = new Vector2I(15, 11);
+    static public Vector2I SandTile = new Vector2I(1, 1);
 
     // Scenery Coords
     static public Array<Vector2I> GrassScenery = new Array<Vector2I>
@@ -37,13 +38,15 @@ public partial class World : TileMapLayer
     {
         base._Ready();
         InitReferences();
-        // GenerateWorld();
+        GenerateWorld();
     }
 
     private void InitReferences()
     {
         sceneryLayer = GetNode<TileMapLayer>("SceneryLayer");
-        noise = noiseHeightTexture.Noise;
+
+        (noiseTexture.Noise as FastNoiseLite).Seed = (int)GD.Randi();
+        noise = noiseTexture.Noise;
     }
 
     private void GenerateWorld()
@@ -58,17 +61,21 @@ public partial class World : TileMapLayer
                 Vector2I position = new(x, y);
                 float noiseValue = noise.GetNoise2D(x, y);
 
-                if (noiseValue > 0.0f)
+                if (noiseValue > 0.1f)
                 {
-                    SetCell(position, SourceID, GrassCoords);
+                    SetCell(position, SourceID, GrassTile);
+                    if (GD.Randf() < SceneryFrequency)
+                        sceneryLayer.SetCell(position, SourceID, GrassScenery.PickRandom());
                 }
-                else if (noiseValue > -0.1f)
+                else if (noiseValue > 0.0f)
                 {
-                    SetCell(position, SourceID, SandCoords);
+                    SetCell(position, SourceID, SandTile);
+                    if (GD.Randf() < SceneryFrequency)
+                        sceneryLayer.SetCell(position, SourceID, SandScenery.PickRandom());
                 }
                 else
                 {
-                    SetCell(position, SourceID, WaterCoords);
+                    SetCell(position, SourceID, WaterTile);
                 }
             }
         }

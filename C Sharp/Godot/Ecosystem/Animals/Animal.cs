@@ -12,10 +12,10 @@ public partial class Animal : CharacterBody2D
     [Export] public float WanderTime;
     [Export(PropertyHint.Range, "0,100")] public float ReproductiveUrge;
 
-    public EnvironmentScanner EnvironmentScanner => GetNode<EnvironmentScanner>("EnvironmentScanner");
-    public ShapeCast2D FrontRaycast => GetNode<ShapeCast2D>("FrontRaycast");
+    public EnvironmentScanner EnvironmentScanner;
+    public ShapeCast2D FrontShapeCast;
 
-    private float viewDistance = 72f;
+    private float viewDistance = 72.0f;
 
     // --- Animal States ---
     public enum AnimalState { Wandering, Fleeing, Attacking, Eating }
@@ -25,27 +25,28 @@ public partial class Animal : CharacterBody2D
     protected Vector2 Direction { get; set; }
     protected float WanderTimer;
 
+    // --- Ready ---
+    public override void _Ready()
+    {
+        base._Ready();
+        EnvironmentScanner = GetNode<EnvironmentScanner>("EnvironmentScanner");
+        FrontShapeCast = GetNode<ShapeCast2D>("FrontShapeCast");
+    }
+
     // --- Process ---
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        UpdateFrontRaycast();
+        UpdateFrontShapeCast();
     }
-
 
     // --- Movement ---
     public virtual void Move(Vector2 direction)
     {
-        // If there's a raycast collision, move away from the water
-        if (IsTileAhead(World.WaterCoords))
-        {
-            Direction = FrontRaycast.GetCollisionNormal(0).Normalized();
-        }
-
-        // Update velocity and apply movement
         Velocity = Direction * Speed;
         MoveAndSlide();
     }
+
 
 
     // --- Health Management ---
@@ -60,15 +61,13 @@ public partial class Animal : CharacterBody2D
 
     public virtual void Die()
     {
-        // Clean up and remove the animal
         QueueFree();
     }
 
     // --- Detection Logic ---
     public virtual void DetectSurroundings()
     {
-        // Logic to detect nearby entities, tiles, or obstacles
-        // This can be done with Area2D or raycasting in subclasses
+
     }
 
     // --- State Handlers ---
@@ -78,7 +77,7 @@ public partial class Animal : CharacterBody2D
     protected virtual void HandleEating(float delta) { }
 
     // --- Helper Methods ---
-    protected void SetRandomDirection(float maxAngleChange = 0.5f)
+    protected void SetRandomDirection(float maxAngleChange = 1.0f)
     {
         float currentAngle = Direction.Angle();
         float angleChange = (float)GD.RandRange(-maxAngleChange, maxAngleChange);
@@ -88,20 +87,28 @@ public partial class Animal : CharacterBody2D
     }
 
 
-    private void UpdateFrontRaycast()
+    private void UpdateFrontShapeCast()
     {
-        FrontRaycast.TargetPosition = Direction * viewDistance;
+        FrontShapeCast.TargetPosition = Direction * viewDistance;
     }
 
     protected bool IsTileAhead(Vector2I tileCoords)
     {
-        if (!FrontRaycast.IsColliding() || FrontRaycast.GetCollider(0) is not World world)
+        if (!FrontShapeCast.IsColliding())
             return false;
 
-        Vector2I cell = world.LocalToMap(FrontRaycast.GetCollisionPoint(0));
-        Vector2I coords = world.GetCellAtlasCoords(cell);
+        int count = FrontShapeCast.GetCollisionCount();
+        for (int i = 0; i < count; i++)
+        {
+            if (FrontShapeCast.GetCollider(i) is not World world)
+                continue;
 
-        return coords == tileCoords;
+            Vector2I cell = world.LocalToMap(FrontShapeCast.GetCollisionPoint(i));
+            Vector2I coords = world.GetCellAtlasCoords(cell);
+
+            if (coords == tileCoords) { return true; }
+        }
+
+        return false;
     }
-
 }
