@@ -6,14 +6,17 @@ public partial class World : TileMapLayer
 {
     private const int SourceID = 1;
     private const float SceneryFrequency = 0.1f;
+    private const float PreyFrequency = 0.025f;
 
     [Export] private Vector2I worldSize;
+    [Export] private PackedScene preyScene;
     [Export] private NoiseTexture2D noiseTexture;
 
     // Tile Coords
     static public Vector2I GrassTile = new Vector2I(6, 1);
     static public Vector2I WaterTile = new Vector2I(15, 11);
     static public Vector2I SandTile = new Vector2I(1, 1);
+    static public Vector2I BorderTile = new Vector2I(15, 0);
 
     // Scenery Coords
     static public Array<Vector2I> GrassScenery = new Array<Vector2I>
@@ -66,6 +69,10 @@ public partial class World : TileMapLayer
                     SetCell(position, SourceID, GrassTile);
                     if (GD.Randf() < SceneryFrequency)
                         sceneryLayer.SetCell(position, SourceID, GrassScenery.PickRandom());
+
+                    // Rabbit Spawning
+                    if (GD.Randf() < PreyFrequency)
+                        SpawnPrey(MapToLocal(new Vector2I(x, y)));
                 }
                 else if (noiseValue > 0.0f)
                 {
@@ -79,5 +86,26 @@ public partial class World : TileMapLayer
                 }
             }
         }
+
+        // build outer border
+        for (int x = -halfWidth - 1; x <= halfWidth; x++)
+        {
+            SetCell(new Vector2I(x, -halfHeight - 1), SourceID, BorderTile);
+            SetCell(new Vector2I(x, halfHeight), SourceID, BorderTile);
+        }
+
+        for (int y = -halfHeight - 1; y <= halfHeight; y++)
+        {
+            SetCell(new Vector2I(-halfWidth - 1, y), SourceID, BorderTile);
+            SetCell(new Vector2I(halfWidth, y), SourceID, BorderTile);
+        }
+
+    }
+
+    private void SpawnPrey(Vector2 position)
+    {
+        Prey preyInstance = preyScene.Instantiate() as Prey;
+        preyInstance.GlobalPosition = position;
+        AddChild(preyInstance);
     }
 }

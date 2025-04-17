@@ -2,11 +2,10 @@
 
 [ext_resource type="TileSet" uid="uid://c7skmknsm8j2u" path="res://World/WorldTileMap.tres" id="1_il6x7"]
 [ext_resource type="Script" uid="uid://cpfe6wve3p2kn" path="res://World/World.cs" id="2_04mge"]
-[ext_resource type="PackedScene" uid="uid://dwbyr6w0ih4mc" path="res://Animals/Rabbit/Rabbit.tscn" id="2_mlekv"]
+[ext_resource type="PackedScene" uid="uid://dwbyr6w0ih4mc" path="res://Animals/Prey/Prey.tscn" id="2_mlekv"]
 [ext_resource type="Script" uid="uid://cs6avhaxst7ee" path="res://World/Camera.cs" id="2_y6flb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_il6x7"]
-noise_type = 3
 frequency = 0.02
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o14yy"]
@@ -15,7 +14,8 @@ noise = SubResource("FastNoiseLite_il6x7")
 [node name="WorldLayer" type="TileMapLayer"]
 tile_set = ExtResource("1_il6x7")
 script = ExtResource("2_04mge")
-worldSize = Vector2i(200, 200)
+worldSize = Vector2i(100, 100)
+preyScene = ExtResource("2_mlekv")
 noiseTexture = SubResource("NoiseTexture2D_o14yy")
 
 [node name="SceneryLayer" type="TileMapLayer" parent="."]
@@ -25,5 +25,3 @@ tile_set = ExtResource("1_il6x7")
 script = ExtResource("2_y6flb")
 zoomSpeed = 0.2
 panSpeed = 5000.0
-
-[node name="Rabbit" parent="." instance=ExtResource("2_mlekv")]

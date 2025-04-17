@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwbyr6w0ih4mc"]
+
+[ext_resource type="Texture2D" uid="uid://cpf3u0ujiwc4f" path="res://Assets/Animals/Round (outline)/rabbit.png" id="1_14sj5"]
+[ext_resource type="Script" uid="uid://bdf65cdkv02bh" path="res://Animals/Prey/Prey.cs" id="1_lueod"]
+[ext_resource type="PackedScene" uid="uid://bdarwijd3t71u" path="res://Animals/EnvironmentScanner/EnvironmentScanner.tscn" id="2_mdw0l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_14sj5"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t3gua"]
+radius = 350.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg3bs"]
+bg_color = Color(0.690196, 0, 0.12549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i68rl"]
+bg_color = Color(0.768627, 0.619608, 0.380392, 1)
+
+[node name="Prey" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 17
+script = ExtResource("1_lueod")
+metadata/_custom_type_script = "uid://bdf65cdkv02bh"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_14sj5")
+
+[node name="EnvironmentScanner" parent="." instance=ExtResource("2_mdw0l")]
+
+[node name="Collider" type="CollisionShape2D" parent="EnvironmentScanner"]
+shape = SubResource("CircleShape2D_t3gua")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_14sj5")
+
+[node name="InfoPanel" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 120)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 45.0
+offset_top = -78.0
+offset_right = 123.0
+offset_bottom = 35.0
+
+[node name="Background" type="Panel" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="InfoPanel"]
+custom_minimum_size = Vector2(68, 18)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -54.0
+offset_right = 34.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_gg3bs")
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="InfoPanel"]
+custom_minimum_size = Vector2(68, 18)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -29.0
+offset_right = 34.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_i68rl")
+value = 100.0
+
+[node name="Name" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -86.0
+offset_right = 27.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Connie"
+horizontal_alignment = 1
+vertical_alignment = 1

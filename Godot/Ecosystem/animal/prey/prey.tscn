@@ -1,0 +1,139 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbhi0ojk525uv"]
+
+[ext_resource type="Script" uid="uid://k8ohwmxq2oyd" path="res://animal/prey/prey.gd" id="1_sdv6j"]
+[ext_resource type="Texture2D" uid="uid://cpf3u0ujiwc4f" path="res://assets/animals/Round (outline)/rabbit.png" id="2_k1stx"]
+[ext_resource type="PackedScene" uid="uid://cl3ypidtjpql6" path="res://animal/environment_scanner/environment_scanner.tscn" id="2_r7k2b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sdv6j"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k1stx"]
+radius = 350.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pg2a4"]
+bg_color = Color(1.24659e-05, 0.665735, 0.13778, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1stx"]
+bg_color = Color(0.191867, 0.416812, 0.979918, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7k2b"]
+bg_color = Color(0.840521, 0.412908, 9.62615e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16jjg"]
+bg_color = Color(0.6, 0, 0.6, 1)
+
+[node name="Prey" type="CharacterBody2D"]
+input_pickable = true
+script = ExtResource("1_sdv6j")
+move_duration = 1.0
+idle_wander_delay = 1.0
+metadata/_custom_type_script = "uid://k8ohwmxq2oyd"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sdv6j")
+
+[node name="EnvironmentScanner" parent="." instance=ExtResource("2_r7k2b")]
+
+[node name="Collider" type="CollisionShape2D" parent="EnvironmentScanner"]
+shape = SubResource("CircleShape2D_k1stx")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_k1stx")
+
+[node name="InfoPanel" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 44.0
+offset_top = -48.0
+offset_right = 124.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -42.0
+offset_right = 34.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_pg2a4")
+value = 100.0
+
+[node name="ThirstBar" type="ProgressBar" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -22.0
+offset_right = 34.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_k1stx")
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -2.0
+offset_right = 34.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_r7k2b")
+value = 100.0
+
+[node name="ReproductiveUrgeBar" type="ProgressBar" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = 18.0
+offset_right = 34.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_16jjg")
+value = 100.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

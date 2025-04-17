@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dav68q4c247l7"]
+
+[ext_resource type="TileSet" uid="uid://b35fvkhgprbcv" path="res://world/world_tile_map.tres" id="1_6xmxd"]
+[ext_resource type="Script" uid="uid://b3bmcc8b6ohvh" path="res://world/world.gd" id="2_tcf2h"]
+[ext_resource type="Script" uid="uid://c8fcmcmvep15a" path="res://world/camera.gd" id="3_4717r"]
+[ext_resource type="PackedScene" uid="uid://cbhi0ojk525uv" path="res://animal/prey/prey.tscn" id="3_h5o24"]
+[ext_resource type="Texture2D" uid="uid://b2bwrtmqqrbff" path="res://assets/world/water_tile.png" id="4_mmdvd"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4717r"]
+frequency = 0.03
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h5o24"]
+noise = SubResource("FastNoiseLite_4717r")
+
+[node name="WorldLayer" type="TileMapLayer"]
+tile_set = ExtResource("1_6xmxd")
+script = ExtResource("2_tcf2h")
+world_size = Vector2i(100, 100)
+prey_scene = ExtResource("3_h5o24")
+noise_texture = SubResource("NoiseTexture2D_h5o24")
+
+[node name="SceneryLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_6xmxd")
+
+[node name="WaterBackground" type="Parallax2D" parent="."]
+show_behind_parent = true
+repeat_size = Vector2(115200, 64800)
+autoscroll = Vector2(5, 5)
+
+[node name="Water" type="TextureRect" parent="WaterBackground"]
+modulate = Color(0.724643, 0.724643, 0.724643, 1)
+custom_minimum_size = Vector2(115200, 64800)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57600.0
+offset_top = -32400.0
+offset_right = 57600.0
+offset_bottom = 32400.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mmdvd")
+stretch_mode = 1
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("3_4717r")
+zoom_speed = 0.25
+pan_speed = 7000.0

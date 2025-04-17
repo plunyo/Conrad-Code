@@ -1,59 +1,74 @@
 using Godot;
 using System;
+using System.Reflection;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class Animal : CharacterBody2D
 {
     // --- Exported Properties ---
-    [Export] public float Speed;
-    [Export] public float Health;
-    [Export] public float MaxHealth;
+    [Export] public float MoveDuration;
+    [Export] public float MaxHealth; // this one can stay, tbh
+    [Export] public float CurrentHealth;
     [Export] public float Hunger;
-    [Export] public float WanderTime;
+    [Export] public float IdleWanderDelay; // like a delay between random slides
     [Export(PropertyHint.Range, "0,100")] public float ReproductiveUrge;
 
     public EnvironmentScanner EnvironmentScanner;
-    public ShapeCast2D FrontShapeCast;
+    public World World;
+    public Control InfoPanel;
 
     private float viewDistance = 72.0f;
+    public float WanderTimer;
 
     // --- Animal States ---
     public enum AnimalState { Wandering, Fleeing, Attacking, Eating }
     public AnimalState CurrentState = AnimalState.Wandering;
 
     // --- Private Variables ---
-    protected Vector2 Direction { get; set; }
-    protected float WanderTimer;
+    protected Vector2I Direction { get; set; }
 
     // --- Ready ---
     public override void _Ready()
     {
         base._Ready();
+
         EnvironmentScanner = GetNode<EnvironmentScanner>("EnvironmentScanner");
-        FrontShapeCast = GetNode<ShapeCast2D>("FrontShapeCast");
+        World = GetParent<World>();
+        InfoPanel = GetNode<Control>("InfoPanel");
     }
 
     // --- Process ---
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        UpdateFrontShapeCast();
     }
 
     // --- Movement ---
-    public virtual void Move(Vector2 direction)
+    public virtual void Move(Vector2 direction, float duration)
     {
-        Velocity = Direction * Speed;
-        MoveAndSlide();
+        Vector2I currentWorldPosition = World.LocalToMap(GlobalPosition);
+        Vector2I targetWorldPosition = currentWorldPosition + Direction;
+        Vector2 targetGlobalPosition = World.MapToLocal(targetWorldPosition);
+
+        if (World.GetCellAtlasCoords(targetWorldPosition) == World.BorderTile || World.GetCellAtlasCoords(targetWorldPosition) == World.WaterTile)
+        {
+            Direction = GetRandomDirection();
+            return;
+        }
+
+        Tween moveTween = CreateTween();
+
+        moveTween.TweenProperty(this, "global_position", targetGlobalPosition, duration)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
     }
-
-
 
     // --- Health Management ---
     public void TakeDamage(float amount)
     {
-        Health -= amount;
-        if (Health <= 0)
+        CurrentHealth -= amount;
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -65,10 +80,10 @@ public partial class Animal : CharacterBody2D
     }
 
     // --- Detection Logic ---
-    public virtual void DetectSurroundings()
-    {
+    public virtual void DetectSurroundings() { }
 
-    }
+    // --- Info Panel ---
+    public virtual void UpdateInfoPanel() { }
 
     // --- State Handlers ---
     protected virtual void HandleWandering(float delta) { }
@@ -77,38 +92,18 @@ public partial class Animal : CharacterBody2D
     protected virtual void HandleEating(float delta) { }
 
     // --- Helper Methods ---
-    protected void SetRandomDirection(float maxAngleChange = 1.0f)
+    protected Vector2I GetRandomDirection(float maxAngleChange = 1.0f)
     {
-        float currentAngle = Direction.Angle();
-        float angleChange = (float)GD.RandRange(-maxAngleChange, maxAngleChange);
-        float newAngle = currentAngle + angleChange;
-
-        Direction = new Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle)).Normalized();
-    }
-
-
-    private void UpdateFrontShapeCast()
-    {
-        FrontShapeCast.TargetPosition = Direction * viewDistance;
-    }
-
-    protected bool IsTileAhead(Vector2I tileCoords)
-    {
-        if (!FrontShapeCast.IsColliding())
-            return false;
-
-        int count = FrontShapeCast.GetCollisionCount();
-        for (int i = 0; i < count; i++)
+        return new Vector2I[]
         {
-            if (FrontShapeCast.GetCollider(i) is not World world)
-                continue;
-
-            Vector2I cell = world.LocalToMap(FrontShapeCast.GetCollisionPoint(i));
-            Vector2I coords = world.GetCellAtlasCoords(cell);
-
-            if (coords == tileCoords) { return true; }
-        }
-
-        return false;
+            new Vector2I(1, 0),   // right
+            new Vector2I(1, 1),   // down-right
+            new Vector2I(0, 1),   // down
+            new Vector2I(-1, 1),  // down-left
+            new Vector2I(-1, 0),  // left
+            new Vector2I(-1, -1), // up-left
+            new Vector2I(0, -1),  // up
+            new Vector2I(1, -1)   // up-right
+        }[GD.Randi() % 8];
     }
 }
