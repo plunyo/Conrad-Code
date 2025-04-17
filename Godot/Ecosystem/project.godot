@@ -51,3 +51,13 @@ zoom_out={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(226, 10),"global_position":Vector2(235, 58),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="prey"
+2d_navigation/layer_1="Main"
+2d_physics/layer_2="predator"
+2d_physics/layer_3="ground"
+2d_physics/layer_4="water"
+2d_physics/layer_5="food"
+2d_physics/layer_6="border"

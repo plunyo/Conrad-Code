@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://chmuexwwvxt8p"]
+
+[ext_resource type="Script" uid="uid://d3wrbi0y6sa18" path="res://animal/predator/predator.gd" id="1_r6hep"]
+[ext_resource type="Texture2D" uid="uid://bravcul0lpf7a" path="res://assets/animals/Round (outline)/goat.png" id="2_3hr8w"]
+[ext_resource type="PackedScene" uid="uid://cl3ypidtjpql6" path="res://animal/environment_scanner/environment_scanner.tscn" id="3_3hr8w"]
+[ext_resource type="PackedScene" uid="uid://bem8j6q8q21rr" path="res://animal/info_panel/info_panel.tscn" id="4_b6l86"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b6l86"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bewu8"]
+radius = 450.0
+
+[node name="Predator" type="CharacterBody2D"]
+script = ExtResource("1_r6hep")
+metadata/_custom_type_script = "uid://d3wrbi0y6sa18"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3hr8w")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b6l86")
+
+[node name="EnvironmentScanner" parent="." instance=ExtResource("3_3hr8w")]
+
+[node name="Collider" type="CollisionShape2D" parent="EnvironmentScanner"]
+shape = SubResource("CircleShape2D_bewu8")
+
+[node name="InfoPanel" parent="." instance=ExtResource("4_b6l86")]
+
+[node name="StateLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -97.0
+offset_right = 20.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

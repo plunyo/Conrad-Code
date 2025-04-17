@@ -1,0 +1,6 @@
+CONRAD YOU LAZY FUCK, THIS IS WHAT U NEED TO DO:
+	make a way to check neighbouring tiles?
+	make em reproduce
+	spawn predators
+	make predators eat rabbits
+	make predators reproduce
