@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://chmuexwwvxt8p"]
+[gd_scene load_steps=8 format=3 uid="uid://chmuexwwvxt8p"]
 
 [ext_resource type="Script" uid="uid://d3wrbi0y6sa18" path="res://animal/predator/predator.gd" id="1_r6hep"]
 [ext_resource type="Texture2D" uid="uid://bravcul0lpf7a" path="res://assets/animals/Round (outline)/goat.png" id="2_3hr8w"]
@@ -8,24 +8,38 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_b6l86"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_f6e13"]
+radius = 40.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_bewu8"]
 radius = 450.0
 
 [node name="Predator" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
 script = ExtResource("1_r6hep")
+move_duration = 0.75
 metadata/_custom_type_script = "uid://d3wrbi0y6sa18"
-
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_3hr8w")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b6l86")
+
+[node name="KillRange" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="Collider" type="CollisionShape2D" parent="KillRange"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_f6e13")
 
 [node name="EnvironmentScanner" parent="." instance=ExtResource("3_3hr8w")]
 
 [node name="Collider" type="CollisionShape2D" parent="EnvironmentScanner"]
 shape = SubResource("CircleShape2D_bewu8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3hr8w")
 
 [node name="InfoPanel" parent="." instance=ExtResource("4_b6l86")]
 
@@ -43,3 +57,9 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AttackTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="KillRange" to="." method="_on_kill_range_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

@@ -1,23 +1,16 @@
 class_name Prey
 extends Animal
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@export var hunger_amount: float = 20.0
 
 func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
+	if not animation_player.is_playing():
+		super(delta)
 
-func _handle_wandering(delta: float) -> void:
-	if current_health < 100.0 or hunger < 50.0 and not current_state == AnimalState.SEEKING_FOOD:
-		current_state = AnimalState.SEEKING_FOOD
-
-	wander_timer += delta
-	if next_wander_delay == 0.0:
-		next_wander_delay = idle_wander_delay + randf_range(-0.5, 0.5)
-
-	if not is_moving and wander_timer >= next_wander_delay:
-		set_random_direction()
-		move(direction, move_duration)
-		wander_timer = 0.0
-		next_wander_delay = 0.0
+	var closest_predator: Predator = environment_scanner.find_nearest_predator()
+	if closest_predator:
+		change_state_to(AnimalState.FLEEING)
 
 func _handle_seeking_food(delta: float) -> void:
 	var closest_food = environment_scanner.find_nearest_food()
@@ -27,4 +20,27 @@ func _handle_seeking_food(delta: float) -> void:
 		_handle_wandering(delta)
 
 	if hunger > 85.0:
-		current_state = AnimalState.WANDERING
+		change_state_to(AnimalState.SEEKING_FOOD)
+
+func _handle_fleeing(_delta: float) -> void:
+	var closest_predator = environment_scanner.find_nearest_predator()
+	if closest_predator:
+		move_away_from(closest_predator.global_position)
+	else:
+		change_state_to(AnimalState.WANDERING)
+
+func _handle_seeking_mate(_delta: float) -> void:
+	pass 
+
+func take_damage(amount: float, from: Animal = null) -> void:
+	current_health -= amount
+	if current_health <= 0:
+		if from != null:
+			from.hunger += hunger_amount
+		die()
+
+func die() -> void:
+	died.emit()
+	animation_player.play("die")
+	await animation_player.animation_finished
+	queue_free()

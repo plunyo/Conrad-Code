@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbhi0ojk525uv"]
+[gd_scene load_steps=11 format=3 uid="uid://cbhi0ojk525uv"]
 
 [ext_resource type="Script" uid="uid://k8ohwmxq2oyd" path="res://animal/prey/prey.gd" id="1_sdv6j"]
 [ext_resource type="Texture2D" uid="uid://cpf3u0ujiwc4f" path="res://assets/animals/Round (outline)/rabbit.png" id="2_k1stx"]
 [ext_resource type="PackedScene" uid="uid://cl3ypidtjpql6" path="res://animal/environment_scanner/environment_scanner.tscn" id="2_r7k2b"]
 [ext_resource type="PackedScene" uid="uid://bem8j6q8q21rr" path="res://animal/info_panel/info_panel.tscn" id="4_r7k2b"]
+[ext_resource type="Texture2D" uid="uid://cqmnp5rh334yc" path="res://assets/animals/skull.png" id="5_16jjg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sdv6j"]
 radius = 32.0
@@ -11,12 +12,120 @@ radius = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_k1stx"]
 radius = 400.0
 
+[sub_resource type="Animation" id="Animation_16jjg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_r7k2b"]
+resource_name = "die"
+length = 0.75
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.0002, 0.0003, 0.0004, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1.25, 1.25), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_16jjg"]
+_data = {
+&"RESET": SubResource("Animation_16jjg"),
+&"die": SubResource("Animation_r7k2b")
+}
+
 [node name="Prey" type="CharacterBody2D"]
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_sdv6j")
-move_duration = 1.0
-idle_wander_delay = 1.0
 metadata/_custom_type_script = "uid://k8ohwmxq2oyd"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -50,6 +159,16 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_16jjg")
+}
+
+[node name="DeathSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_16jjg")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

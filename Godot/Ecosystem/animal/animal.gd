@@ -1,23 +1,39 @@
 class_name Animal
 extends CharacterBody2D
 
-enum AnimalState { WANDERING, FLEEING, ATTACKING, SEEKING_FOOD }
+signal state_changed
+signal died
 
-@export var move_duration: float
+enum AnimalState { WANDERING, FLEEING, SEEKING_FOOD, SEEKING_MATE }
+
+const DIRECTIONS := [
+	Vector2i(1, 0),
+	Vector2i(-1, 0),
+	Vector2i(0, 1),
+	Vector2i(0, -1),
+	Vector2i(1, 1),
+	Vector2i(-1, -1),
+	Vector2i(1, -1),
+	Vector2i(-1, 1),
+]
+
+const HUNGER_DAMAGE := 5.0
+const HUNGER_INTERVAL := 1.0
+
+@export var move_duration: float = randf_range(0.8, 1.2)
 @export var current_health: float = 100.0
-@export var hunger: float = 50.0
-@export var idle_wander_delay: float
-@export_range(0, 100) var reproductive_urge: float
+@export var hunger: float = randf_range(20.0, 90.0)
+@export var reproductive_urge: float = randf_range(0.0, 20.0)
 
 @onready var environment_scanner: EnvironmentScanner = $EnvironmentScanner
-@onready var world: World = get_parent()
+@onready var world: World = get_tree().get_first_node_in_group("world")
 @onready var info_panel: Control = $InfoPanel
 
 var wander_timer: float
 var next_wander_delay := 0.0
+var idle_wander_delay: float
 
 # how often to update in seconds
-var hunger_interval := 1.0
 var hunger_timer := 0.0
 
 var current_state: AnimalState = AnimalState.WANDERING
@@ -37,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		AnimalState.WANDERING: "Wandering",
 		AnimalState.SEEKING_FOOD: "Seeking Food",
 		AnimalState.FLEEING: "Fleeing",
-		AnimalState.ATTACKING: "Attacking"
+		AnimalState.SEEKING_MATE: "Seeking Mate"
 	}[current_state]
 
 	update_needs(delta)
@@ -47,6 +63,10 @@ func _physics_process(delta: float) -> void:
 			_handle_wandering(delta)
 		AnimalState.SEEKING_FOOD:
 			_handle_seeking_food(delta)
+		AnimalState.SEEKING_MATE:
+			_handle_seeking_mate(delta)
+		AnimalState.FLEEING:
+			_handle_fleeing(delta)
 
 func move(dir: Vector2i, duration: float) -> void:
 	if is_moving:
@@ -72,19 +92,12 @@ func move(dir: Vector2i, duration: float) -> void:
 	)
 
 func move_to(target_position: Vector2) -> void:
-	var directions := []
-	for x in [-1, 0, 1]:
-		for y in [-1, 0, 1]:
-			if x != 0 or y != 0:
-				directions.append(Vector2i(x, y))
-
-
 	var current_world_pos: Vector2i = world.local_to_map(global_position)
 
 	var best_dir: Vector2i = Vector2i.ZERO
 	var best_distance: float = INF
 
-	for dir in directions:
+	for dir in DIRECTIONS:
 		var candidate_world_pos: Vector2i = current_world_pos + dir
 		var candidate_global_pos: Vector2 = world.map_to_local(candidate_world_pos)
 		var distance: float = candidate_global_pos.distance_to(target_position)
@@ -94,13 +107,30 @@ func move_to(target_position: Vector2) -> void:
 
 	move(best_dir, move_duration)
 
+func move_away_from(target_position: Vector2) -> void:
+	var current_world_pos: Vector2i = world.local_to_map(global_position)
 
-func take_damage(amount: float) -> void:
+	var best_dir: Vector2i = Vector2i.ZERO
+	var best_distance: float = 0.0
+
+	for dir in DIRECTIONS:
+		var candidate_world_pos: Vector2i = current_world_pos + dir
+		var candidate_global_pos: Vector2 = world.map_to_local(candidate_world_pos)
+		var distance: float = candidate_global_pos.distance_to(target_position)
+		if distance > best_distance:
+			best_distance = distance
+			best_dir = dir
+
+	move(best_dir, move_duration)
+
+
+func take_damage(amount: float, _from: Animal = null) -> void:
 	current_health -= amount
 	if current_health <= 0:
 		die()
 
 func die() -> void:
+	died.emit()
 	queue_free()
 
 func detect_surroundings() -> void:
@@ -112,25 +142,44 @@ func update_info_panel() -> void:
 	$InfoPanel/ReproductiveUrgeBar.value = reproductive_urge
 
 # --- state handlers ---
-func _handle_wandering(_delta: float) -> void:
-	pass
+func _handle_wandering(delta: float) -> void:
+	if current_health < 100.0 or hunger < 50.0 and not current_state == AnimalState.SEEKING_FOOD:
+		change_state_to(AnimalState.SEEKING_FOOD)
+	elif reproductive_urge > hunger:
+		change_state_to(AnimalState.SEEKING_MATE)
+
+	wander_timer += delta
+	if next_wander_delay == 0.0:
+		next_wander_delay = idle_wander_delay + randf_range(-0.5, 0.5)
+
+	if not is_moving and wander_timer >= next_wander_delay:
+		set_random_direction()
+		move(direction, move_duration)
+		wander_timer = 0.0
+		next_wander_delay = 0.0
 
 func _handle_fleeing(_delta: float) -> void:
-	pass
-
-func _handle_attacking(_delta: float) -> void:
 	pass
 
 func _handle_seeking_food(_delta: float) -> void:
 	pass
 
+func _handle_seeking_mate(_delta: float) -> void:
+	pass
+
+func change_state_to(new_state: AnimalState) -> void:
+	state_changed.emit(new_state)
+	current_state = new_state
+
 func update_needs(delta: float) -> void:
 	hunger_timer += delta
 
-	if hunger_timer >= hunger_interval:
+	if hunger_timer >= HUNGER_INTERVAL:
 		hunger_timer = 0.0
 		var hunger_loss := randf_range(0.2, 0.5)
 		hunger = max(hunger - hunger_loss, 0.0)
+		if hunger <= 0:
+			take_damage(HUNGER_DAMAGE)
 		update_info_panel()
 
 func set_random_direction() -> void:

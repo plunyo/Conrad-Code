@@ -4,6 +4,7 @@ extends Area2D
 signal consumed
 
 @export var restore_amount: float = 5.0
+@export var claimed: bool = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Prey:

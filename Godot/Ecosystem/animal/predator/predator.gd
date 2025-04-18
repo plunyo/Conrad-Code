@@ -1,26 +1,33 @@
 class_name Predator
 extends Animal
 
+@export var damage: float = 20.0
 
-func _handle_wandering(delta: float) -> void:
-	if current_health < 100.0 or hunger < 50.0 and not current_state == AnimalState.seeking_food:
-		current_state = AnimalState.seeking_food
+@onready var attack_timer: Timer = $AttackTimer
+@onready var kill_range: Area2D = $KillRange
 
-	wander_timer += delta
-	if next_wander_delay == 0.0:
-		next_wander_delay = idle_wander_delay + randf_range(-0.5, 0.5)
+func _physics_process(delta: float) -> void:
+	super(delta)
+	kill_range.monitoring = current_state == AnimalState.SEEKING_FOOD
+	attack_timer.paused = not current_state == AnimalState.SEEKING_FOOD
 
-	if not is_moving and wander_timer >= next_wander_delay:
-		set_random_direction()
-		move(direction, move_duration)
-		wander_timer = 0.0
-		next_wander_delay = 0.0
+func _handle_seeking_food(delta: float) -> void:
+	var closest_prey: Prey = environment_scanner.find_nearest_prey()
+	if closest_prey: # if cant find food wander until food
+		move_to(closest_prey.global_position)
+	else:
+		_handle_wandering(delta)
 
-func _handle_fleeing(delta: float) -> void:
+	if hunger > 80.0:
+		change_state_to(AnimalState.WANDERING)
+
+func _handle_fleeing(_delta: float) -> void:
 	pass
 
-func _handle_attacking(delta: float) -> void:
+func _handle_foraging(_delta: float) -> void:
 	pass
 
-func _handle_foraging(delta: float) -> void:
-	pass
+func _on_attack_timer_timeout() -> void:
+	for body: Node2D in kill_range.get_overlapping_bodies():
+		if body is Prey:
+			(body as Prey).take_damage(damage, self)

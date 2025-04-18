@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 		zoom.y = clamp(zoom.y + zoom_speed, MIN_ZOOM, MAX_ZOOM)
 
 	# --- panning ---
-	var zoom_factor: float = 1.0 / zoom.x
+	var zoom_factor: float = 1.0 / (zoom.x + zoom.y) / 2
 	var pan_direction: Vector2 = Input.get_vector("pan_left", "pan_right", "pan_up", "pan_down").normalized()
 
 	global_position = global_position.lerp(

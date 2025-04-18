@@ -4,8 +4,9 @@ extends TileMapLayer
 const SOURCE_ID: int = 0
 
 const SCENERY_FREQUENCY: float = 0.1
+const PREDATOR_FREQUENCY: float = 0.0025  # 1 predator per 10 prey
 const PREY_FREQUENCY: float = 0.025
-const FOOD_FREQUENCY: float = 0.03
+const FOOD_FREQUENCY: float = 0.02
 
 # Tile Coords
 const GRASS_TILE: Vector2i = Vector2i(6, 1)
@@ -29,14 +30,18 @@ const Sand_SCENERY: Array[Vector2i] = [
 
 @export var world_size: Vector2i
 @export var prey_scene: PackedScene
+@export var predator_scene: PackedScene
 @export var food_scene: PackedScene
 @export var noise_texture: NoiseTexture2D
 
 @onready var scenery_layer: TileMapLayer = $SceneryLayer
 @onready var noise: Noise = noise_texture.noise
 
+@onready var prey_container: Node2D = $PreyContainer
+@onready var predator_container: Node2D = $PredatorContainer
+@onready var food_container: Node2D = $FoodContainer
+
 var empty_grass_tiles: Array[Vector2i]
-var food_registry: Array[Food]
 
 func _ready() -> void:
 	noise_texture.noise.seed = randi()
@@ -53,7 +58,7 @@ func generate_world() -> void:
 			var tile_position = Vector2i(x, y)
 			var noise_value = noise.get_noise_2d(x, y)
 
-			if noise_value > 0.15:
+			if noise_value > 0.1:
 				empty_grass_tiles.append(Vector2i(x, y))
 				set_cell(tile_position, SOURCE_ID, GRASS_TILE)
 
@@ -62,15 +67,20 @@ func generate_world() -> void:
 					scenery_layer.set_cell(tile_position, SOURCE_ID, GRASS_SCENERY.pick_random())
 					empty_grass_tiles.erase(Vector2i(x, y))
 				if randf() < FOOD_FREQUENCY:
-					food_registry.append(spawn_food(Vector2i(x, y)))
+					spawn_food(Vector2i(x, y))
 
-				# Rabbit Spawning
+				# prey Spawning
 				if randf() < PREY_FREQUENCY:
 					spawn_prey(Vector2i(x, y))
+				# Predator spawing
+				elif randf() < PREDATOR_FREQUENCY:
+					spawn_predator(Vector2i(x, y))
+
 			elif noise_value > 0.0:
 				set_cell(tile_position, SOURCE_ID, SAND_TILE)
 				if randf() < SCENERY_FREQUENCY:
 					scenery_layer.set_cell(tile_position, SOURCE_ID, Sand_SCENERY.pick_random())
+
 			else:
 				set_cell(tile_position, SOURCE_ID, WATER_TILE)
 
@@ -84,7 +94,7 @@ func generate_world() -> void:
 		set_cell(Vector2i(half_width, y), SOURCE_ID, BORDER_TILE)
 
 	# make food regrow when eaten
-	for food: Food in food_registry:
+	for food: Food in food_container.get_children():
 		food.consumed.connect(func() -> void:
 			food.global_position = map_to_local(empty_grass_tiles.pick_random())
 		)
@@ -92,10 +102,14 @@ func generate_world() -> void:
 func spawn_prey(prey_position: Vector2i):
 	var prey_instance = prey_scene.instantiate() as Prey
 	prey_instance.global_position = map_to_local(prey_position)
-	add_child(prey_instance)
+	prey_container.add_child(prey_instance)
 
-func spawn_food(food_position: Vector2i) -> Food:
+func spawn_predator(predator_position: Vector2i):
+	var predator_instance = predator_scene.instantiate() as Predator
+	predator_instance.global_position = map_to_local(predator_position)
+	predator_container.add_child(predator_instance)
+
+func spawn_food(food_position: Vector2i):
 	var food_instance = food_scene.instantiate() as Food
 	food_instance.global_position = map_to_local(food_position)
-	add_child(food_instance)
-	return food_instance
+	food_container.add_child(food_instance)
