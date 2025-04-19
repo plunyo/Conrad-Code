@@ -9,7 +9,6 @@ radius = 20.0
 [node name="Food" type="Area2D"]
 collision_layer = 16
 script = ExtResource("1_p43ve")
-restore_amount = null
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)

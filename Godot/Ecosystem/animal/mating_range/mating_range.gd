@@ -1,14 +1,8 @@
 class_name MatingRange
 extends Area2D
 
-@onready var mate_cooldown_timer: Timer = $MateCooldownTimer
 @onready var mate_timer: Timer = $MateTimer
 @onready var animal: Animal = get_parent()
-
-@export var mate_cooldown: int = 90
-
-func _ready() -> void:
-	mate_cooldown_timer.wait_time = mate_cooldown
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Animal and body == animal.mate:
@@ -31,5 +25,4 @@ func _on_mate_timer_timeout() -> void:
 		animal.reproductive_urge = 0
 		animal.hunger = max(animal.hunger - 35.0, 0.0)
 		animal.mate.reproductive_urge = 0
-		mate_cooldown_timer.start()
 		animal.change_state_to(Animal.AnimalState.WANDERING)

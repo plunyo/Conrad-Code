@@ -1,6 +1,4 @@
 CONRAD YOU LAZY, THIS IS WHAT U NEED TO DO:
-	make a way to check neighbouring tiles?
-	make em reproduce
-	spawn predators
-	make predators eat rabbits
-	make predators reproduce
+	make them move faster, slow af :yawn:
+	ui stuff, pause/play ecosystem button (just pause the update timer cuh)
+	make spawning work, for the ui

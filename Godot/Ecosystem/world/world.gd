@@ -1,7 +1,7 @@
-@tool
-
 class_name World
 extends TileMapLayer
+
+signal update
 
 const SOURCE_ID: int = 0
 
@@ -43,6 +43,8 @@ const SAND_SCENERY: Array[Vector2i] = [
 @onready var predator_container: Node2D = $PredatorContainer
 @onready var food_container: Node2D = $FoodContainer
 
+@onready var update_timer: Timer = $UpdateTimer
+
 var starting_time: int = Time.get_ticks_msec()
 
 var empty_grass_tiles: Array[Vector2i]
@@ -53,6 +55,7 @@ var predator_count: int
 
 func _ready() -> void:
 	#print("time,prey,predator")
+	update_timer.timeout.connect(func() -> void: update.emit())
 	Engine.time_scale = 1
 	noise_texture.noise.seed = randi()
 	generate_world()
@@ -63,6 +66,7 @@ func generate_world() -> void:
 	predator_count = 0
 	empty_grass_tiles.clear()
 	food_registry.clear()
+	scenery_layer.clear()
 	for container in [food_container, prey_container, predator_container]:
 		for node in container.get_children():
 			node.queue_free()
@@ -147,5 +151,6 @@ func spawn_food(food_position: Vector2i) -> Food:
 	return food_instance
 
 func _on_print_population_timer_timeout() -> void:
+	@warning_ignore("integer_division")
 	print("Population = " + str(predator_count + prey_count) + " ( Prey: " + str(prey_count) + ", " + "Predator: " + str(predator_count) + " )\n" + "Time: " + str((Time.get_ticks_msec() - starting_time) / 1000))
 	#print(str((Time.get_ticks_msec() - starting_time) / 1000)  + "," + str(prey_count) + "," + str(predator_count))

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bravcul0lpf7a" path="res://assets/animals/Round (outline)/goat.png" id="2_3hr8w"]
 [ext_resource type="PackedScene" uid="uid://cl3ypidtjpql6" path="res://animal/environment_scanner/environment_scanner.tscn" id="3_3hr8w"]
 [ext_resource type="PackedScene" uid="uid://bem8j6q8q21rr" path="res://animal/info_panel/info_panel.tscn" id="4_b6l86"]
-[ext_resource type="PackedScene" uid="uid://dw6hep21w4nlr" path="res://mating_range.tscn" id="5_bewu8"]
+[ext_resource type="PackedScene" uid="uid://dw6hep21w4nlr" path="res://animal/mating_range/mating_range.tscn" id="5_bewu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b6l86"]
 radius = 32.0
@@ -23,6 +23,7 @@ collision_layer = 2
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_r6hep")
+move_duration = 0.8
 metadata/_custom_type_script = "uid://d3wrbi0y6sa18"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
