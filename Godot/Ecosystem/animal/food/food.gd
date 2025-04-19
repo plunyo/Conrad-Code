@@ -10,6 +10,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Prey:
 		var prey: Prey = body as Prey
 		prey.hunger += restore_amount + randf_range(-2, 2)
-		prey.reproductive_urge = min(prey.reproductive_urge + randf_range(2.0, 5.0), 100.0)
+		prey.reproductive_urge = min(prey.reproductive_urge + randf_range(20.0, 30.0), 100.0)
 		prey.update_info_panel()
 		consumed.emit()

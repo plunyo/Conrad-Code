@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://get5l5se0jt5"
-path="res://.godot/imported/Screenshot_20250417_162915_AlwaysOnDisplay.jpg-fecc306944356f801bd0ab71b508955d.ctex"
+path="res://.godot/imported/noah.jpg-a33b771f4f901b5d162831d0b2238cf1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/Screenshot_20250417_162915_AlwaysOnDisplay.jpg"
-dest_files=["res://.godot/imported/Screenshot_20250417_162915_AlwaysOnDisplay.jpg-fecc306944356f801bd0ab71b508955d.ctex"]
+source_file="res://assets/world/noah.jpg"
+dest_files=["res://.godot/imported/noah.jpg-a33b771f4f901b5d162831d0b2238cf1.ctex"]
 
 [params]
 

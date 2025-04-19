@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3ypoqbqxfqws"]
+
+[ext_resource type="PackedScene" uid="uid://b3iefgutm7c5y" path="res://player/ui/hotbar/hotbar_icon/hotbar_icon.tscn" id="1_1a82a"]
+[ext_resource type="Script" uid="uid://ca7mk0mwutuy7" path="res://player/ui/hotbar/hotbar.gd" id="1_qgf7s"]
+[ext_resource type="Texture2D" uid="uid://bravcul0lpf7a" path="res://assets/animals/Round (outline)/goat.png" id="2_rus64"]
+[ext_resource type="Texture2D" uid="uid://cpf3u0ujiwc4f" path="res://assets/animals/Round (outline)/rabbit.png" id="3_qgf7s"]
+[ext_resource type="Texture2D" uid="uid://3yymwpvg1d8d" path="res://assets/world/food/food.png" id="4_j54wm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rus64"]
+bg_color = Color(0.435294, 0.309804, 0.156863, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Hotbar" type="Control"]
+custom_minimum_size = Vector2(500, 120)
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -140.0
+offset_right = 250.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_qgf7s")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rus64")
+
+[node name="IconFlowContainer" type="HFlowContainer" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 30
+alignment = 1
+
+[node name="HotbarIcon" parent="IconFlowContainer" instance=ExtResource("1_1a82a")]
+layout_mode = 2
+icon = ExtResource("3_qgf7s")
+item_type = 2
+
+[node name="HotbarIcon2" parent="IconFlowContainer" instance=ExtResource("1_1a82a")]
+layout_mode = 2
+icon = ExtResource("2_rus64")
+item_type = 1
+
+[node name="HotbarIcon3" parent="IconFlowContainer" instance=ExtResource("1_1a82a")]
+layout_mode = 2
+icon = ExtResource("4_j54wm")
+item_type = 3

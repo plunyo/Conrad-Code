@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnagtynbwecks"]
+
+[ext_resource type="Script" uid="uid://c8fcmcmvep15a" path="res://player/camera.gd" id="1_32rd2"]
+[ext_resource type="PackedScene" uid="uid://dlp66edkdo65u" path="res://player/ui/ui.tscn" id="2_3u23b"]
+[ext_resource type="PackedScene" uid="uid://bjdkd0j16lr2k" path="res://player/cursor/cursor_interacter.tscn" id="3_3u23b"]
+
+[node name="Camera" type="Camera2D"]
+script = ExtResource("1_32rd2")
+zoom_speed = 0.15
+pan_speed = 4000.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("2_3u23b")]
+
+[node name="CursorInteracter" parent="." instance=ExtResource("3_3u23b")]

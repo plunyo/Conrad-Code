@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw6hep21w4nlr"]
+
+[ext_resource type="Script" uid="uid://dwvn4hml6frfd" path="res://mating_range.gd" id="1_50ijj"]
+
+[node name="MatingRange" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_50ijj")
+mate_cooldown = 20
+
+[node name="MateTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="MateCooldownTimer" type="Timer" parent="."]
+wait_time = 90.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="MateTimer" to="." method="_on_mate_timer_timeout"]

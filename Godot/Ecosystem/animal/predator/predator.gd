@@ -27,6 +27,17 @@ func _handle_fleeing(_delta: float) -> void:
 func _handle_foraging(_delta: float) -> void:
 	pass
 
+func update_needs(delta: float) -> void:
+	hunger_timer += delta
+
+	if hunger_timer >= HUNGER_INTERVAL:
+		hunger_timer = 0.0
+		var hunger_loss := randf_range(0.06, 0.16)
+		hunger = max(hunger - hunger_loss, 0.0)
+		if hunger <= 0:
+			take_damage(HUNGER_DAMAGE)
+		update_info_panel()
+
 func _on_attack_timer_timeout() -> void:
 	for body: Node2D in kill_range.get_overlapping_bodies():
 		if body is Prey:

@@ -8,7 +8,10 @@ const MAX_ZOOM: float = 20.0
 @export var zoom_speed: float
 @export var pan_speed: float
 
-# --- physics process ---
+func _ready() -> void:
+	await get_tree().create_timer(0.1).timeout
+	pan_speed /= Engine.time_scale
+
 func _physics_process(delta: float) -> void:
 	# --- zooming ---
 	if Input.is_action_just_pressed("zoom_in"):
@@ -23,7 +26,4 @@ func _physics_process(delta: float) -> void:
 	var zoom_factor: float = 1.0 / (zoom.x + zoom.y) / 2
 	var pan_direction: Vector2 = Input.get_vector("pan_left", "pan_right", "pan_up", "pan_down").normalized()
 
-	global_position = global_position.lerp(
-		global_position + pan_direction * zoom_factor * pan_speed * delta,
-		0.1
-	)
+	global_position += pan_direction * zoom_factor * pan_speed * delta

@@ -1,29 +1,37 @@
-[gd_scene load_steps=8 format=3 uid="uid://chmuexwwvxt8p"]
+[gd_scene load_steps=10 format=3 uid="uid://chmuexwwvxt8p"]
 
 [ext_resource type="Script" uid="uid://d3wrbi0y6sa18" path="res://animal/predator/predator.gd" id="1_r6hep"]
 [ext_resource type="Texture2D" uid="uid://bravcul0lpf7a" path="res://assets/animals/Round (outline)/goat.png" id="2_3hr8w"]
 [ext_resource type="PackedScene" uid="uid://cl3ypidtjpql6" path="res://animal/environment_scanner/environment_scanner.tscn" id="3_3hr8w"]
 [ext_resource type="PackedScene" uid="uid://bem8j6q8q21rr" path="res://animal/info_panel/info_panel.tscn" id="4_b6l86"]
+[ext_resource type="PackedScene" uid="uid://dw6hep21w4nlr" path="res://mating_range.tscn" id="5_bewu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b6l86"]
 radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_heyw1"]
+radius = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f6e13"]
 radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bewu8"]
-radius = 450.0
+radius = 600.0
 
 [node name="Predator" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_r6hep")
-move_duration = 0.75
 metadata/_custom_type_script = "uid://d3wrbi0y6sa18"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b6l86")
+
+[node name="MatingRange" parent="." instance=ExtResource("5_bewu8")]
+
+[node name="Collider" type="CollisionShape2D" parent="MatingRange"]
+shape = SubResource("CircleShape2D_heyw1")
 
 [node name="KillRange" type="Area2D" parent="."]
 collision_layer = 0
@@ -36,6 +44,7 @@ shape = SubResource("CircleShape2D_f6e13")
 
 [node name="Collider" type="CollisionShape2D" parent="EnvironmentScanner"]
 shape = SubResource("CircleShape2D_bewu8")
+debug_color = Color(1, 1, 1, 0)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -61,5 +70,4 @@ vertical_alignment = 1
 [node name="AttackTimer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="body_entered" from="KillRange" to="." method="_on_kill_range_body_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

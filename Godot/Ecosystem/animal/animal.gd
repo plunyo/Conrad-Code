@@ -23,17 +23,21 @@ const HUNGER_INTERVAL := 1.0
 @export var move_duration: float = randf_range(0.8, 1.2)
 @export var current_health: float = 100.0
 @export var hunger: float = randf_range(20.0, 90.0)
-@export var reproductive_urge: float = randf_range(0.0, 20.0)
+@export var reproductive_urge: float = randf_range(0.0, 30.0)
 
 @onready var environment_scanner: EnvironmentScanner = $EnvironmentScanner
+@onready var mating_range: MatingRange = $MatingRange
 @onready var world: World = get_tree().get_first_node_in_group("world")
 @onready var info_panel: Control = $InfoPanel
+@onready var state_label: Label = $StateLabel
 
 var wander_timer: float
 var next_wander_delay := 0.0
 var idle_wander_delay: float
 
-# how often to update in seconds
+var direction_change_cooldown := 0.0
+var direction_change_interval := 2.5
+
 var hunger_timer := 0.0
 
 var current_state: AnimalState = AnimalState.WANDERING
@@ -43,13 +47,15 @@ var previous_direction: Vector2i
 
 var is_moving: bool = false
 
+var mate: Animal
+var wants_to_mate_with: Animal = null
+
 func _ready() -> void:
 	mouse_entered.connect(func() -> void: info_panel.show() )
 	mouse_exited.connect(func() -> void: info_panel.hide() )
 
 func _physics_process(delta: float) -> void:
-	#debug delete l8r
-	$StateLabel.text = {
+	state_label.text = {
 		AnimalState.WANDERING: "Wandering",
 		AnimalState.SEEKING_FOOD: "Seeking Food",
 		AnimalState.FLEEING: "Fleeing",
@@ -100,6 +106,10 @@ func move_to(target_position: Vector2) -> void:
 	for dir in DIRECTIONS:
 		var candidate_world_pos: Vector2i = current_world_pos + dir
 		var candidate_global_pos: Vector2 = world.map_to_local(candidate_world_pos)
+		var tile = world.get_cell_atlas_coords(candidate_world_pos)
+		if tile == World.BORDER_TILE or tile == World.WATER_TILE:
+			continue
+
 		var distance: float = candidate_global_pos.distance_to(target_position)
 		if distance < best_distance:
 			best_distance = distance
@@ -111,18 +121,20 @@ func move_away_from(target_position: Vector2) -> void:
 	var current_world_pos: Vector2i = world.local_to_map(global_position)
 
 	var best_dir: Vector2i = Vector2i.ZERO
-	var best_distance: float = 0.0
+	var best_distance: float = -INF
 
 	for dir in DIRECTIONS:
 		var candidate_world_pos: Vector2i = current_world_pos + dir
 		var candidate_global_pos: Vector2 = world.map_to_local(candidate_world_pos)
 		var distance: float = candidate_global_pos.distance_to(target_position)
+		var tile = world.get_cell_atlas_coords(candidate_world_pos)
+		if tile == World.BORDER_TILE or tile == World.WATER_TILE:
+			continue
 		if distance > best_distance:
 			best_distance = distance
 			best_dir = dir
 
 	move(best_dir, move_duration)
-
 
 func take_damage(amount: float, _from: Animal = null) -> void:
 	current_health -= amount
@@ -130,11 +142,14 @@ func take_damage(amount: float, _from: Animal = null) -> void:
 		die()
 
 func die() -> void:
+	if mate:
+		mate.mate = null
+		mate.wants_to_mate_with = null
+
+	mate = null
+	wants_to_mate_with = null
 	died.emit()
 	queue_free()
-
-func detect_surroundings() -> void:
-	pass
 
 func update_info_panel() -> void:
 	$InfoPanel/HealthBar.value = current_health
@@ -143,20 +158,26 @@ func update_info_panel() -> void:
 
 # --- state handlers ---
 func _handle_wandering(delta: float) -> void:
-	if current_health < 100.0 or hunger < 50.0 and not current_state == AnimalState.SEEKING_FOOD:
+	if current_health < 100.0 or (hunger < 30.0 and not current_state == AnimalState.SEEKING_FOOD):
 		change_state_to(AnimalState.SEEKING_FOOD)
-	elif reproductive_urge > hunger:
+	elif reproductive_urge > hunger and hunger > 20.0 and not current_state == AnimalState.SEEKING_MATE:
 		change_state_to(AnimalState.SEEKING_MATE)
 
 	wander_timer += delta
+	direction_change_cooldown += delta
+
 	if next_wander_delay == 0.0:
 		next_wander_delay = idle_wander_delay + randf_range(-0.5, 0.5)
 
 	if not is_moving and wander_timer >= next_wander_delay:
-		set_random_direction()
+		if direction_change_cooldown >= direction_change_interval:
+			set_random_direction()
+			direction_change_cooldown = 0.0
+
 		move(direction, move_duration)
 		wander_timer = 0.0
 		next_wander_delay = 0.0
+
 
 func _handle_fleeing(_delta: float) -> void:
 	pass
@@ -164,8 +185,32 @@ func _handle_fleeing(_delta: float) -> void:
 func _handle_seeking_food(_delta: float) -> void:
 	pass
 
-func _handle_seeking_mate(_delta: float) -> void:
-	pass
+func _handle_seeking_mate(delta: float) -> void:
+	if not mating_range.mate_cooldown_timer.is_stopped():
+		return
+
+	if mate:
+		move_to(mate.global_position)
+		return
+
+	@warning_ignore("incompatible_ternary")
+	var potential_mate: Animal = environment_scanner.find_nearest_prey() if self is Prey else environment_scanner.find_nearest_predator()
+
+	if not potential_mate or not potential_mate.current_state == AnimalState.SEEKING_MATE:
+		_handle_wandering(delta)
+		return
+
+	if potential_mate.mate or potential_mate == self:
+		_handle_wandering(delta)
+		return
+
+	wants_to_mate_with = potential_mate
+
+	if potential_mate.wants_to_mate_with == self:
+		mate = potential_mate
+		potential_mate.mate = self
+	else:
+		move_to(potential_mate.global_position)
 
 func change_state_to(new_state: AnimalState) -> void:
 	state_changed.emit(new_state)

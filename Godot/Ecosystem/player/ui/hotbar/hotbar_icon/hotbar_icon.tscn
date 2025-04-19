@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3iefgutm7c5y"]
+
+[ext_resource type="Script" uid="uid://c2itutp0hpd8k" path="res://player/ui/hotbar/hotbar_icon/hotbar_icon.gd" id="1_efk12"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1w27y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1w27y"]
+bg_color = Color(0.77964, 0.652438, 0.404127, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HotbarIcon" type="Button"]
+custom_minimum_size = Vector2(100, 100)
+size_flags_horizontal = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1w27y")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1w27y")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("1_efk12")

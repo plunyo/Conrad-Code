@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbhi0ojk525uv"]
+[gd_scene load_steps=13 format=3 uid="uid://cbhi0ojk525uv"]
 
 [ext_resource type="Script" uid="uid://k8ohwmxq2oyd" path="res://animal/prey/prey.gd" id="1_sdv6j"]
 [ext_resource type="Texture2D" uid="uid://cpf3u0ujiwc4f" path="res://assets/animals/Round (outline)/rabbit.png" id="2_k1stx"]
+[ext_resource type="PackedScene" uid="uid://dw6hep21w4nlr" path="res://mating_range.tscn" id="2_pg2a4"]
 [ext_resource type="PackedScene" uid="uid://cl3ypidtjpql6" path="res://animal/environment_scanner/environment_scanner.tscn" id="2_r7k2b"]
 [ext_resource type="PackedScene" uid="uid://bem8j6q8q21rr" path="res://animal/info_panel/info_panel.tscn" id="4_r7k2b"]
 [ext_resource type="Texture2D" uid="uid://cqmnp5rh334yc" path="res://assets/animals/skull.png" id="5_16jjg"]
@@ -9,11 +10,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_sdv6j"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_pg2a4"]
+radius = 50.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_k1stx"]
 radius = 400.0
 
 [sub_resource type="Animation" id="Animation_16jjg"]
 length = 0.001
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -61,6 +66,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:process_mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_r7k2b"]
@@ -115,6 +132,32 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:process_mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.75),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_16jjg"]
 _data = {
@@ -131,10 +174,17 @@ metadata/_custom_type_script = "uid://k8ohwmxq2oyd"
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sdv6j")
 
+[node name="MatingRange" parent="." instance=ExtResource("2_pg2a4")]
+mate_cooldown = 5
+
+[node name="Collider" type="CollisionShape2D" parent="MatingRange"]
+shape = SubResource("CircleShape2D_pg2a4")
+
 [node name="EnvironmentScanner" parent="." instance=ExtResource("2_r7k2b")]
 
 [node name="Collider" type="CollisionShape2D" parent="EnvironmentScanner"]
 shape = SubResource("CircleShape2D_k1stx")
+debug_color = Color(1, 1, 1, 0)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
@@ -161,6 +211,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 1
 libraries = {
 &"": SubResource("AnimationLibrary_16jjg")
 }

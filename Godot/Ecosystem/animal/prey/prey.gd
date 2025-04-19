@@ -2,7 +2,7 @@ class_name Prey
 extends Animal
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@export var hunger_amount: float = 20.0
+@export var hunger_amount: float = 50.0
 
 func _physics_process(delta: float) -> void:
 	if not animation_player.is_playing():
@@ -29,17 +29,27 @@ func _handle_fleeing(_delta: float) -> void:
 	else:
 		change_state_to(AnimalState.WANDERING)
 
-func _handle_seeking_mate(_delta: float) -> void:
-	pass 
-
 func take_damage(amount: float, from: Animal = null) -> void:
 	current_health -= amount
 	if current_health <= 0:
 		if from != null:
 			from.hunger += hunger_amount
+			from.reproductive_urge += min(from.reproductive_urge + randf_range(2.0, 5.0), 100.0)
 		die()
 
+var is_dead := false
+
 func die() -> void:
+	if is_dead:
+		return
+	is_dead = true
+
+	if mate:
+		mate.mate = null
+		mate.wants_to_mate_with = null
+
+	mate = null
+	wants_to_mate_with = null
 	died.emit()
 	animation_player.play("die")
 	await animation_player.animation_finished
